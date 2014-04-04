@@ -38,18 +38,63 @@ using namespace std;
 #include "dominos.hpp"
 #include <iostream>
 
+
+
 namespace cs296
 {
   /*!  The is the constructor <br>
    * This is the documentation block for the constructor.<br>
    * It creates the various parts of the simulation <bar>
-*/
+*/	
+
+	int team1_score=-1,team2_score=-1;
 	b2Body* ball;
+	b2Body* score1[10];
+	b2Body* score2[10];
+	b2BodyDef bd_score1[10];
+	b2BodyDef bd_score2[10];
 	void dominos_t::keyboard(unsigned char key){
 		switch(key){
 			case 'w':
 			ball->ApplyLinearImpulse(b2Vec2(0,10),ball->GetPosition(),100);
+			break;
+			case 'a':
+			ball->ApplyLinearImpulse(b2Vec2(-10,0),ball->GetPosition(),100);
+			break;
+			case 's':
+			ball->ApplyLinearImpulse(b2Vec2(0,-10),ball->GetPosition(),100);
+			break;
+			case 'd':
+			ball->ApplyLinearImpulse(b2Vec2(10,0),ball->GetPosition(),100);
+			break;
 		}
+	}
+	
+	void dominos_t::score_1(int i){
+		if(i!=-1){
+			score1[9-i]->ApplyForce(b2Vec2(0,1000),score1[9-i]->GetPosition(),100);
+		}
+	}
+	
+	void dominos_t::score_2(int j){
+		if(j!=-1){
+			score2[9-j]->ApplyForce(b2Vec2(0,-1000),score2[9-j]->GetPosition(),100);
+		}
+	}
+	
+	void dominos_t::check(void){
+		if(ball->GetPosition().x<=32 && ball->GetPosition().x>=30 &&
+			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
+				ball->SetTransform(b2Vec2(0,20),0);team1_score++;
+				score_1(team1_score);
+				//Move the score box
+			}
+		if(ball->GetPosition().x>=-32 && ball->GetPosition().x<=-30 &&
+			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
+				ball->SetTransform(b2Vec2(0,20),0);team2_score++;
+				score_2(team2_score);
+				//Move the score box
+			}
 	}
 
   dominos_t::dominos_t()
@@ -333,28 +378,56 @@ namespace cs296
 			player->CreateFixture(&player1,0.0f);
 		}
 	}
+	
+	{
+		b2Body* im;
+		b2PolygonShape sh_im;
+		b2BodyDef bd_im;
+		b2FixtureDef *fd = new b2FixtureDef;
+		fd->restitution = 0;
+		im=m_world->CreateBody(&bd_im);
+		sh_im.SetAsBox(1,0.1,b2Vec2(-35,35),0.0f);
+		fd->shape = &sh_im;
+		im->CreateFixture(fd);
+		sh_im.SetAsBox(1,0.1,b2Vec2(35,5),0.0f);
+		fd->shape = &sh_im;
+		im->CreateFixture(fd);
+	
+	}
+	
+	
+	
 	//Score team1
 	{
-		b2Body* score1[10];
+		//b2Body* score1[10];
 		b2PolygonShape shape[10];
-		b2BodyDef bd_score[10];
+		//b2BodyDef bd_score[10];
 		for(int i=0;i<10;i++){
 			shape[i].SetAsBox(1,1);	
-			bd_score[i].position.Set(-35.0f,33.5-3*i);
-			score1[i]=m_world->CreateBody(&bd_score[i]);
-			score1[i]->CreateFixture(&shape[i],0.0f);
+			bd_score1[i].type = b2_dynamicBody;
+			b2FixtureDef *fd = new b2FixtureDef;
+			fd->shape = &shape[i];
+			fd->restitution = 0;
+			bd_score1[i].position.Set(-35.0f,6+2*i);
+			score1[i]=m_world->CreateBody(&bd_score1[i]);
+			score1[i]->CreateFixture(fd);
 		}
 	}
+	
 	//Score team2
 	{
-		b2Body* score2[10];
+		//b2Body* score2[10];
 		b2PolygonShape shape[10];
-		b2BodyDef bd_score[10];
+		//b2BodyDef bd_score[10];
 		for(int i=0;i<10;i++){
 			shape[i].SetAsBox(1,1);	
-			bd_score[i].position.Set(35.0f,33.5-3*i);
-			score2[i]=m_world->CreateBody(&bd_score[i]);
-			score2[i]->CreateFixture(&shape[i],0.0f);
+			bd_score2[i].type = b2_dynamicBody;
+			b2FixtureDef *fd = new b2FixtureDef;
+			fd->shape = &shape[i];
+			fd->restitution = 0;
+			bd_score2[i].position.Set(35.0f,34-2*i);
+			score2[i]=m_world->CreateBody(&bd_score2[i]);
+			score2[i]->CreateFixture(fd);
 		}
 	}
 	 

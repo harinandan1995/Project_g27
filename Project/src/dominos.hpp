@@ -32,13 +32,15 @@ namespace cs296
   class dominos_t : public base_sim_t
   {
   public:
-    
     dominos_t();
     void keyboard(unsigned char);
+    void check(void);
+    void score_1(int);
+    void score_2(int);
     static base_sim_t* create()
     {
       return new dominos_t;
-    }
+    }    
   };
 }
   
