@@ -44,12 +44,14 @@ namespace cs296
    * This is the documentation block for the constructor.<br>
    * It creates the various parts of the simulation <bar>
 */
-//vector<float> v={-26.0,-19.0,-5.0,9.0};
-	enum _entityCategory {
-		BOUNDARY =          0x0001,
-		FRIENDLY_SHIP =     0x0002,
-		ENEMY_SHIP =        0x0004,
-	};
+	b2Body* ball;
+	void dominos_t::keyboard(unsigned char key){
+		switch(key){
+			case 'w':
+			ball->ApplyLinearImpulse(b2Vec2(0,10),ball->GetPosition(),100);
+		}
+	}
+
   dominos_t::dominos_t()
   {  
 	//Base rectangle's
@@ -105,7 +107,7 @@ namespace cs296
 	
 	//Ball
 	{
-		b2Body* ball;
+		//b2Body* ball;
 		b2CircleShape bal;
 		bal.m_radius=1.2;
 		b2BodyDef bd_ball;
@@ -118,8 +120,8 @@ namespace cs296
 		ball=m_world->CreateBody(&bd_ball);
 		ball->CreateFixture(fd);
 		ball->SetActive(true);
-		b2Vec2 force = b2Vec2(10,10);
-		ball->ApplyLinearImpulse(force, ball->GetPosition(),100);
+		//b2Vec2 force = b2Vec2(10,10);
+		//ball->ApplyLinearImpulse(force, ball->GetPosition(),100);
 	}
 	//Players Team1
 	b2Body* team1[11]; 
