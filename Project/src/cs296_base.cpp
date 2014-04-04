@@ -17,6 +17,7 @@
 */
 
 #include "cs296_base.hpp"
+#include "dominos.hpp"
 #include <cstdio>
 using namespace std;
 using namespace cs296;
@@ -25,7 +26,7 @@ using namespace cs296;
 base_sim_t::base_sim_t()
 {
 	b2Vec2 gravity;
-	gravity.Set(0.0f, -10.0f);
+	//gravity.Set(0.0f, -10.0f);
 	m_world = new b2World(gravity);
 
 	m_text_line = 30;
@@ -85,8 +86,11 @@ void base_sim_t::draw_title(int x, int y, const char *string)
     m_debug_draw.DrawString(x, y, string);
 }
 
+dominos_t dom;
 void base_sim_t::step(settings_t* settings)
 {
+	
+dom.check();
   float32 time_step = settings->hz > 0.0f ? 1.0f / settings->hz : float32(0.0f);
 
   if (settings->pause)
