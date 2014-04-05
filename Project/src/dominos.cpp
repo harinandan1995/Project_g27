@@ -72,13 +72,14 @@ namespace cs296
 	
 	void dominos_t::score_1(int i){
 		if(i!=-1){
-			score1[9-i]->ApplyForce(b2Vec2(0,1000),score1[9-i]->GetPosition(),100);
+			//score1[9-i]->ApplyLinearImpulse(b2Vec2(0,1000),score1[9-i]->GetPosition(),100);
+			score1[9-i]->SetLinearVelocity(b2Vec2(0,10));
 		}
 	}
 	
 	void dominos_t::score_2(int j){
 		if(j!=-1){
-			score2[9-j]->ApplyForce(b2Vec2(0,-1000),score2[9-j]->GetPosition(),100);
+			score2[9-j]->SetLinearVelocity(b2Vec2(0,-10));
 		}
 	}
 	
@@ -87,12 +88,37 @@ namespace cs296
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
 				ball->SetTransform(b2Vec2(0,20),0);team1_score++;
 				score_1(team1_score);
-				//Move the score box
+				if(team1_score==3){
+					for(int i=0;i<10;i++){
+						score1[i]->SetTransform(b2Vec2(-35.0f,6+2.2*i),0);
+						score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
+						score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
+						score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
+					}
+				}
 			}
+		for(int i=0;i<10;i++){
+			//cout<<score1[i]->GetPosition().y<<endl;
+			if(score1[9-i]->GetPosition().y>=34-i*2){
+				score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
+			}
+			
+			if(score2[9-i]->GetPosition().y<=6+i*2){
+				score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
+			}
+		}
 		if(ball->GetPosition().x>=-32 && ball->GetPosition().x<=-30 &&
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
 				ball->SetTransform(b2Vec2(0,20),0);team2_score++;
 				score_2(team2_score);
+				if(team2_score==3){
+					for(int i=0;i<10;i++){
+						score1[i]->SetTransform(b2Vec2(-35.0f,6+2*i),0);
+						score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
+						score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
+						score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
+					}
+				}
 				//Move the score box
 			}
 	}
@@ -114,6 +140,9 @@ namespace cs296
 		shape.SetAsBox(32.5,0.5,b2Vec2(0,-15),0.0f);
 		base->CreateFixture(&shape,0.0f);
 	}
+	
+/////////////////////////////////////////////////////////////////////////////	
+	
 	{
 		//b2PolygonShape rec1;
 		//rec1.SetAsBox(32.0f,15.0f);
@@ -131,10 +160,11 @@ namespace cs296
 		base->CreateFixture(fd);
 		lines.SetAsBox(4.5f,6.0f,b2Vec2(27.5f,0.0f),0.0f);
 		fd->shape = &lines;
-		base->CreateFixture(fd);
-		
-		
+		base->CreateFixture(fd);		
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
+	
 	//Base circle
 	{
 		b2CircleShape cir;
@@ -150,11 +180,13 @@ namespace cs296
 		circle->CreateFixture(fd);
 	}
 	
+/////////////////////////////////////////////////////////////////////////////
+	
 	//Ball
 	{
 		//b2Body* ball;
 		b2CircleShape bal;
-		bal.m_radius=1.2;
+		bal.m_radius=0.6;
 		b2BodyDef bd_ball;
 		b2FixtureDef *fd = new b2FixtureDef;
 		fd->shape = &bal;
@@ -168,6 +200,9 @@ namespace cs296
 		//b2Vec2 force = b2Vec2(10,10);
 		//ball->ApplyLinearImpulse(force, ball->GetPosition(),100);
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
+	
 	//Players Team1
 	b2Body* team1[11]; 
 	b2PolygonShape player1[11];
@@ -228,9 +263,9 @@ namespace cs296
 		team1[10] = m_world->CreateBody(&bd_player1[10]);
 		player1[10].SetAsBox(1,1.5,b2Vec2(0.0f,-8.0f),0.0f);
 		team1[10]->CreateFixture(&player1[10],0.0f);
-		
-		
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
 	
 	//Players Team2
 	b2Body* team2[11]; 
@@ -292,9 +327,9 @@ namespace cs296
 		team2[10] = m_world->CreateBody(&bd_player2[10]);
 		player2[10].SetAsBox(1,1.5,b2Vec2(0.0f,-8.0f),0.0f);
 		team2[10]->CreateFixture(&player2[10],0.0f);
-		
-		
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
 	
     //Rods team1
 	{
@@ -326,6 +361,9 @@ namespace cs296
 			rod->CreateFixture(&rod1,0.0f);
 		}
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
+	
 	//Rods team2
 	
 	{
@@ -358,27 +396,9 @@ namespace cs296
 		}
 	}
 	
-	{
-		b2Body* player;
-		b2PolygonShape player1;
-		player1.SetAsBox(4,4);
-		b2BodyDef bd_player;
-		bd_player.position.Set(0.0f,50.0f);
-		player=m_world->CreateBody(&bd_player);
-		player->CreateFixture(&player1,0.0f);
-		for(int i=0;i<10000000;i++){};
-		for(int i=0;i<30;i++){
-			//player->GetWorld()->DestroyBody(player);
-			b2Body* player;
-			b2PolygonShape player1;
-			player1.SetAsBox(i,4);
-			b2BodyDef bd_player;
-			bd_player.position.Set(0,50.0f);
-			player=m_world->CreateBody(&bd_player);
-			player->CreateFixture(&player1,0.0f);
-		}
-	}
-	
+/////////////////////////////////////////////////////////////////////////////
+
+	/*
 	{
 		b2Body* im;
 		b2PolygonShape sh_im;
@@ -393,26 +413,28 @@ namespace cs296
 		fd->shape = &sh_im;
 		im->CreateFixture(fd);
 	
-	}
+	}*/
 	
-	
+/////////////////////////////////////////////////////////////////////////////
 	
 	//Score team1
 	{
 		//b2Body* score1[10];
 		b2PolygonShape shape[10];
+		b2FixtureDef *fd = new b2FixtureDef;
+		fd->restitution = 0;
 		//b2BodyDef bd_score[10];
 		for(int i=0;i<10;i++){
 			shape[i].SetAsBox(1,1);	
 			bd_score1[i].type = b2_dynamicBody;
-			b2FixtureDef *fd = new b2FixtureDef;
 			fd->shape = &shape[i];
-			fd->restitution = 0;
 			bd_score1[i].position.Set(-35.0f,6+2*i);
 			score1[i]=m_world->CreateBody(&bd_score1[i]);
 			score1[i]->CreateFixture(fd);
 		}
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
 	
 	//Score team2
 	{
@@ -430,6 +452,8 @@ namespace cs296
 			score2[i]->CreateFixture(fd);
 		}
 	}
+	
+/////////////////////////////////////////////////////////////////////////////
 	 
   }
 
