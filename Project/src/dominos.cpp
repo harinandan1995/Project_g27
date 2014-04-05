@@ -46,35 +46,6 @@ namespace cs296
    * This is the documentation block for the constructor.<br>
    * It creates the various parts of the simulation <bar>
 */	
-//class Rodclass : public dominos_t
-//{
-/*
-
-		bd_player1[2].position.Set(-18.0f,20.0f);
-		team1[2] = m_world->CreateBody(&bd_player1[2]);
-		player1[2].SetAsBox(1,1.5,b2Vec2(0.0f,-5.0f),0.0f);
-		team1[2]->CreateFixture(&player1[2],0.0f);
-		
-		bd_player1[3].position.Set(-4.0f,20.0f);
-		team1[3] = m_world->CreateBody(&bd_player1[3]);
-		player1[3].SetAsBox(1,1.5,b2Vec2(0.0f,12.0f),0.0f);
-		team1[3]->CreateFixture(&player1[3],0.0f);
-		
-		bd_player1[4].position.Set(-4.0f,20.0f);
-		team1[4] = m_world->CreateBody(&bd_player1[4]);
-		player1[4].SetAsBox(1,1.5,b2Vec2(0.0f,6.0f),0.0f);
-		team1[4]->CreateFixture(&player1[4],0.0f);
-		
-		bd_player1[5].position.Set(-4.0f,20.0f);
-		team1[5] = m_world->CreateBody(&bd_player1[5]);
-		player1[5].SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
-		team1[5]->CreateFixture(&player1[5],0.0f);
-*/
-
-//	b2Body* team2[11]; 
-//	b2PolygonShape player2[11];
-//public:
-	
 	b2Vec2 init;
 
 	vector <b2Vec2> positions;
@@ -151,7 +122,6 @@ void dominos_t::resetUp()
 		isGoingUp=0;
 		
 }
-//};
 
 	int team1_score=-1,team2_score=-1;
 	b2Body* ball;
@@ -225,24 +195,7 @@ void dominos_t::resetUp()
 			break;
 		}
 		}
-	/*void dominos_t::keyboard(unsigned char key){
-		switch(key){
-			case 'w':
-			ball->ApplyLinearImpulse(b2Vec2(0,10),ball->GetPosition(),100);
-			break;
-			case 'a':
-			ball->ApplyLinearImpulse(b2Vec2(-10,0),ball->GetPosition(),100);
-			break;
-			case 's':
-			ball->ApplyLinearImpulse(b2Vec2(0,-10),ball->GetPosition(),100);
-			break;
-			case 'd':
-						
-			ball->ApplyLinearImpulse(b2Vec2(10,0),ball->GetPosition(),100);
-			break;
-		}
-	}*/
-	
+
 	void dominos_t::score_1(int i){
 		if(i!=-1){
 			//score1[9-i]->ApplyLinearImpulse(b2Vec2(0,1000),score1[9-i]->GetPosition(),100);
@@ -297,33 +250,7 @@ void dominos_t::resetUp()
 	}
 
   dominos_t::dominos_t()
-  {  	isGoingUp=0;
-  //ROd
-{
-/*	b2Vec2 pos = b2Vec2(0.0f,20.0f);	
-b2Vec2 posn=b2Vec2(0.0f,25.0f);
-b2BodyDef bd_player2;
-bd_player2.type = b2_dynamicBody;
-b2PolygonShape player2;
-	positions.push_back(posn);
-for (int i=0;i<sizeof(positions)/ sizeof(b2Vec2);i++)
-	{
-	b2Body * team;
-	bd_player2.position.Set(0,20);
-	team= m_world->CreateBody(&bd_player2);	
-	player2.SetAsBox(1,1.5,positions[i],0.0f);
-/*	b2FixtureDef fd;
-fd.density=0;
-fd.shape= &player2;
-team->CreateFixture(&fd);
-	team->CreateFixture(&player2,0.0f);
-	playerbodies.push_back(team);
-	}
-	isGoingUp=0;
-	init=pos;*/
-}
-  //Rodclass *
-  //active= new Rodclass(arr,b2Vec2(0,20));
+  {  
 	//Base rectangle's
 	{
 		b2PolygonShape shape;
@@ -467,7 +394,7 @@ team->CreateFixture(&fd);
 /////////////////////////////////////////////////////////////////////////////
 	
 	//Players Team2
-	b2Body* team2[11], *team2join[11]; 
+b2Body* team2[11], *team2join[11]; 
 	b2PolygonShape player2[11];
 	b2BodyDef bd_player2[11];
 	{
@@ -538,20 +465,10 @@ team->CreateFixture(&fd);
 		team2join[10] = m_world->CreateBody(&bd_player2[10]);
 		player2[10].SetAsBox(1,1.5,b2Vec2(0.0f,-8.0f),0.0f);
 		team2[10]->CreateFixture(&player2[10],0.0f);
-<<<<<<< HEAD
 
 			 
 		// Team 2 Rods
 
-=======
-	}
-	
-/////////////////////////////////////////////////////////////////////////////
-	
-    //Rods team1
-	{
-		b2Body* rod;
->>>>>>> 6171ea3e2137189a2bca9b95a04992ff846f5f7b
 		for(int i=0;i<4;i++){
 			b2PolygonShape rod1, constr;
 			b2BodyDef bd_rod_1, bd_constr[4];
@@ -572,10 +489,10 @@ team->CreateFixture(&fd);
 			pos= 25.0f;
 			}
 			bd_rod_1.position.Set(pos,20.0f);
-			bd_constr[0].position.Set(pos+0.6f,6.0f);
-			bd_constr[1].position.Set(pos-0.6f,6.0f);
-			bd_constr[2].position.Set(pos+0.6f,34.0f);
-			bd_constr[3].position.Set(pos-0.6f,34.0f);
+			bd_constr[0].position.Set(pos+0.8f,6.0f);
+			bd_constr[1].position.Set(pos-0.8f,6.0f);
+			bd_constr[2].position.Set(pos+0.8f,34.0f);
+			bd_constr[3].position.Set(pos-0.8f,34.0f);
 			
 			b2FixtureDef *fd = new b2FixtureDef;
 			fd->shape = &constr;
@@ -625,13 +542,8 @@ team->CreateFixture(&fd);
 			  prismaticJointDef.maxMotorForce = 10000;
 			  m_joint = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );*/
 	}
-<<<<<<< HEAD
-=======
 	
 /////////////////////////////////////////////////////////////////////////////
-	
-	//Rods team2
->>>>>>> 6171ea3e2137189a2bca9b95a04992ff846f5f7b
 	
     //Rods team1
 	{
@@ -663,11 +575,9 @@ team->CreateFixture(&fd);
 			rod->CreateFixture(&rod1,0.0f);
 		}
 	}
-	//Rods team2
-	
-
 	
 /////////////////////////////////////////////////////////////////////////////
+	
 
 	/*
 	{
@@ -726,7 +636,8 @@ team->CreateFixture(&fd);
 	
 /////////////////////////////////////////////////////////////////////////////
 	 
-  
-}
+  }
+
   sim_t *sim = new sim_t("Dominos", dominos_t::create);
 }
+
