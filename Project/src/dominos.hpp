@@ -27,16 +27,23 @@
 
 namespace cs296
 {
+//class Rodclass:public dominos_t;
   //! This is the class that sets up the Box2D simulation world
   //! Notice the public inheritance - why do we inherit the base_sim_t class?
   class dominos_t : public base_sim_t
   {
+  			b2PrismaticJoint* m_joint;	
+	float isGoingUp;
   public:
     dominos_t();
-    void keyboard(unsigned char);
+    virtual void keyboard(unsigned char);
+      void checkUp(b2Vec2,b2Vec2,b2PrismaticJoint*);
     void check(void);
     void score_1(int);
     void score_2(int);
+    void checkUp();
+    void resetUp();
+    float incrGoingUp(int num);
     static base_sim_t* create()
     {
       return new dominos_t;
