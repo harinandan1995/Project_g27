@@ -37,7 +37,7 @@ namespace cs296
   public:
     dominos_t();
     virtual void keyboard(unsigned char);
-      void checkUp(b2Vec2,b2Vec2,b2PrismaticJoint*);
+     // void checkUp(b2Vec2,b2Vec2,b2PrismaticJoint*);
     void check(void);
     void score_1(int);
     void score_2(int);

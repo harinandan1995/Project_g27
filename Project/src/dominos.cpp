@@ -61,17 +61,20 @@ namespace cs296
 	vector <b2Body*> playerbodies;
 	void keyboard(unsigned char);
 
-void dominos_t::checkUp(b2Vec2 v1, b2Vec2 v2,b2PrismaticJoint* m_joint)
+/*void dominos_t::checkUp(b2Vec2 v1, b2Vec2 v2,b2PrismaticJoint* m_joint)
 {
+cout<<"Yo"<<endl;
 b2Body *bod= m_joint->GetBodyA();
-	if(v1.x-v2.x>1 || v1.x-v2.x<-1)
+	if(v1.x-v2.x > 0.5 || v1.x-v2.x<-0.5)
 	{
+			cout<<"Heyo"<<endl;
 			b2Filter filt=bod->GetFixtureList()->GetFilterData();
 			filt.maskBits=0x0000;
 			bod->GetFixtureList()->SetFilterData(filt);
 		}
 		else
 		{
+		cout<<"geyo"<<endl;
 			b2Filter filt=bod->GetFixtureList()->GetFilterData();
 			filt.maskBits=0xFFFF;
 			bod->GetFixtureList()->SetFilterData(filt);
@@ -79,24 +82,21 @@ b2Body *bod= m_joint->GetBodyA();
 	/*if(v1.x - v2.x > 0.1)
 	{
 	m_joint->SetMotorSpeed(0);
-	}*/
+	}
 
-}
-void dominos_t::checkUp()
+}*/
+
+/*void dominos_t::checkUp()
 {
 
 	 if(isGoingUp>5||isGoingUp<-5)
-	{
 		for (int i=0;i<playerbodies.size();i++)
 		{
 			b2Filter filt=playerbodies[i]->GetFixtureList()->GetFilterData();
 			filt.maskBits=0x0000;
 			playerbodies[i]->GetFixtureList()->SetFilterData(filt);
 		}
-	}
-	else 
-		{
-		for (int i=0;i<playerbodies.size();i++)
+	/*	for (int i=0;i<playerbodies.size();i++)
 		{
 			b2Filter filt=playerbodies[i]->GetFixtureList()->GetFilterData();
 			filt.maskBits=0xFFFF;
@@ -109,9 +109,8 @@ void dominos_t::checkUp()
 				playerbodies[i]->SetLinearVelocity(b2Vec2(0.0,0.0));
 			}
 		}
-		
-	}
-}
+	
+}*/
 float dominos_t::incrGoingUp(int num)
 {
 	this->isGoingUp += num;
@@ -136,31 +135,33 @@ void dominos_t::resetUp()
 		}*/
 			void dominos_t::keyboard(unsigned char key){
 				std::cout<<isGoingUp<<endl;
-				int mul=3;
+				int mul=6;
+				//checkUp(m_joint->GetAnchorB(), m_joint->GetAnchorA(), m_joint);
 		switch(key){
-		checkUp(m_joint->GetAnchorB(), m_joint->GetAnchorA(), m_joint);
-		case 'h':
-		rod[3]->SetLinearVelocity(b2Vec2(0,5));//,rod[3]->GetPosition(),100);
+		case 'y':
+		rod[3]->ApplyLinearImpulse(b2Vec2(0,10),rod[3]->GetPosition(),100);
 		break;
-		case 'b':
-		rod[3]->SetLinearVelocity(b2Vec2(0,-5));
+		case 'h':
+		rod[3]->ApplyLinearImpulse(b2Vec2(0,-10),rod[3]->GetPosition(),100);
 		break;
 		case ' ':
 		rod[3]->SetLinearVelocity(b2Vec2(0,0));
 		break;
-		case 'n':
+		case 'v':
 		if(m_joint->GetAnchorA().x - m_joint->GetAnchorB().x >0)// far right state
 		m_joint->SetMotorSpeed(mul*2.0f);
 		else // go for a shot!
 		m_joint->SetMotorSpeed(mul*(2*(m_joint->GetAnchorB().x - m_joint->GetAnchorA().x)+.5));
 		break;
-		case 'v':
+		case 'n':
 		if(m_joint->GetAnchorA().x - m_joint->GetAnchorB().x <0)// far left state
 		m_joint->SetMotorSpeed(mul*-2.0f);
 		else // go for a shot!
 		m_joint->SetMotorSpeed(mul*(2*(m_joint->GetAnchorA().x - m_joint->GetAnchorB().x)-.5));
 		break;
-		
+		case 'b':
+		m_joint->SetMotorSpeed(0);
+		break;
 		//m_joint->SetMotorSpeed(-4.0f);
 			case 'w':
 			ball->ApplyLinearImpulse(b2Vec2(0,10),ball->GetPosition(),100);
@@ -170,7 +171,7 @@ void dominos_t::resetUp()
 			//playerbodies[0]->ApplyLinearImpulse(b2Vec2(0,10),playerbodies[0]->GetPosition(),100);
 			break;
 			case 'a':
-			checkUp();
+			//checkUp();
 			ball->ApplyLinearImpulse(b2Vec2(-10,0),ball->GetPosition(),100);
 			/*if(isGoingUp < -5)
 			{
@@ -181,7 +182,7 @@ void dominos_t::resetUp()
 			incrGoingUp(-1);*/
 			break;
 			case 'd':
-			checkUp();
+			//checkUp();
 			ball->ApplyLinearImpulse(b2Vec2(10,0),ball->GetPosition(),100);
 			/*if(isGoingUp > 5)
 			{
@@ -314,6 +315,7 @@ void dominos_t::resetUp()
 		b2CircleShape bal;
 		bal.m_radius=0.6;
 		b2BodyDef bd_ball;
+		bd_ball.bullet=true;
 		b2FixtureDef *fd = new b2FixtureDef;
 		fd->shape = &bal;
 		fd->density = 0.0;
@@ -489,10 +491,10 @@ b2Body* team2[11], *team2join[11];
 			pos= 25.0f;
 			}
 			bd_rod_1.position.Set(pos,20.0f);
-			bd_constr[0].position.Set(pos+0.8f,6.0f);
-			bd_constr[1].position.Set(pos-0.8f,6.0f);
-			bd_constr[2].position.Set(pos+0.8f,34.0f);
-			bd_constr[3].position.Set(pos-0.8f,34.0f);
+			bd_constr[0].position.Set(pos+0.7f,6.0f);
+			bd_constr[1].position.Set(pos-0.7f,6.0f);
+			bd_constr[2].position.Set(pos+0.7f,34.0f);
+			bd_constr[3].position.Set(pos-0.7f,34.0f);
 			
 			b2FixtureDef *fd = new b2FixtureDef;
 			fd->shape = &constr;
