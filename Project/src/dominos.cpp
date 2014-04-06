@@ -63,7 +63,8 @@ namespace cs296
 	b2Body* score2[10];
 	b2BodyDef bd_score1[10];
 	b2BodyDef bd_score2[10];
-		b2Body* active2=rod2[0], *active1=rod2[1];
+	b2Body* active2=rod2[0], *active1=rod2[1];
+	b2Body* pointer1, * pointer2;
 			void dominos_t::keyboard(unsigned char key){
 				std::cout<<key<<endl;
 				int mul=6;
@@ -72,10 +73,12 @@ namespace cs296
 		case'l':
 		rod_2_index=(rod_2_index+1)%4;
 		active2=rod2[rod_2_index];
+		pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
 		break;
 		case'k':
 		rod_2_index=(rod_2_index+3)%4;
 		active2=rod2[rod_2_index];
+		pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
 		break;
 		case 'y':
 		active2->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
@@ -109,10 +112,12 @@ namespace cs296
 		case'[':
 		rod_1_index=(rod_1_index+1)%4;
 		active2=rod2[rod_1_index];
+		pointer1->SetTransform(b2Vec2(active1->GetPosition().x,-3),0);
 		break;
 		case']':
 		rod_1_index=(rod_1_index+3)%4;
 		active1=rod2[rod_1_index];
+		pointer1->SetTransform(b2Vec2(active1->GetPosition().x,-3),0);
 		break;
 		case '-':
 		active1->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
@@ -215,6 +220,8 @@ namespace cs296
   dominos_t::dominos_t()
   {  
   rod_2_index=0;
+  rod_1_index=0;
+
 	///Base rectangles
 	{
 		b2PolygonShape shape;
@@ -377,7 +384,9 @@ b2Body* team2[11];
 			
 			}
 	}
+/////////////////////////////////////////////////////////////////////////////
 	/// Set Players
+///Team 1
 	{
 	player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
 ///Rod 1		
@@ -518,7 +527,29 @@ for( int i=0;i<10;i++)
 	}
 	
 /////////////////////////////////////////////////////////////////////////////
-	 
+  ///Pointers
+	  {
+	b2Vec2 vertices[3];
+	vertices[0].Set(0.0f, 0.0f);
+	vertices[1].Set(1.0f, 0.0f);
+	vertices[2].Set(0.0f, 1.0f);
+	b2PolygonShape triangle;
+	triangle.Set(vertices,3);
+	
+	b2FixtureDef *fd = new b2FixtureDef;
+	fd->shape=&triangle;
+	fd->filter.maskBits=0x0000;
+	
+	b2BodyDef triangle_body_1, triangle_body_2;
+	triangle_body_1.position.Set(rod1[0]->GetPosition().x,-3);
+	triangle_body_2.position.Set(rod2[0]->GetPosition().x,-3);
+	
+	pointer1= m_world->CreateBody(&triangle_body_1);
+	pointer2= m_world->CreateBody(&triangle_body_2);
+	pointer1->CreateFixture(fd);
+	pointer2->CreateFixture(fd);
+	
+	}	 
   }
 
   sim_t *sim = new sim_t("Dominos", dominos_t::create);
