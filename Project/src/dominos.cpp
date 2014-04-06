@@ -50,44 +50,41 @@ namespace cs296
 	b2Body* score2[10];
 	b2BodyDef bd_score1[10];
 	b2BodyDef bd_score2[10];
-	b2Body* active2=rod2[0], *active1=rod2[1];///Define Active rod for players
+	b2Body* active2=rod2[1], *active1=rod2[1];///Define Active rod for players
 	b2Body* pointer1, * pointer2;///We define pointers to the current active rod
 
 	/**Handle keyboard inputs*/
 		void dominos_t::keyboard(unsigned char key){
-				std::cout<<key<<endl;
-				int mul=6;
-		switch(key){
-		///Team 2
-		case'l': 
-		rod_2_index=(rod_2_index+1)%4;
-		active2=rod2[rod_2_index];/// Keypress l: Shift active rod one position right, set pointer accordingly
-		pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
-		break;
-		case'k': 
-		rod_2_index=(rod_2_index+3)%4;///Keypress k: Shift active rod one position left, set pointer accordingly
-		active2=rod2[rod_2_index];
-		pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
-		break;
-		case 'y':
-		active2->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
-		break;
-		case 'h':
-		active2->ApplyLinearImpulse(b2Vec2(0,-40),active2->GetPosition(),100);
-		break;
-		case ' ':
-		active2->SetLinearVelocity(b2Vec2(0,0));
-		break;
-		case 'v':
-
-			for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
-		{
-			b2Body *bod= m_joint_2[i]->GetBodyA();
-			b2Vec2 v1=m_joint_2[i]->GetAnchorB();
-			b2Vec2 v2=m_joint_2[i]->GetAnchorA();
-			b2Fixture* origFix=bod->GetFixtureList();
-			if(v1.x-v2.x > 1.3)///We check if player is far left
-				{
+			std::cout<<key<<endl;
+			int mul=6;
+			switch(key){
+			///Team 2
+			case'l': 
+				rod_2_index=(rod_2_index+1)%4;///rod_2_index tells which rod is active
+				active2=rod2[rod_2_index];/// Keypress l: Shift active rod one position right, set pointer accordingly
+				pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
+				break;
+			case'k': 
+				rod_2_index=(rod_2_index+3)%4;///Keypress k: Shift active rod one position left, set pointer accordingly
+				active2=rod2[rod_2_index];
+				pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
+				break;
+			case 'y':///Keypress y: Pushes the active rod upwards
+				active2->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
+				break;
+			case 'h':///Keypress h: Pushes the active rod downwards
+				active2->ApplyLinearImpulse(b2Vec2(0,-40),active2->GetPosition(),100);
+				break;
+			case 'q':///Stops the rod 
+				active2->SetLinearVelocity(b2Vec2(0,0));
+				break;
+			case 'v':///Keypress v: Rotates the player towards left
+				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++){
+					b2Body *bod= m_joint_2[i]->GetBodyA();
+					b2Vec2 v1=m_joint_2[i]->GetAnchorB();
+					b2Vec2 v2=m_joint_2[i]->GetAnchorA();
+					b2Fixture* origFix=bod->GetFixtureList();
+					if(v1.x-v2.x > 1.3){///We check if player is far left
 						b2FixtureDef *fd = new b2FixtureDef;/// if so, we make player transparent
 						b2PolygonShape player1;
 						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
@@ -96,40 +93,35 @@ namespace cs296
 						fd->filter.maskBits = 0x0000;
 						bod->DestroyFixture(origFix);
 						bod->CreateFixture(fd);
-//					filt.maskBits=0x0000;//also change fixture here
+						//filt.maskBits=0x0000;//also change fixture here
+					}
+					else{ 
+						if(origFix->GetFilterData().maskBits == 0x0000 ){/// We check if player is in transparent state
+							b2FixtureDef *fd = new b2FixtureDef;/// if so, we change fixture accordingly
+							b2PolygonShape player1;
+							player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+							fd->shape = &player1;
+							fd->density = 0.0;
+							fd->filter.maskBits = 0xFFFF;
+							bod->DestroyFixture(origFix);
+							bod->CreateFixture(fd);
+						}			
+						else{
+							b2Filter filt=bod->GetFixtureList()->GetFilterData();
+							filt.maskBits=0xFFFF;
+							bod->GetFixtureList()->SetFilterData(filt);
+						}
+					}
+					m_joint_2[i]->SetMotorSpeed(mul*(2* abs(m_joint_2[i]->GetAnchorB().x - m_joint_2[i]->GetAnchorA().x)+.5));
 				}
-			else	
-			{ 
-				if(origFix->GetFilterData().maskBits == 0x0000 )/// We check if player is in transparent state
-				{
-						b2FixtureDef *fd = new b2FixtureDef;/// if so, we change fixture accordingly
-						b2PolygonShape player1;
-						player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
-						fd->shape = &player1;
-						fd->density = 0.0;
-						fd->filter.maskBits = 0xFFFF;
-						bod->DestroyFixture(origFix);
-						bod->CreateFixture(fd);
-				}			
-				else
-				{
-					b2Filter filt=bod->GetFixtureList()->GetFilterData();
-					filt.maskBits=0xFFFF;
-					bod->GetFixtureList()->SetFilterData(filt);
-				}
-			}
-		m_joint_2[i]->SetMotorSpeed(mul*(2* abs(m_joint_2[i]->GetAnchorB().x - m_joint_2[i]->GetAnchorA().x)+.5));
-		}
-		break;
-		case 'n':
-			for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
-		{
-			b2Body *bod= m_joint_2[i]->GetBodyA();
-			b2Vec2 v1=m_joint_2[i]->GetAnchorB();
-			b2Vec2 v2=m_joint_2[i]->GetAnchorA();
-			b2Fixture* origFix=bod->GetFixtureList();
-			if(v1.x-v2.x < -1.3)///We check if player is far right
-				{
+				break;
+			case 'n':
+				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++){
+					b2Body *bod= m_joint_2[i]->GetBodyA();
+					b2Vec2 v1=m_joint_2[i]->GetAnchorB();
+					b2Vec2 v2=m_joint_2[i]->GetAnchorA();
+					b2Fixture* origFix=bod->GetFixtureList();
+					if(v1.x-v2.x < -1.3){///We check if player is far right
 						b2FixtureDef *fd = new b2FixtureDef;///< If so, we create a new fixture
 						b2PolygonShape player1;
 						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
@@ -138,91 +130,85 @@ namespace cs296
 						fd->filter.maskBits = 0x0000;
 						bod->DestroyFixture(origFix);
 						bod->CreateFixture(fd);
+					}
+					else{ 
+						if(origFix->GetFilterData().maskBits == 0x0000 ){/// in transparent state
+							b2FixtureDef *fd = new b2FixtureDef;
+							b2PolygonShape player1;
+							player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+							fd->shape = &player1;
+							fd->density = 0.0;
+							fd->filter.maskBits = 0xFFFF;
+							bod->DestroyFixture(origFix);
+							bod->CreateFixture(fd);
+						}			
+						else{
+							b2Filter filt=bod->GetFixtureList()->GetFilterData();
+							filt.maskBits=0xFFFF;
+							bod->GetFixtureList()->SetFilterData(filt);
+						}
+					}
+					/// If not far right, go for a shot!
+					m_joint_2[i]->SetMotorSpeed(mul*(-2*abs(m_joint_2[i]->GetAnchorA().x - m_joint_2[i]->GetAnchorB().x) -.5));
 				}
-			else	
-			{ 
-				if(origFix->GetFilterData().maskBits == 0x0000 )/// in transparent state
-				{
-						b2FixtureDef *fd = new b2FixtureDef;
-						b2PolygonShape player1;
-						player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
-						fd->shape = &player1;
-						fd->density = 0.0;
-						fd->filter.maskBits = 0xFFFF;
-						bod->DestroyFixture(origFix);
-						bod->CreateFixture(fd);
-				}			
-				else
-				{
-					b2Filter filt=bod->GetFixtureList()->GetFilterData();
-					filt.maskBits=0xFFFF;
-					bod->GetFixtureList()->SetFilterData(filt);
+				break;
+			case 'b':
+				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
+					m_joint_2[i]->SetMotorSpeed(0);
+				break;
+			/////////////////////////////////////////////////////////////////////////////
+			///Team 1
+			case'[':
+				rod_1_index=(rod_1_index+1)%4;
+				active1=rod1[rod_1_index];
+				pointer1->SetTransform(b2Vec2(active1->GetPosition().x,42),0);
+				break;
+			case']':
+				rod_1_index=(rod_1_index+3)%4;
+				active1=rod1[rod_1_index];
+				pointer1->SetTransform(b2Vec2(active1->GetPosition().x,42),0);
+				break;
+			case '-':
+				active1->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
+				break;
+			case ';':
+				active1->ApplyLinearImpulse(b2Vec2(0,-40),active2->GetPosition(),100);
+				break;
+			case '=':
+				active1->SetLinearVelocity(b2Vec2(0,0));
+				break;
+			case ',':
+				for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++){
+					// go for a shot!
+					m_joint_1[i]->SetMotorSpeed(mul*(2* abs(m_joint_1[i]->GetAnchorB().x - m_joint_1[i]->GetAnchorA().x)+.5));
 				}
-			}
-		/// If not far right, go for a shot!
-		m_joint_2[i]->SetMotorSpeed(mul*(-2*abs(m_joint_2[i]->GetAnchorA().x - m_joint_2[i]->GetAnchorB().x) -.5));
-		}
-		break;
-		case 'b':
-		for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
-		m_joint_2[i]->SetMotorSpeed(0);
-		break;
-		/////////////////////////////////////////////////////////////////////////////
-		///Team 1
-		case'[':
-		rod_1_index=(rod_1_index+1)%4;
-		active1=rod1[rod_1_index];
-		pointer1->SetTransform(b2Vec2(active1->GetPosition().x,-3),0);
-		break;
-		case']':
-		rod_1_index=(rod_1_index+3)%4;
-		active1=rod1[rod_1_index];
-		pointer1->SetTransform(b2Vec2(active1->GetPosition().x,-3),0);
-		break;
-		case '-':
-		active1->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
-		break;
-		case ';':
-		active1->ApplyLinearImpulse(b2Vec2(0,-40),active2->GetPosition(),100);
-		break;
-		case '=':
-		active1->SetLinearVelocity(b2Vec2(0,0));
-		break;
-		case ',':
-		for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++)
-		{
-		 // go for a shot!
-		m_joint_1[i]->SetMotorSpeed(mul*(2* abs(m_joint_1[i]->GetAnchorB().x - m_joint_1[i]->GetAnchorA().x)+.5));
-		}
-		break;
-		case '/':
-			for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++)
-		{
-		 // go for a shot!
-		m_joint_1[i]->SetMotorSpeed(mul*(-2*abs(m_joint_1[i]->GetAnchorA().x - m_joint_1[i]->GetAnchorB().x) -.5));
-		}
-		break;
-		case '.':
-		for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++)
-		m_joint_1[i]->SetMotorSpeed(0);
-		break;
-	
+				break;
+			case '/':
+				for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++){
+					// go for a shot!
+					m_joint_1[i]->SetMotorSpeed(mul*(-2*abs(m_joint_1[i]->GetAnchorA().x - m_joint_1[i]->GetAnchorB().x) -.5));
+				}
+				break;
+			case '.':
+				for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++)
+				m_joint_1[i]->SetMotorSpeed(0);
+				break;
 			case 'w':
-			ball->ApplyLinearImpulse(b2Vec2(0,10),ball->GetPosition(),100);
-			break;
+				ball->ApplyLinearImpulse(b2Vec2(0,10),ball->GetPosition(),100);
+				break;
 			case 's':
-			ball->ApplyLinearImpulse(b2Vec2(0,-10),ball->GetPosition(),100);
-			break;
+				ball->ApplyLinearImpulse(b2Vec2(0,-10),ball->GetPosition(),100);
+				break;
 			case 'a':
-			ball->ApplyLinearImpulse(b2Vec2(-10,0),ball->GetPosition(),100);
-			break;
+				ball->ApplyLinearImpulse(b2Vec2(-10,0),ball->GetPosition(),100);
+				break;
 			case 'd':
-			ball->ApplyLinearImpulse(b2Vec2(10,0),ball->GetPosition(),100);
-			break;
+				ball->ApplyLinearImpulse(b2Vec2(10,0),ball->GetPosition(),100);
+				break;
 			default:
-			break;
+				break;
 		}
-		}
+	}
 	/// First team's score
 	void dominos_t::score_1(int i){
 		if(i!=-1){
@@ -237,19 +223,20 @@ namespace cs296
 	}
 		/// Check if someone has scored
 	void dominos_t::check(void){
+		//for(int i
 		if(ball->GetPosition().x<=32 && ball->GetPosition().x>=30 &&
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
-				ball->SetTransform(b2Vec2(0,20),0);team1_score++;
-				score_1(team1_score);
-				if(team1_score==3){
-					for(int i=0;i<10;i++){
-						score1[i]->SetTransform(b2Vec2(-35.0f,6+2.2*i),0);
-						score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
-						score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
-						score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
-					}
+			ball->SetTransform(b2Vec2(0,20),0);team1_score++;
+			score_1(team1_score);
+			if(team1_score==10){
+				for(int i=0;i<10;i++){
+					score1[i]->SetTransform(b2Vec2(-35.0f,6+2.2*i),0);
+					score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
+					score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
+					score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
 				}
 			}
+		}
 		for(int i=0;i<10;i++){
 			if(score1[9-i]->GetPosition().y>=34-i*2){
 				score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
@@ -261,31 +248,32 @@ namespace cs296
 		}
 		if(ball->GetPosition().x>=-32 && ball->GetPosition().x<=-30 &&
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
-				ball->SetTransform(b2Vec2(0,20),0);team2_score++;
-				score_2(team2_score);
-				if(team2_score==3){
-					for(int i=0;i<10;i++){
-						score1[i]->SetTransform(b2Vec2(-35.0f,6+2*i),0);
-						score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
-						score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
-						score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
-					}
+			ball->SetTransform(b2Vec2(0,20),0);team2_score++;
+			score_2(team2_score);
+			if(team2_score==10){
+				for(int i=0;i<10;i++){
+					score1[i]->SetTransform(b2Vec2(-35.0f,6+2*i),0);
+					score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
+					score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
+					score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
 				}
 			}
+		}
 	}
 
   dominos_t::dominos_t()
   {  
-  rod_2_index=0;
-  rod_1_index=0;
+	rod_2_index=0;
+	rod_1_index=0;
 
-/// We define the bodies for :
+	/// We define the bodies for :
 	///1. Base rectangles
+	b2Body* base;
 	{
 		b2PolygonShape shape;
 		b2BodyDef bd_base;
 		bd_base.position.Set(0,20);
-		b2Body* base = m_world->CreateBody(&bd_base);
+		base = m_world->CreateBody(&bd_base);
 		shape.SetAsBox(0.5,15.5,b2Vec2(-32,0),0.0f);
 		base->CreateFixture(&shape,0.0f);
 		shape.SetAsBox(0.5,15.5,b2Vec2(32,0),0.0f);
@@ -363,11 +351,10 @@ namespace cs296
 /////////////////////////////////////////////////////////////////////////////
 	
 	
-b2Body* team2[11];///< Players Team2
+	b2Body* team2[11];///< Players Team2
 	b2PolygonShape player2;
 	b2BodyDef bd_player2[11];
 	{
-			 
 		///4. Team 1 and Team 2 Rods
 
 		for(int i=0;i<4;i++){
@@ -381,27 +368,27 @@ b2Body* team2[11];///< Players Team2
 				pos2=-11.0f;
 			}
 			else if(i==1){
-			pos2=4.0f;
+				pos2=4.0f;
 			}
 			else if(i==2){
 				pos2=18.0f;
 			}
 			else if(i==3){
-			pos2= 25.0f;
+				pos2= 25.0f;
 			}
 			pos1= -1*pos2;///mirrorimage
 			bd_rodShape1.position.Set(pos1,20.0f);
 			bd_rodShape2.position.Set(pos2,20.0f);
 			
-			bd_constr1[0].position.Set(pos1+0.8f,6.0f);
-			bd_constr1[1].position.Set(pos1-0.8f,6.0f);
-			bd_constr1[2].position.Set(pos1+0.8f,34.0f);
-			bd_constr1[3].position.Set(pos1-0.8f,34.0f);
+			bd_constr1[0].position.Set(pos1+0.9f,6.0f);
+			bd_constr1[1].position.Set(pos1-0.9f,6.0f);
+			bd_constr1[2].position.Set(pos1+0.9f,34.0f);
+			bd_constr1[3].position.Set(pos1-0.9f,34.0f);
 			
-			bd_constr2[0].position.Set(pos2+0.8f,6.0f);
-			bd_constr2[1].position.Set(pos2-0.8f,6.0f);
-			bd_constr2[2].position.Set(pos2+0.8f,34.0f);
-			bd_constr2[3].position.Set(pos2-0.8f,34.0f);
+			bd_constr2[0].position.Set(pos2+0.9f,6.0f);
+			bd_constr2[1].position.Set(pos2-0.9f,6.0f);
+			bd_constr2[2].position.Set(pos2+0.9f,34.0f);
+			bd_constr2[3].position.Set(pos2-0.9f,34.0f);
 			
 			b2FixtureDef *fd = new b2FixtureDef;
 			fd->shape = &constr;
@@ -409,8 +396,7 @@ b2Body* team2[11];///< Players Team2
 			fd->filter.categoryBits = 0x0002;
 			fd->filter.maskBits = 0x0002;
 			b2Body* con;
-			for(int j=0;j<4;j++)
-			{
+			for(int j=0;j<4;j++){
 				constr.SetAsBox(0.4f,0.4f,b2Vec2(0.0f,0.0f),0.0f);
 				bd_constr2[j].type=b2_staticBody;
 				bd_constr1[j].type=b2_staticBody;
@@ -430,20 +416,31 @@ b2Body* team2[11];///< Players Team2
 			
 			rodShape.SetAsBox(0.8f,3.0f,b2Vec2(0.0f,21.0f),0.0f);
 			rod2[i]->CreateFixture(&rodShape,0.0f);
+			rodShape.SetAsBox(0.8f,3.0f,b2Vec2(0.0f,-21.0f),0.0f);
 			rod1[i]->CreateFixture(&rodShape,0.0f);
 			
 			rodShape.SetAsBox(0.6f,0.2f,b2Vec2(0.0f,-18.3f),0.0f);
 			rod2[i]->CreateFixture(&rodShape,0.0f);
+			rodShape.SetAsBox(0.6f,0.2f,b2Vec2(0.0f,18.3f),0.0f);
 			rod1[i]->CreateFixture(&rodShape,0.0f);
-			
-			
-			}
+		}
+		b2PrismaticJointDef jointDef;
+		b2Vec2 worldAxis(1.0f, 0.0f);
+		jointDef.Initialize(rod2[0], base,b2Vec2(-11,5), worldAxis);
+		jointDef.lowerTranslation = -5.0f;
+		jointDef.upperTranslation = 5;
+		jointDef.enableLimit = true;
+		jointDef.maxMotorForce = 1.0f;
+		jointDef.motorSpeed = 0.0f;
+		jointDef.enableMotor = true;
+		m_world->CreateJoint( &jointDef );
+		
 	}
 /////////////////////////////////////////////////////////////////////////////
 	/// 5. To set Players
 ///a. Team 1
 	{
-	player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+		player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
 ///Rod 1		
 		bd_player1[0].position.Set(-25.0f,20.0f);
 ///Rod 2	
@@ -468,30 +465,28 @@ b2Body* team2[11];///< Players Team2
 
 		int j=3;
 		b2Body* active_rod;
-for( int i=0;i<10;i++)
-{
-	if(i==1 || i==3 || i==7)
-		j--;
-			  
-	bd_player1[i].type=b2_dynamicBody;
-	team1[i] = m_world->CreateBody(&bd_player1[i]);
-	team1[i]->CreateFixture(&player1,0.0f);	
+		for( int i=0;i<10;i++){
+			if(i==1 || i==3 || i==7)
+				j--;
+					  
+			bd_player1[i].type=b2_dynamicBody;
+			team1[i] = m_world->CreateBody(&bd_player1[i]);
+			team1[i]->CreateFixture(&player1,0.0f);	
 
-	b2PrismaticJointDef prismaticJointDef;		///We define joints for all these players
-	  prismaticJointDef.bodyA = team1[i];
-	  prismaticJointDef.bodyB = rod1[j];
-	  prismaticJointDef.collideConnected = false;
-	  prismaticJointDef.localAxisA.Set(1,0);
-	  prismaticJointDef.localAnchorA.Set( 0,0);
-	  prismaticJointDef.localAnchorB.Set( 0,0 - rod1[j]->GetPosition().y+ team1[i]->GetPosition().y);
-	  prismaticJointDef.enableLimit = true;
-	  prismaticJointDef.lowerTranslation = -2.0;
-	  prismaticJointDef.upperTranslation = 2.0;
-	  prismaticJointDef.enableMotor = true;
-	  prismaticJointDef.maxMotorForce = 10000;
-	  m_joint_1[i] = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );
-
-}
+			b2PrismaticJointDef prismaticJointDef;		///We define joints for all these players
+			prismaticJointDef.bodyA = team1[i];
+			prismaticJointDef.bodyB = rod1[j];
+			prismaticJointDef.collideConnected = false;
+			prismaticJointDef.localAxisA.Set(1,0);
+			prismaticJointDef.localAnchorA.Set( 0,0);
+			prismaticJointDef.localAnchorB.Set( 0,0 - rod1[j]->GetPosition().y+ team1[i]->GetPosition().y);
+			prismaticJointDef.enableLimit = true;
+			prismaticJointDef.lowerTranslation = -2.0;
+			prismaticJointDef.upperTranslation = 2.0;
+			prismaticJointDef.enableMotor = true;
+			prismaticJointDef.maxMotorForce = 10000;
+			m_joint_1[i] = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );
+		}
 /////////////////////////////////////////////////////////////////////////////
 
 ///b. Team 2	
@@ -518,31 +513,30 @@ for( int i=0;i<10;i++)
 	
 		bd_player2[9].position.Set(-11.0f,12.0f);
 		j=3;
-for( int i=0;i<10;i++)
-{
-	if(i==1 || i==3 || i==7)
-		j--;
-			  
-	bd_player2[i].type=b2_dynamicBody;
-	team2[i] = m_world->CreateBody(&bd_player2[i]);
-	team2[i]->CreateFixture(&player2,0.0f);	
-	///We define joints for all these players
-	b2PrismaticJointDef prismaticJointDef;
-	  prismaticJointDef.bodyA = team2[i];
-	  prismaticJointDef.bodyB = rod2[j];
-	  prismaticJointDef.collideConnected = false;
-	  prismaticJointDef.localAxisA.Set(1,0);
-	  prismaticJointDef.localAnchorA.Set( 0,0);
-	  prismaticJointDef.localAnchorB.Set( 0,0 - rod2[j]->GetPosition().y+ team2[i]->GetPosition().y);
-	  prismaticJointDef.enableLimit = true;
-	  prismaticJointDef.lowerTranslation = -2.0;
-	  prismaticJointDef.upperTranslation = 2.0;
-	  prismaticJointDef.enableMotor = true;
-	  prismaticJointDef.maxMotorForce = 10000;
-	  m_joint_2[i] = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );
+		for( int i=0;i<10;i++){
+			if(i==1 || i==3 || i==7)
+				j--;
+					  
+			bd_player2[i].type=b2_dynamicBody;
+			team2[i] = m_world->CreateBody(&bd_player2[i]);
+			team2[i]->CreateFixture(&player2,0.0f);	
+			///We define joints for all these players
+			b2PrismaticJointDef prismaticJointDef;
+			prismaticJointDef.bodyA = team2[i];
+			prismaticJointDef.bodyB = rod2[j];
+			prismaticJointDef.collideConnected = false;
+			prismaticJointDef.localAxisA.Set(1,0);
+			prismaticJointDef.localAnchorA.Set( 0,0);
+			prismaticJointDef.localAnchorB.Set( 0,0 - rod2[j]->GetPosition().y+ team2[i]->GetPosition().y);
+			prismaticJointDef.enableLimit = true;
+			prismaticJointDef.lowerTranslation = -2.0;
+			prismaticJointDef.upperTranslation = 2.0;
+			prismaticJointDef.enableMotor = true;
+			prismaticJointDef.maxMotorForce = 10000;
+			m_joint_2[i] = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );
 
-}
-}
+		}
+	}
 
 	
 /////////////////////////////////////////////////////////////////////////////
@@ -594,7 +588,7 @@ for( int i=0;i<10;i++)
 	fd->filter.maskBits=0x0000;
 	
 	b2BodyDef triangle_body_1, triangle_body_2;
-	triangle_body_1.position.Set(rod1[0]->GetPosition().x,-3);
+	triangle_body_1.position.Set(rod1[0]->GetPosition().x,42);
 	triangle_body_2.position.Set(rod2[0]->GetPosition().x,-3);
 	
 	pointer1= m_world->CreateBody(&triangle_body_1);
