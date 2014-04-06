@@ -89,6 +89,7 @@ void base_sim_t::draw_title(int x, int y, const char *string)
 dominos_t dom;
 void base_sim_t::step(settings_t* settings)
 {
+
 	
 dom.check();
 /*for(b2Joint * m_joint= m_world->GetJointList(); m_joint; m_joint= m_joint->GetNext())

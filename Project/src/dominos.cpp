@@ -42,41 +42,30 @@ using namespace std;
 
 namespace cs296
 {
-  /*!  The is the constructor <br>
-   * This is the documentation block for the constructor.<br>
-   * It creates the various parts of the simulation <bar>
-*/	
-	b2Vec2 init;
-
-	vector <b2Vec2> positions;
-
-
-
-	vector <b2Body*> playerbodies;
-	void keyboard(unsigned char);
-
-	int team1_score=-1,team2_score=-1;
+  	int team1_score=-1,team2_score=-1;
 	b2Body* ball;
 	b2Body* rod2[4], * rod1[4];
-	int range[4][2]={{7,10},{3,7},{1,3},{0,1}};
-	b2Body* score1[10];
+	int range[4][2]={{7,10},{3,7},{1,3},{0,1}}; ///< Range of players for each rod
+	b2Body* score1[10];///< Blocks that show the score
 	b2Body* score2[10];
 	b2BodyDef bd_score1[10];
 	b2BodyDef bd_score2[10];
-	b2Body* active2=rod2[0], *active1=rod2[1];
-	b2Body* pointer1, * pointer2;
-			void dominos_t::keyboard(unsigned char key){
+	b2Body* active2=rod2[0], *active1=rod2[1];///Define Active rod for players
+	b2Body* pointer1, * pointer2;///We define pointers to the current active rod
+
+	/**Handle keyboard inputs*/
+		void dominos_t::keyboard(unsigned char key){
 				std::cout<<key<<endl;
 				int mul=6;
 		switch(key){
 		///Team 2
-		case'l':
+		case'l': 
 		rod_2_index=(rod_2_index+1)%4;
-		active2=rod2[rod_2_index];
+		active2=rod2[rod_2_index];/// Keypress l: Shift active rod one position right, set pointer accordingly
 		pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
 		break;
-		case'k':
-		rod_2_index=(rod_2_index+3)%4;
+		case'k': 
+		rod_2_index=(rod_2_index+3)%4;///Keypress k: Shift active rod one position left, set pointer accordingly
 		active2=rod2[rod_2_index];
 		pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
 		break;
@@ -97,9 +86,9 @@ namespace cs296
 			b2Vec2 v1=m_joint_2[i]->GetAnchorB();
 			b2Vec2 v2=m_joint_2[i]->GetAnchorA();
 			b2Fixture* origFix=bod->GetFixtureList();
-			if(v1.x-v2.x > 1.3)//Player is far left
+			if(v1.x-v2.x > 1.3)///We check if player is far left
 				{
-						b2FixtureDef *fd = new b2FixtureDef;
+						b2FixtureDef *fd = new b2FixtureDef;/// if so, we make player transparent
 						b2PolygonShape player1;
 						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
 						fd->shape = &player1;
@@ -111,9 +100,9 @@ namespace cs296
 				}
 			else	
 			{ 
-				if(origFix->GetFilterData().maskBits == 0x0000 )//in transparent state
+				if(origFix->GetFilterData().maskBits == 0x0000 )/// We check if player is in transparent state
 				{
-						b2FixtureDef *fd = new b2FixtureDef;
+						b2FixtureDef *fd = new b2FixtureDef;/// if so, we change fixture accordingly
 						b2PolygonShape player1;
 						player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
 						fd->shape = &player1;
@@ -139,9 +128,9 @@ namespace cs296
 			b2Vec2 v1=m_joint_2[i]->GetAnchorB();
 			b2Vec2 v2=m_joint_2[i]->GetAnchorA();
 			b2Fixture* origFix=bod->GetFixtureList();
-			if(v1.x-v2.x < -1.3)//Player is far right
+			if(v1.x-v2.x < -1.3)///We check if player is far right
 				{
-						b2FixtureDef *fd = new b2FixtureDef;
+						b2FixtureDef *fd = new b2FixtureDef;///< If so, we create a new fixture
 						b2PolygonShape player1;
 						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
 						fd->shape = &player1;
@@ -149,11 +138,10 @@ namespace cs296
 						fd->filter.maskBits = 0x0000;
 						bod->DestroyFixture(origFix);
 						bod->CreateFixture(fd);
-//					filt.maskBits=0x0000;//also change fixture here
 				}
 			else	
 			{ 
-				if(origFix->GetFilterData().maskBits == 0x0000 )//in transparent state
+				if(origFix->GetFilterData().maskBits == 0x0000 )/// in transparent state
 				{
 						b2FixtureDef *fd = new b2FixtureDef;
 						b2PolygonShape player1;
@@ -171,7 +159,7 @@ namespace cs296
 					bod->GetFixtureList()->SetFilterData(filt);
 				}
 			}
-		// go for a shot!
+		/// If not far right, go for a shot!
 		m_joint_2[i]->SetMotorSpeed(mul*(-2*abs(m_joint_2[i]->GetAnchorA().x - m_joint_2[i]->GetAnchorB().x) -.5));
 		}
 		break;
@@ -226,7 +214,6 @@ namespace cs296
 			ball->ApplyLinearImpulse(b2Vec2(0,-10),ball->GetPosition(),100);
 			break;
 			case 'a':
-			//checkUp();
 			ball->ApplyLinearImpulse(b2Vec2(-10,0),ball->GetPosition(),100);
 			break;
 			case 'd':
@@ -264,7 +251,6 @@ namespace cs296
 				}
 			}
 		for(int i=0;i<10;i++){
-			//cout<<score1[i]->GetPosition().y<<endl;
 			if(score1[9-i]->GetPosition().y>=34-i*2){
 				score1[9-i]->SetLinearVelocity(b2Vec2(0,0));
 			}
@@ -285,7 +271,6 @@ namespace cs296
 						score2[9-i]->SetLinearVelocity(b2Vec2(0,0));
 					}
 				}
-				//Move the score box
 			}
 	}
 
@@ -294,7 +279,8 @@ namespace cs296
   rod_2_index=0;
   rod_1_index=0;
 
-	///Base rectangles
+/// We define the bodies for :
+	///1. Base rectangles
 	{
 		b2PolygonShape shape;
 		b2BodyDef bd_base;
@@ -332,7 +318,7 @@ namespace cs296
 	
 /////////////////////////////////////////////////////////////////////////////
 	
-	///Base circle
+	///2. Base circle
 	{
 		b2CircleShape cir;
 		cir.m_radius=7;
@@ -349,9 +335,8 @@ namespace cs296
 	
 /////////////////////////////////////////////////////////////////////////////
 	
-	///Ball
+	///3. Ball
 	{
-		//b2Body* ball;
 		b2CircleShape bal;
 		bal.m_radius=0.6;
 		b2BodyDef bd_ball;
@@ -365,27 +350,25 @@ namespace cs296
 		ball=m_world->CreateBody(&bd_ball);
 		ball->CreateFixture(fd);
 		ball->SetActive(true);
-		//b2Vec2 force = b2Vec2(10,10);
-		//ball->ApplyLinearImpulse(force, ball->GetPosition(),100);
 	}
 	
 /////////////////////////////////////////////////////////////////////////////
 	
-	///Players Team1
-	b2Body* team1[11]; 
+
+	b2Body* team1[11]; 	///< Players Team1
 	b2PolygonShape player1;
 	b2BodyDef bd_player1[11];
 
 		
 /////////////////////////////////////////////////////////////////////////////
 	
-	///Players Team2
-b2Body* team2[11];
+	
+b2Body* team2[11];///< Players Team2
 	b2PolygonShape player2;
 	b2BodyDef bd_player2[11];
 	{
 			 
-		/// Team 1 and Team 2 Rods
+		///4. Team 1 and Team 2 Rods
 
 		for(int i=0;i<4;i++){
 			b2PolygonShape rodShape, constr;
@@ -406,7 +389,7 @@ b2Body* team2[11];
 			else if(i==3){
 			pos2= 25.0f;
 			}
-			pos1= -1*pos2;//mirrorimage
+			pos1= -1*pos2;///mirrorimage
 			bd_rodShape1.position.Set(pos1,20.0f);
 			bd_rodShape2.position.Set(pos2,20.0f);
 			
@@ -457,8 +440,8 @@ b2Body* team2[11];
 			}
 	}
 /////////////////////////////////////////////////////////////////////////////
-	/// Set Players
-///Team 1
+	/// 5. To set Players
+///a. Team 1
 	{
 	player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
 ///Rod 1		
@@ -493,8 +476,8 @@ for( int i=0;i<10;i++)
 	bd_player1[i].type=b2_dynamicBody;
 	team1[i] = m_world->CreateBody(&bd_player1[i]);
 	team1[i]->CreateFixture(&player1,0.0f);	
-		///Joint
-	b2PrismaticJointDef prismaticJointDef;
+
+	b2PrismaticJointDef prismaticJointDef;		///We define joints for all these players
 	  prismaticJointDef.bodyA = team1[i];
 	  prismaticJointDef.bodyB = rod1[j];
 	  prismaticJointDef.collideConnected = false;
@@ -509,7 +492,9 @@ for( int i=0;i<10;i++)
 	  m_joint_1[i] = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );
 
 }
-/////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////////////
+
+///b. Team 2	
 		player2.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
 ///Rod 1		
 		bd_player2[0].position.Set(25.0f,20.0f);
@@ -541,7 +526,7 @@ for( int i=0;i<10;i++)
 	bd_player2[i].type=b2_dynamicBody;
 	team2[i] = m_world->CreateBody(&bd_player2[i]);
 	team2[i]->CreateFixture(&player2,0.0f);	
-		///Joint
+	///We define joints for all these players
 	b2PrismaticJointDef prismaticJointDef;
 	  prismaticJointDef.bodyA = team2[i];
 	  prismaticJointDef.bodyB = rod2[j];
@@ -562,13 +547,11 @@ for( int i=0;i<10;i++)
 	
 /////////////////////////////////////////////////////////////////////////////
 	
-	///Score team1
+	///6. Score team1
 	{
-		//b2Body* score1[10];
 		b2PolygonShape shape[10];
 		b2FixtureDef *fd = new b2FixtureDef;
 		fd->restitution = 0;
-		//b2BodyDef bd_score[10];
 		for(int i=0;i<10;i++){
 			shape[i].SetAsBox(1,1);	
 			bd_score1[i].type = b2_dynamicBody;
@@ -581,11 +564,9 @@ for( int i=0;i<10;i++)
 	
 /////////////////////////////////////////////////////////////////////////////
 	
-	///Score team2
+	///7. Score team2
 	{
-		//b2Body* score2[10];
 		b2PolygonShape shape[10];
-		//b2BodyDef bd_score[10];
 		for(int i=0;i<10;i++){
 			shape[i].SetAsBox(1,1);	
 			bd_score2[i].type = b2_dynamicBody;
@@ -599,7 +580,7 @@ for( int i=0;i<10;i++)
 	}
 	
 /////////////////////////////////////////////////////////////////////////////
-  ///Pointers
+  ///8. Pointers
 	  {
 	b2Vec2 vertices[3];
 	vertices[0].Set(0.0f, 0.0f);
