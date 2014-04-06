@@ -90,15 +90,87 @@ namespace cs296
 		active2->SetLinearVelocity(b2Vec2(0,0));
 		break;
 		case 'v':
-		for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
+
+			for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
 		{
-		 // go for a shot!
+			b2Body *bod= m_joint_2[i]->GetBodyA();
+			b2Vec2 v1=m_joint_2[i]->GetAnchorB();
+			b2Vec2 v2=m_joint_2[i]->GetAnchorA();
+			b2Fixture* origFix=bod->GetFixtureList();
+			if(v1.x-v2.x > 1.3)//Player is far left
+				{
+						b2FixtureDef *fd = new b2FixtureDef;
+						b2PolygonShape player1;
+						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
+						fd->shape = &player1;
+						fd->density = 0.0;
+						fd->filter.maskBits = 0x0000;
+						bod->DestroyFixture(origFix);
+						bod->CreateFixture(fd);
+//					filt.maskBits=0x0000;//also change fixture here
+				}
+			else	
+			{ 
+				if(origFix->GetFilterData().maskBits == 0x0000 )//in transparent state
+				{
+						b2FixtureDef *fd = new b2FixtureDef;
+						b2PolygonShape player1;
+						player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+						fd->shape = &player1;
+						fd->density = 0.0;
+						fd->filter.maskBits = 0xFFFF;
+						bod->DestroyFixture(origFix);
+						bod->CreateFixture(fd);
+				}			
+				else
+				{
+					b2Filter filt=bod->GetFixtureList()->GetFilterData();
+					filt.maskBits=0xFFFF;
+					bod->GetFixtureList()->SetFilterData(filt);
+				}
+			}
 		m_joint_2[i]->SetMotorSpeed(mul*(2* abs(m_joint_2[i]->GetAnchorB().x - m_joint_2[i]->GetAnchorA().x)+.5));
 		}
 		break;
 		case 'n':
 			for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
 		{
+			b2Body *bod= m_joint_2[i]->GetBodyA();
+			b2Vec2 v1=m_joint_2[i]->GetAnchorB();
+			b2Vec2 v2=m_joint_2[i]->GetAnchorA();
+			b2Fixture* origFix=bod->GetFixtureList();
+			if(v1.x-v2.x < -1.3)//Player is far right
+				{
+						b2FixtureDef *fd = new b2FixtureDef;
+						b2PolygonShape player1;
+						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
+						fd->shape = &player1;
+						fd->density = 0.0;
+						fd->filter.maskBits = 0x0000;
+						bod->DestroyFixture(origFix);
+						bod->CreateFixture(fd);
+//					filt.maskBits=0x0000;//also change fixture here
+				}
+			else	
+			{ 
+				if(origFix->GetFilterData().maskBits == 0x0000 )//in transparent state
+				{
+						b2FixtureDef *fd = new b2FixtureDef;
+						b2PolygonShape player1;
+						player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+						fd->shape = &player1;
+						fd->density = 0.0;
+						fd->filter.maskBits = 0xFFFF;
+						bod->DestroyFixture(origFix);
+						bod->CreateFixture(fd);
+				}			
+				else
+				{
+					b2Filter filt=bod->GetFixtureList()->GetFilterData();
+					filt.maskBits=0xFFFF;
+					bod->GetFixtureList()->SetFilterData(filt);
+				}
+			}
 		// go for a shot!
 		m_joint_2[i]->SetMotorSpeed(mul*(-2*abs(m_joint_2[i]->GetAnchorA().x - m_joint_2[i]->GetAnchorB().x) -.5));
 		}
@@ -111,12 +183,12 @@ namespace cs296
 		///Team 1
 		case'[':
 		rod_1_index=(rod_1_index+1)%4;
-		active2=rod2[rod_1_index];
+		active1=rod1[rod_1_index];
 		pointer1->SetTransform(b2Vec2(active1->GetPosition().x,-3),0);
 		break;
 		case']':
 		rod_1_index=(rod_1_index+3)%4;
-		active1=rod2[rod_1_index];
+		active1=rod1[rod_1_index];
 		pointer1->SetTransform(b2Vec2(active1->GetPosition().x,-3),0);
 		break;
 		case '-':

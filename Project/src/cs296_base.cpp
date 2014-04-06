@@ -91,7 +91,7 @@ void base_sim_t::step(settings_t* settings)
 {
 	
 dom.check();
-for(b2Joint * m_joint= m_world->GetJointList(); m_joint; m_joint= m_joint->GetNext())
+/*for(b2Joint * m_joint= m_world->GetJointList(); m_joint; m_joint= m_joint->GetNext())
 {
 	b2Body *bod= m_joint->GetBodyA();
 	b2Vec2 v1=m_joint->GetAnchorB();
@@ -111,7 +111,7 @@ for(b2Joint * m_joint= m_world->GetJointList(); m_joint; m_joint= m_joint->GetNe
 			bod->GetFixtureList()->SetFilterData(filt);
 		}
 	 
-	}
+	}*/
   float32 time_step = settings->hz > 0.0f ? 1.0f / settings->hz : float32(0.0f);
 
   if (settings->pause)
