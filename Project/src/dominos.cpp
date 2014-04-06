@@ -81,10 +81,17 @@ namespace cs296
 		pointer2->SetTransform(b2Vec2(active2->GetPosition().x,-3),0);
 		break;
 		case 'y':
+<<<<<<< HEAD
 		active2->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
 		break;
 		case 'h':
 		active2->ApplyLinearImpulse(b2Vec2(0,-40),active2->GetPosition(),100);
+=======
+		rod[3]->ApplyLinearImpulse(b2Vec2(0,40),rod[3]->GetPosition(),100);
+		break;
+		case 'h':
+		rod[3]->ApplyLinearImpulse(b2Vec2(0,-40),rod[3]->GetPosition(),100);
+>>>>>>> b50c5a189a59786263c3c3e96302968e26afead4
 		break;
 		case ' ':
 		active2->SetLinearVelocity(b2Vec2(0,0));
@@ -303,6 +310,7 @@ namespace cs296
 	b2Body* team1[11]; 
 	b2PolygonShape player1;
 	b2BodyDef bd_player1[11];
+<<<<<<< HEAD
 
 		
 /////////////////////////////////////////////////////////////////////////////
@@ -312,6 +320,58 @@ b2Body* team2[11];
 	b2PolygonShape player2;
 	b2BodyDef bd_player2[11];
 	{
+=======
+	{
+		
+		int x[11],y[11];
+		x[0]=-25;y[0]=0;
+		x[1]=-18;y[1]=5;
+		x[2]=-18;y[2]=-5;
+		x[3]=-4;y[3]=12;
+		x[4]=-4;y[4]=6;
+		x[5]=-4;y[5]=0;
+		x[6]=-4;y[6]=-6;
+		x[7]=-4;y[7]=-12;
+		x[8]=11;y[8]=8;
+		x[9]=11;y[9]=0;
+		x[10]=11;y[10]=-8;
+		for(int i=0;i<11;i++){
+			bd_player1[i].position.Set(x[i],20.0f);
+			team1[i] = m_world->CreateBody(&bd_player1[i]);
+			player1[i].SetAsBox(0.8,1.2,b2Vec2(0.0f,y[i]),0.0f);
+			team1[i]->CreateFixture(&player1[i],0.0f);
+		}
+	}
+	
+/////////////////////////////////////////////////////////////////////////////
+	
+	//Players Team2
+	b2Body* team2[11], *team2join[11]; 
+	b2PolygonShape player2[11];
+	b2BodyDef bd_player2[11];
+	{
+		int x[11],y[11];
+		x[0]=25;y[0]=0;
+		x[1]=18;y[1]=5;
+		x[2]=18;y[2]=-5;
+		x[3]=4;y[3]=12;
+		x[4]=4;y[4]=6;
+		x[5]=4;y[5]=0;
+		x[6]=4;y[6]=-6;
+		x[7]=4;y[7]=-12;
+		x[8]=-11;y[8]=8;
+		x[9]=-11;y[9]=0;
+		x[10]=-11;y[10]=-8;
+		for(int i=0;i<11;i++){
+			bd_player2[i].position.Set(x[i],20.0f);
+			team2join[i] = m_world->CreateBody(&bd_player2[i]);
+			bd_player2[i].type=b2_dynamicBody;
+			team2[i] = m_world->CreateBody(&bd_player2[i]);
+			player2[i].SetAsBox(0.8,1.2,b2Vec2(0.0f,y[i]),0.0f);
+			team2[i]->CreateFixture(&player2[i],0.0f);
+		}
+
+>>>>>>> b50c5a189a59786263c3c3e96302968e26afead4
 			 
 		/// Team 1 and Team 2 Rods
 
@@ -326,7 +386,11 @@ b2Body* team2[11];
 				pos2=-11.0f;
 			}
 			else if(i==1){
+<<<<<<< HEAD
 			pos2=4.0f;
+=======
+				pos=4.0f;
+>>>>>>> b50c5a189a59786263c3c3e96302968e26afead4
 			}
 			else if(i==2){
 				pos2=18.0f;
@@ -334,6 +398,7 @@ b2Body* team2[11];
 			else if(i==3){
 			pos2= 25.0f;
 			}
+<<<<<<< HEAD
 			pos1= -1*pos2;//mirrorimage
 			bd_rodShape1.position.Set(pos1,20.0f);
 			bd_rodShape2.position.Set(pos2,20.0f);
@@ -347,6 +412,13 @@ b2Body* team2[11];
 			bd_constr2[1].position.Set(pos2-0.8f,6.0f);
 			bd_constr2[2].position.Set(pos2+0.8f,34.0f);
 			bd_constr2[3].position.Set(pos2-0.8f,34.0f);
+=======
+			bd_rod_1.position.Set(pos,20.0f);
+			bd_constr[0].position.Set(pos+0.8f,6.0f);
+			bd_constr[1].position.Set(pos-0.8f,6.0f);
+			bd_constr[2].position.Set(pos+0.8f,34.0f);
+			bd_constr[3].position.Set(pos-0.8f,34.0f);
+>>>>>>> b50c5a189a59786263c3c3e96302968e26afead4
 			
 			b2FixtureDef *fd = new b2FixtureDef;
 			fd->shape = &constr;
@@ -354,8 +426,7 @@ b2Body* team2[11];
 			fd->filter.categoryBits = 0x0002;
 			fd->filter.maskBits = 0x0002;
 			b2Body* con;
-			for(int j=0;j<4;j++)
-			{
+			for(int j=0;j<4;j++){
 				constr.SetAsBox(0.4f,0.4f,b2Vec2(0.0f,0.0f),0.0f);
 				bd_constr2[j].type=b2_staticBody;
 				bd_constr1[j].type=b2_staticBody;
@@ -364,6 +435,7 @@ b2Body* team2[11];
 				con=m_world->CreateBody(&bd_constr1[j]);
 				con->CreateFixture(fd);
 			}
+<<<<<<< HEAD
 			fd->shape = &rodShape;
 			rodShape.SetAsBox(0.4f,18.0f,b2Vec2(0.0f,0.0f),0.0f);
 			
@@ -383,6 +455,46 @@ b2Body* team2[11];
 			
 			
 			}
+=======
+			
+			
+			fd->shape = &rod1;
+			rod1.SetAsBox(0.4f,18.0f,b2Vec2(0.0f,0.0f),0.0f);
+			rod[i] = m_world->CreateBody(&bd_rod_1);
+			rod[i]->CreateFixture(fd);
+			rod1.SetAsBox(0.8f,3.0f,b2Vec2(0.0f,21.0f),0.0f);
+			rod[i]->CreateFixture(&rod1,0.0f);
+			rod1.SetAsBox(0.6f,0.2f,b2Vec2(0.0f,-18.3f),0.0f);
+			rod[i]->CreateFixture(&rod1,0.0f);
+		}
+			b2PrismaticJointDef prismaticJointDef;
+			  prismaticJointDef.bodyA = team2[0];
+			  prismaticJointDef.bodyB = rod[3];
+			  prismaticJointDef.collideConnected = false;
+			  prismaticJointDef.localAxisA.Set(1,0);
+			  prismaticJointDef.localAnchorA.Set( 0,0);
+			  prismaticJointDef.localAnchorB.Set( 0,0);
+			  prismaticJointDef.enableLimit = true;
+			  prismaticJointDef.lowerTranslation = -2.0;
+			  prismaticJointDef.upperTranslation = 2.0;
+			  prismaticJointDef.enableMotor = true;
+			  prismaticJointDef.maxMotorForce = 10000;
+			  m_joint = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );
+			  
+			/*  b2PrismaticJointDef prismaticJointRod;// 0,-15
+			  prismaticJointDef.bodyA = team2[0];
+			  prismaticJointDef.bodyB = rod[3];
+			  prismaticJointDef.collideConnected = false;
+			  prismaticJointDef.localAxisA.Set(1,0);
+			  prismaticJointDef.localAnchorA.Set( 0,0);
+			  prismaticJointDef.localAnchorB.Set( 0,0);
+			  prismaticJointDef.enableLimit = true;
+			  prismaticJointDef.lowerTranslation = -2.0;
+			  prismaticJointDef.upperTranslation = 2.0;
+			  prismaticJointDef.enableMotor = true;
+			  prismaticJointDef.maxMotorForce = 10000;
+			  m_joint = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );*/
+>>>>>>> b50c5a189a59786263c3c3e96302968e26afead4
 	}
 /////////////////////////////////////////////////////////////////////////////
 	/// Set Players
@@ -452,6 +564,7 @@ for( int i=0;i<10;i++)
 		
 		bd_player2[5].position.Set(4.0f,17.0f);
 	
+<<<<<<< HEAD
 		bd_player2[6].position.Set(4.0f,10.0f);
 
 ///Rod 4
@@ -491,6 +604,9 @@ for( int i=0;i<10;i++)
 /////////////////////////////////////////////////////////////////////////////
 	
 	///Score team1
+=======
+	//Score team1
+>>>>>>> b50c5a189a59786263c3c3e96302968e26afead4
 	{
 		//b2Body* score1[10];
 		b2PolygonShape shape[10];
