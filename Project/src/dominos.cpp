@@ -50,6 +50,8 @@ namespace cs296
 	b2Body* score2[10];
 	b2BodyDef bd_score1[10];
 	b2BodyDef bd_score2[10];
+	b2Body* team1[11];///< Players Team1
+	b2Body* team2[11];///< Players Team2
 	b2Body* active2=rod2[1], *active1=rod2[1];///Define Active rod for players
 	b2Body* pointer1, * pointer2;///We define pointers to the current active rod
 
@@ -223,7 +225,28 @@ namespace cs296
 	}
 		/// Check if someone has scored
 	void dominos_t::check(void){
-		//for(int i
+		for(int i=0;i<10;i++){
+			b2Fixture* origFix=team2[i]->GetFixtureList();
+			b2FixtureDef *fd = new b2FixtureDef;;
+			b2PolygonShape newShape;
+			//cout<<team2[i]->GetPosition().x<<"   "<<m_joint_2[i]->GetBodyB()->GetPosition().x<<endl;
+			newShape.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2,1.5);
+			fd->shape = &newShape;
+			team2[i]->DestroyFixture(origFix);
+			team2[i]->CreateFixture(fd);
+		}	
+		for(int i=0;i<10;i++){
+			b2Fixture* origFix=team1[i]->GetFixtureList();
+			b2FixtureDef *fd = new b2FixtureDef;;
+			b2PolygonShape newShape;
+			//cout<<team2[i]->GetPosition().x<<"   "<<m_joint_2[i]->GetBodyB()->GetPosition().x<<endl;
+			newShape.SetAsBox(1+abs(team1[i]->GetPosition().x-m_joint_1[i]->GetBodyB()->GetPosition().x)/2,1.5);
+			fd->shape = &newShape;
+			team1[i]->DestroyFixture(origFix);
+			team1[i]->CreateFixture(fd);
+		}	
+			
+			
 		if(ball->GetPosition().x<=32 && ball->GetPosition().x>=30 &&
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
 			ball->SetTransform(b2Vec2(0,20),0);team1_score++;
@@ -342,16 +365,11 @@ namespace cs296
 	
 /////////////////////////////////////////////////////////////////////////////
 	
-
-	b2Body* team1[11]; 	///< Players Team1
 	b2PolygonShape player1;
 	b2BodyDef bd_player1[11];
-
 		
 /////////////////////////////////////////////////////////////////////////////
 	
-	
-	b2Body* team2[11];///< Players Team2
 	b2PolygonShape player2;
 	b2BodyDef bd_player2[11];
 	{
@@ -361,6 +379,7 @@ namespace cs296
 			b2PolygonShape rodShape, constr;
 			b2BodyDef bd_rodShape1,bd_rodShape2, bd_constr2[4], bd_constr1[4];
 			b2Body * constraintBlock;
+			bd_rodShape1.type = b2_dynamicBody;
 			bd_rodShape2.type = b2_dynamicBody;
 			
 			float pos2,pos1;
@@ -423,18 +442,7 @@ namespace cs296
 			rod2[i]->CreateFixture(&rodShape,0.0f);
 			rodShape.SetAsBox(0.6f,0.2f,b2Vec2(0.0f,18.3f),0.0f);
 			rod1[i]->CreateFixture(&rodShape,0.0f);
-		}
-		b2PrismaticJointDef jointDef;
-		b2Vec2 worldAxis(1.0f, 0.0f);
-		jointDef.Initialize(rod2[0], base,b2Vec2(-11,5), worldAxis);
-		jointDef.lowerTranslation = -5.0f;
-		jointDef.upperTranslation = 5;
-		jointDef.enableLimit = true;
-		jointDef.maxMotorForce = 1.0f;
-		jointDef.motorSpeed = 0.0f;
-		jointDef.enableMotor = true;
-		m_world->CreateJoint( &jointDef );
-		
+		}		
 	}
 /////////////////////////////////////////////////////////////////////////////
 	/// 5. To set Players
