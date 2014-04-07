@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body><br><br><div class="head0">Introduction</div><br>
+This report explains in detail the project we created- a foosball table- in Box2d. We describe in brief the bodies,fixtures and constraints we used to create this simulation.<br>
+Here is the initial model of our simulation:<br>
+<br><div class="head2">foosball</div><br><img src="../data/foosball.png" width="300" height="300" class="center"></img>
+
+<br><br><div class="head0">Design</div><br>
+<ol>
+<li> We simulated the game of foosball using a bounding table, rods and rigid bodies representing players attached to each rod. Whenever the ball enters one of the goals situated at either end, a score variable is updated and this is shown by moving one of the relevant score blocks present on either side of the table. The first team to ten goals is the winner.<br></li>
+
+<li> The simulation consists of a ball which moves around on the frictionless table colliding with everything it comes in contact with.<br></li>
+
+<li> There are (transparent) rods at relevant locations on the table, constrained to move upto a certain limit in the upward or downward direction. The players attached to each rod can be moved towards either the left or right upto a certain limit. The user also has the option to turn the rod enough to lift all its players off the table.We used the <fontc>b2PrismaticJoint</fontc> to simulate motion of these players.<br></li>
+
+<li> The simulation is heavily dependent on user input. We implemented this overloading the <fontc>keyboard()</fontc> function of the <fontc>base\_sim\_t</fontc> class of Box2D.<br></li>
+</ol>
+It was a challenge for us to implement the constraints required by the nature of the game, and we think that usage of prismatic joints and using the <fontc>filter</fontc> attributes of Box2D objects to cater to all aspects of motion of the players has made our design more efficient. We also feel that using static objects to constrain the motion of the rods (as explained later) was a simple yet effective feature.<br>
+
+<br><br><div class="head0">Parts of the simulation</div><br>
+
+<br><div class="head1">Table</div><br><br>
+The entire game is played within the confines of the table, which serves to restrict the motion of the ball and rods. This was implemented using four box shapes.<br>
+%<br><div class="head2">Platform</div><br><img src="../data/Platform.png" width="300" height="300" class="center"></img>
+
+<br><div class="head1">Rods</div><br><br>
+<ol>
+<li> Rods are thin dynamic <fontc>Box</fontc> objects located at appropriate locations on the table. Two pairs of small static objects are located on either side of the rod at the point where it enters and leaves the table to constrain its motion in the y direction.<br></li>
+
+<li> At any given point, only one rod per team is active. The user can change the active rod by giving a keyboard input.<br></li>
+
+<li> Each rod contains one anchor of a prismatic joint, the other end of which is connected to a Player body.<br></li>
+</ol>
+
+<br><div class="head1">Player</div><br><br>
+<ol>
+<li> A player is a small,rigid and dynamic body which is attached to a rod via a prismatic joint. All players on the current active rod can be move right or left(upto a certain limit) by a keyboard input.Such a rotation has greater impact if it happens from a start position far away from the final position of the player.</li>
+
+<li> The user can also lift the players of a rod off the table (meaning that the ball can pass underneath them) by pressing the right motion key while the players are at the maximum right position, and similarly for the left. This can be viewed as a change in the shape(fixture) of the players.</li>
+
+<li> These are implemented by setting appropriate attributes on the prismatic joint and by setting the fixtures and filter bits of the players accordingly.</li>
+</ol>
+<br><div class="head1">Ball</div><br><br>
+The ball is a <fontc>b2Circle</fontc> shaped <fontc>bullet</fontc> object which keeps on moving around and being struck by the players/table walls. Scores are updated when the ball enters either of the goals.<br>
+
+<br><br><div class="head0">Conclusion</div><br>
+The simulation is identical to the old one for the intial part. When the light box flies up into the air, it knocks the new sphere onto the dominoes and all of them fall down into a new box. The old sphere comes to rest near the wall of the new box. The rest of the animation is unchanged<br>
+In conclusion, we have added a few features to the simulation to make it more interesting while conserving its basic functionality <br>
+ </body>
+
+</html>

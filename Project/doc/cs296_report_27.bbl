@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+
+\bibitem{Shivam}
+Our batchmate shivam garg.
+
+\bibitem{Idforces}
+\url{https://www.iforce2d.net/b2dtut/}.
+
+\bibitem{stackoverflow}
+Jeff Atwood and Joel Spolsky.
+\newblock \url{https://www.stackoverflow.com}.
+\newblock 2009.
+
+\end{thebibliography}

@@ -32,12 +32,12 @@ namespace cs296
   //! Notice the public inheritance - why do we inherit the base_sim_t class?
   class dominos_t : public base_sim_t
   {
-  	b2PrismaticJoint* m_joint_1[11], *m_joint_2[11];	
-	int rod_2_index,rod_1_index;
+  	b2PrismaticJoint* m_joint_1[11], *m_joint_2[11], *m_joint_rod1[4], *m_joint_rod2[4];	///< The prismatic joints used for anchoring players
+	int rod_2_index,rod_1_index;///< Shows active rod
   public:
 	
     dominos_t();
-    virtual void keyboard(unsigned char);
+virtual void keyboard(unsigned char);
      // void checkUp(b2Vec2,b2Vec2,b2PrismaticJoint*);
     void check(void);
     void score_1(int);

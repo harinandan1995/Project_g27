@@ -165,10 +165,11 @@ doc:
 	@$(ECHO) "Done"
 
 report:
-
 	@$(ECHO) "Generating Report ...  "
-	
 	@cd ./doc; \
+	pdflatex cs296_report_27.tex;\
+	bibtex cs296_report_27.tex;\
+	pdflatex cs296_report_27.tex;\
 	pdflatex cs296_report_27.tex;
 	@$(ECHO) "Done"
 data:
