@@ -45,7 +45,8 @@ fulltext=re.sub(r"\\hline","<tr><td>",fulltext)
 pattern_tableend=re.compile(r"<tr><td>$\s*\\end{tabular}.*?table}",re.DOTALL|re.MULTILINE)
 fulltext=pattern_tableend.sub(r"</table><br>",fulltext)
 #Pictures
-fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../data/\3.png" width="300" height="300" class="center"></img>',fulltext )
+fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../data/\3.png" width="\1" height="\2" class="center"></img>',fulltext )
+fulltext = re.sub(r"\\_",r"_",fulltext)
 fulltext = re.sub(r"(g27)_(plot0[1-5])",r"\1_lab09_\2",fulltext)
 #References
 fulltext=re.sub(r"\\cite{.*}","",fulltext)
