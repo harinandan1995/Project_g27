@@ -52,6 +52,8 @@ namespace cs296
 	b2BodyDef bd_score2[10];
 	b2Body* team1[11];///< Players Team1
 	b2Body* team2[11];///< Players Team2
+	b2BodyDef bd_player1[11];
+	b2BodyDef bd_player2[11];
 	b2Body* active2=rod2[1], *active1=rod2[1];///Define Active rod for players
 	b2Body* pointer1, * pointer2;///We define pointers to the current active rod
 
@@ -82,14 +84,14 @@ namespace cs296
 				break;
 			case 'v':///Keypress v: Rotates the player towards left
 				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++){
-					b2Body *bod= m_joint_2[i]->GetBodyA();
+					/*b2Body *bod= m_joint_2[i]->GetBodyA();
 					b2Vec2 v1=m_joint_2[i]->GetAnchorB();
 					b2Vec2 v2=m_joint_2[i]->GetAnchorA();
 					b2Fixture* origFix=bod->GetFixtureList();
 					if(v1.x-v2.x > 1.3){///We check if player is far left
 						b2FixtureDef *fd = new b2FixtureDef;/// if so, we make player transparent
 						b2PolygonShape player1;
-						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
+						player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
 						fd->shape = &player1;
 						fd->density = 0.0;
 						fd->filter.maskBits = 0x0000;
@@ -101,7 +103,7 @@ namespace cs296
 						if(origFix->GetFilterData().maskBits == 0x0000 ){/// We check if player is in transparent state
 							b2FixtureDef *fd = new b2FixtureDef;/// if so, we change fixture accordingly
 							b2PolygonShape player1;
-							player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+							player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
 							fd->shape = &player1;
 							fd->density = 0.0;
 							fd->filter.maskBits = 0xFFFF;
@@ -113,20 +115,20 @@ namespace cs296
 							filt.maskBits=0xFFFF;
 							bod->GetFixtureList()->SetFilterData(filt);
 						}
-					}
+					}*/
 					m_joint_2[i]->SetMotorSpeed(mul*(2* abs(m_joint_2[i]->GetAnchorB().x - m_joint_2[i]->GetAnchorA().x)+.5));
 				}
 				break;
 			case 'n':
 				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++){
-					b2Body *bod= m_joint_2[i]->GetBodyA();
+					/*b2Body *bod= m_joint_2[i]->GetBodyA();
 					b2Vec2 v1=m_joint_2[i]->GetAnchorB();
 					b2Vec2 v2=m_joint_2[i]->GetAnchorA();
 					b2Fixture* origFix=bod->GetFixtureList();
 					if(v1.x-v2.x < -1.3){///We check if player is far right
 						b2FixtureDef *fd = new b2FixtureDef;///< If so, we create a new fixture
 						b2PolygonShape player1;
-						player1.SetAsBox(1,v2.x-v1.x+0.4f,b2Vec2(0.0f,0.0f),0.0f);
+						player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
 						fd->shape = &player1;
 						fd->density = 0.0;
 						fd->filter.maskBits = 0x0000;
@@ -137,7 +139,7 @@ namespace cs296
 						if(origFix->GetFilterData().maskBits == 0x0000 ){/// in transparent state
 							b2FixtureDef *fd = new b2FixtureDef;
 							b2PolygonShape player1;
-							player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+							player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
 							fd->shape = &player1;
 							fd->density = 0.0;
 							fd->filter.maskBits = 0xFFFF;
@@ -149,7 +151,7 @@ namespace cs296
 							filt.maskBits=0xFFFF;
 							bod->GetFixtureList()->SetFilterData(filt);
 						}
-					}
+					}*/
 					/// If not far right, go for a shot!
 					m_joint_2[i]->SetMotorSpeed(mul*(-2*abs(m_joint_2[i]->GetAnchorA().x - m_joint_2[i]->GetAnchorB().x) -.5));
 				}
@@ -225,27 +227,57 @@ namespace cs296
 	}
 		/// Check if someone has scored
 	void dominos_t::check(void){
-		for(int i=0;i<10;i++){
-			b2Fixture* origFix=team2[i]->GetFixtureList();
-			b2FixtureDef *fd = new b2FixtureDef;;
-			b2PolygonShape newShape;
-			//cout<<team2[i]->GetPosition().x<<"   "<<m_joint_2[i]->GetBodyB()->GetPosition().x<<endl;
-			newShape.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2,1.5);
-			fd->shape = &newShape;
-			team2[i]->DestroyFixture(origFix);
-			team2[i]->CreateFixture(fd);
-		}	
+		///To change the fixture of the player depending on the position of the player
+		///Team1
 		for(int i=0;i<10;i++){
 			b2Fixture* origFix=team1[i]->GetFixtureList();
-			b2FixtureDef *fd = new b2FixtureDef;;
 			b2PolygonShape newShape;
-			//cout<<team2[i]->GetPosition().x<<"   "<<m_joint_2[i]->GetBodyB()->GetPosition().x<<endl;
-			newShape.SetAsBox(1+abs(team1[i]->GetPosition().x-m_joint_1[i]->GetBodyB()->GetPosition().x)/2,1.5);
-			fd->shape = &newShape;
-			team1[i]->DestroyFixture(origFix);
-			team1[i]->CreateFixture(fd);
-		}	
+			b2FixtureDef *fd = new b2FixtureDef;
+			newShape.SetAsBox(1+abs(team1[i]->GetPosition().x-m_joint_1[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
 			
+			fd->shape = &newShape;
+			fd->density = 0;
+			//cout<<m_joint_1[i]->GetAnchorB().x-m_joint_1[i]->GetAnchorA().x<<endl;
+			if(abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)>1.3){
+				fd->filter.maskBits = 0x0000;
+				bd_player1[i].type = b2_kinematicBody;
+				team1[i]->DestroyFixture(origFix);
+				team1[i]->CreateFixture(fd);
+			}
+			else{ 
+				bd_player1[i].type = b2_dynamicBody;
+				fd->filter.maskBits = 0xFFFF;
+				team1[i]->DestroyFixture(origFix);
+				team1[i]->CreateFixture(fd);
+			}
+		}	
+		///Team2
+		for(int i=0;i<10;i++){
+			b2Fixture* origFix=team2[i]->GetFixtureList();
+			b2PolygonShape newShape;
+			
+			
+			b2FixtureDef *fd = new b2FixtureDef;
+			newShape.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
+			
+			fd->shape = &newShape;
+			fd->density = 0;
+			cout<<i<<" "<<team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x<<endl;
+			if(abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)>1.3){
+				fd->filter.maskBits = 0x0000;
+				bd_player2[i].type = b2_kinematicBody;
+				team2[i]->DestroyFixture(origFix);
+				team2[i]->CreateFixture(fd);
+			}
+			else{ 
+				bd_player2[i].type = b2_dynamicBody;
+				fd->filter.maskBits = 0xFFFF;
+				team2[i]->DestroyFixture(origFix);
+				team2[i]->CreateFixture(fd);
+			}
+			
+		}
+		///To check if ball has reached the goal 	
 			
 		if(ball->GetPosition().x<=32 && ball->GetPosition().x>=30 &&
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
@@ -366,12 +398,12 @@ namespace cs296
 /////////////////////////////////////////////////////////////////////////////
 	
 	b2PolygonShape player1;
-	b2BodyDef bd_player1[11];
+	
 		
 /////////////////////////////////////////////////////////////////////////////
 	
 	b2PolygonShape player2;
-	b2BodyDef bd_player2[11];
+	
 	{
 		///4. Team 1 and Team 2 Rods
 
