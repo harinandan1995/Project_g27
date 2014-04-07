@@ -169,16 +169,7 @@ report:
 	@$(ECHO) "Generating Report ...  "
 	
 	@cd ./doc; \
-	latex cs296_report_27; \
-	bibtex cs296_report_27; \
-	latex cs296_report_27; \
-	latex cs296_report_27; \
-	dvipdf cs296_report_27.dvi cs296_report_27.pdf; \
-	latex lab06; \
-	bibtex lab06; \
-	latex lab06; \
-	latex lab06; \
-	dvipdf lab06.dvi lab06.pdf;
+	pdflatex cs296_report_27.tex;
 	@$(ECHO) "Done"
 data:
 	@mkdir -p data
