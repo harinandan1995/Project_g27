@@ -238,7 +238,7 @@ namespace cs296
 			fd->shape = &newShape;
 			fd->density = 0;
 			//cout<<m_joint_1[i]->GetAnchorB().x-m_joint_1[i]->GetAnchorA().x<<endl;
-			if(abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)>1.3){
+			if(abs(team1[i]->GetPosition().x-m_joint_1[i]->GetBodyB()->GetPosition().x)>1.3){
 				fd->filter.maskBits = 0x0000;
 				bd_player1[i].type = b2_kinematicBody;
 				team1[i]->DestroyFixture(origFix);
