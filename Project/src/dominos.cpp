@@ -54,7 +54,7 @@ namespace cs296
 	b2Body* team2[11];///< Players Team2
 	b2Body* active2=rod2[1], *active1=rod2[1];///Define Active rod for players
 	b2Body* pointer1, * pointer2;///We define pointers to the current active rod
-	b2Body* UpperWall,* LowerWall;
+	b2Body* UpperWall,* LowerWall;/// Bodies for the upper and Lower walls
 	/**Handle keyboard inputs*/
 		void dominos_t::keyboard(unsigned char key){
 			std::cout<<key<<endl;
@@ -160,6 +160,7 @@ namespace cs296
 				break;
 			/////////////////////////////////////////////////////////////////////////////
 			///Team 1
+			/// Keypress [: Shift active rod one position right/left, set pointer accordingly
 			case'[':
 				rod_1_index=(rod_1_index+1)%4;
 				active1=rod1[rod_1_index];
@@ -170,7 +171,7 @@ namespace cs296
 				active1=rod1[rod_1_index];
 				pointer1->SetTransform(b2Vec2(active1->GetPosition().x,42),0);
 				break;
-			case '-':
+			case '-':/// Keypress -:Move active rod upward or downward
 				active1->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
 				//m_joint_1[rod_1_index]->SetMotorSpeed(40);
 				break;
@@ -470,7 +471,7 @@ namespace cs296
 			pos1= -1*pos2;///mirrorimage
 			bd_rodShape1.position.Set(pos1,20.0f);
 			bd_rodShape2.position.Set(pos2,20.0f);
-			
+			/// We set constraints to restrict motion of each rod to only the y direction.
 			bd_constr1[0].position.Set(pos1+0.9f,6.0f);
 			bd_constr1[1].position.Set(pos1-0.9f,6.0f);
 			bd_constr1[2].position.Set(pos1+0.9f,34.0f);
@@ -680,6 +681,7 @@ namespace cs296
 /////////////////////////////////////////////////////////////////////////////
   ///8. Pointers
 	  {
+	 /// Pointers are triangular
 	b2Vec2 vertices[3];
 	vertices[0].Set(0.0f, 0.0f);
 	vertices[1].Set(1.0f, 0.0f);
@@ -702,7 +704,7 @@ namespace cs296
 	
 	}	 
   }
-
+/// Create simulation with title Dominos.
   sim_t *sim = new sim_t("Dominos", dominos_t::create);
 }
 

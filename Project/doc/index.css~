@@ -40,7 +40,7 @@ img.center {
 }*/
 a
 {
-	color:  blue;
+	color:  #FFFFFF;
 	text-decoration: inherit,underline;
 }
 fontc
