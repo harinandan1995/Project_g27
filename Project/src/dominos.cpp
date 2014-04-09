@@ -151,6 +151,9 @@ namespace cs296
 						}*/
 					}
 					m_joint_2[i]->SetMotorSpeed(mul*(2* abs(m_joint_2[i]->GetAnchorB().x - m_joint_2[i]->GetAnchorA().x)+.5));
+					if(abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)>=1.9) {
+						m_joint_1[i]->SetMotorSpeed(0);
+					}
 				}
 				break;
 			case 'n':///Keypress n: Rotates the player towards right,if the player is already to the right and n is pressed then the player get lifted
@@ -219,6 +222,9 @@ namespace cs296
 					}
 					/// If not far right, go for a shot!
 					m_joint_2[i]->SetMotorSpeed(mul*(-2*abs(m_joint_2[i]->GetAnchorA().x - m_joint_2[i]->GetAnchorB().x) -.5));
+					if(abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)>=1.9) {
+						m_joint_1[i]->SetMotorSpeed(0);
+					}
 				}
 				break;
 			case 'b':
@@ -323,6 +329,9 @@ namespace cs296
 			fd->filter.maskBits = origFix->GetFilterData().maskBits;
 			team1[i]->DestroyFixture(origFix);
 			team1[i]->CreateFixture(fd);
+			if(abs(x)>=1.7) {
+				m_joint_1[i]->SetMotorSpeed(0);
+			}
 		}	
 		///Team2
 		for(int i=0;i<10;i++){
@@ -351,7 +360,9 @@ namespace cs296
 			fd->filter.maskBits = origFix->GetFilterData().maskBits;
 			team2[i]->DestroyFixture(origFix);
 			team2[i]->CreateFixture(fd);
-			
+			if(abs(x)>=1.7) {
+				m_joint_2[i]->SetMotorSpeed(0);
+			}
 		}
 		///To check if ball has reached the goal 	
 			

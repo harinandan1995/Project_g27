@@ -72,7 +72,7 @@ OBJPHELP := $(filter-out $(OBJDIR)/main.o,$(OBJSHELP))
 
 .PHONY: all setup doc clean distclean data plot
 
-all: setup exe exelib
+all: setup exe
 setup:
 	@$(ECHO) "Setting up compilation..."
 	@mkdir -p myobjs 
@@ -85,7 +85,7 @@ setup:
 	cd Box2D; \
 	mkdir -p build296; \
 	cd build296; \
-	cmake ../; \
+	cmake -DCMAKE_BUILD_TYPE=Release ../.; \
 	make; \
 	make install; \
 	fi;
@@ -105,7 +105,7 @@ exe: $(OBJS)
 
 $(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	@$(PRINTF) "$(MESG_COLOR)Compiling: $(NO_COLOR) $(FILE_COLOR) %25s$(NO_COLOR)" "$(notdir $<)"
-	@$(CC) $(CPPFLAGS) -c  $< -o $@ -MD 2> temp.log || touch temp.err
+	@$(CC) -fPIC $(CPPFLAGS) -c  $< -o $@ -MD 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -116,7 +116,7 @@ $(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 #---------------------------------------------------------------------------------------------------------------
 exehelp: $(OBJSHELP)
 	@$(PRINTF) "$(MESG_COLOR)Building executable:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@$(CC) $(CPPFLAGS1) -o $(BINDIR)/$(TARGET) -pg $(LDFLAGS) $(OBJS) $(LIBS) 2> temp.log || touch temp.err
+	@$(CC) $(CPPFLAGS1) -o $(BINDIR)/$(TARGET) -p $(LDFLAGS) $(OBJS) $(LIBS) 2> temp.log || touch temp.err
 	@if test -e temp.err; \
 	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
 	elif test -s temp.log; \
@@ -169,7 +169,16 @@ report:
 	@$(ECHO) "Generating Report ...  "
 	
 	@cd ./doc; \
-	pdflatex cs296_report_27.tex;
+	latex cs296_report_27; \
+	bibtex cs296_report_27; \
+	latex cs296_report_27; \
+	latex cs296_report_27; \
+	dvipdf cs296_report_27.dvi cs296_report_27.pdf; \
+	latex lab06; \
+	bibtex lab06; \
+	latex lab06; \
+	latex lab06; \
+	dvipdf lab06.dvi lab06.pdf;
 	@$(ECHO) "Done"
 data:
 	@mkdir -p data
@@ -227,12 +236,13 @@ release_prof:
 	@make exe;
 	@$(ECHO) "Profiling"
 	@ cd mybins; \
-	#$(PERF) record ./$(TARGET) 10000; \
-	#$(PERF) report > g27_debug_prof.dat; \
-	#$(RM) -rf *.data *data.old; \
-	./$(TARGET) 100000; \
-	gprof $(TARGET) gmon.out > g27_release_prof.dat; \
-	gprof $(TARGET) | .././gprof2dot.py | dot -Tpng -o release.png; \
+	$(PERF) record -g -- ./$(TARGET) 100000; \
+	$(PERF) report > ../profiling/release_perf.dat; \
+	$(PERF) script | .././gprof2dot.py -f perf | dot -Tpng -o ../profiling/release.png;\
+	$(RM) -rf *.data *data.old; \
+	#./$(TARGET) 100000; \
+	gprof $(TARGET) gmon.out > ../profiling/release_gprof.dat; \
+	#gprof $(TARGET) | .././gprof2dot.py | dot -Tpng -o release.png; \
 	rm gmon.out;\
 	cd ..;
 	@$(ECHO) "Done"
@@ -260,12 +270,13 @@ debug_prof:
 	@make exehelp;
 	@$(ECHO) "Profiling"
 	@ cd mybins; \
-	#$(PERF) record ./$(TARGET) 10000; \
-	#$(PERF) report > g27_release_prof.dat; \
-	#$(RM) -rf *.data *data.old; \
-	./$(TARGET) 100000; \
-	gprof $(TARGET) gmon.out > g27_debug_prof.dat; \
-	gprof $(TARGET) | .././gprof2dot.py | dot -Tpng -o debug.png; \
+	$(PERF) record -g -- ./$(TARGET) 100000; \
+	$(PERF) report > ../profiling/debug_gprof.dat; \
+	$(PERF) script | ../gprof2dot.py -f perf | dot -Tpng -o ../profiling/debug.png\
+	$(RM) -rf *.data *data.old; \
+	#./$(TARGET) 100000; \
+	gprof $(TARGET) gmon.out > ../profiling/debug_gprof.dat; \
+	#gprof $(TARGET) | .././gprof2dot.py | dot -Tpng -o debug.png; \
 	rm gmon.out;\
 	cd ..;
 	@$(ECHO) "Done"
