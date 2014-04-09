@@ -1,0 +1,3481 @@
+# ========
+# captured on: Wed Apr  9 19:42:01 2014
+# hostname : harinandan-Lenovo-IdeaPad-Y500
+# os release : 3.11.0-19-generic
+# perf version : 
+# arch : x86_64
+# nrcpus online : 8
+# nrcpus avail : 8
+# cpudesc : Intel(R) Core(TM) i7-3630QM CPU @ 2.40GHz
+# total memory : 8122952 kB
+# cmdline : /usr/lib/linux-tools-3.11.0-19/perf record -g -- ./cs296_exe_27 100000 
+# event : name = cycles, type = 0, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, excl_host = 0, excl_guest = 1, precise_ip = 0
+# HEADER_CPU_TOPOLOGY info available, use -I to display
+# HEADER_NUMA_TOPOLOGY info available, use -I to display
+# pmu mappings: cpu = 4, software = 1, tracepoint = 2, uncore_cbox_0 = 6, uncore_cbox_1 = 7, uncore_cbox_2 = 8, uncore_cbox_3 = 9, breakpoint = 5
+# ========
+#
+# Samples: 25K of event 'cycles'
+# Event count (approx.): 18107217138
+#
+# Overhead       Command        Shared Object                                                                                                                                                                       Symbol
+# ........  ............  ...................  ...........................................................................................................................................................................
+#
+    14.42%  cs296_exe_27  cs296_exe_27         [.] debug_draw_t::DrawSolidPolygon(b2Vec2 const*, int, b2Color const&)                                                                                                     
+            |
+            --- debug_draw_t::DrawSolidPolygon(b2Vec2 const*, int, b2Color const&)
+               |          
+               |--99.69%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+                --0.31%-- [...]
+
+    13.95%  cs296_exe_27  cs296_exe_27         [.] void b2DynamicTree::Query<b2BroadPhase>(b2BroadPhase*, b2AABB const&) const                                                                                            
+            |
+            --- void b2DynamicTree::Query<b2BroadPhase>(b2BroadPhase*, b2AABB const&) const
+               |          
+               |--6.44%-- 0x4194e148c038f5c3
+               |          
+               |--6.00%-- 0x420270a3c038f5c3
+               |          
+               |--5.89%-- 0x4159c2904141c290
+               |          
+               |--5.81%-- 0x4139c290c038f5c3
+               |          
+               |--5.79%-- 0x4159c290c11e3d70
+               |          
+               |--5.66%-- 0x41cce148c038f5c3
+               |          
+               |--5.56%-- 0x4194e14840a3851f
+               |          
+               |--5.48%-- 0x41ace148c11e3d70
+               |          
+               |--5.22%-- 0x41ece148c11e3d70
+               |          
+               |--5.19%-- 0x4139c29040a3851f
+               |          
+               |--5.07%-- 0x41ece1484141c290
+               |          
+               |--5.00%-- 0x420270a340a3851f
+               |          
+               |--4.90%-- 0x41cce14840a3851f
+               |          
+               |--4.52%-- 0x41ace1484141c290
+               |          
+               |--4.38%-- 0x41d4e148c1871eb8
+               |          
+               |--4.16%-- 0x4184e148c1871eb8
+               |          
+               |--3.99%-- 0x41ace148c1bf1eb8
+               |          
+               |--3.91%-- 0x4184e1484198e148
+               |          
+               |--3.64%-- 0x41d4e1484198e148
+               |          
+               |--3.13%-- 0x41ace14841d0e148
+                --0.25%-- [...]
+
+    12.58%  cs296_exe_27  libc-2.17.so         [.] __mcount_internal                                                                                                                                                      
+            |
+            --- __mcount_internal
+               |          
+               |--88.66%-- _mcount
+               |          |          
+               |          |--32.25%-- b2PolygonShape::b2PolygonShape()
+               |          |          cs296::dominos_t::check()
+               |          |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          |          main
+               |          |          __libc_start_main
+               |          |          
+               |          |--30.37%-- cs296::dominos_t::check()
+               |          |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          |          main
+               |          |          __libc_start_main
+               |          |          
+               |          |--9.79%-- debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          |          0x3f80000000000000
+               |          |          
+               |          |--6.03%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          |          0x3f80000000000000
+               |          |          
+               |          |--5.33%-- b2World::DrawJoint(b2Joint*)
+               |          |          0x8000000008
+               |          |          0xd89070
+               |          |          
+               |          |--4.70%-- operator*(float, b2Vec2 const&)
+               |          |          debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          |          0x3f80000000000000
+               |          |          
+               |          |--3.34%-- operator+(b2Vec2 const&, b2Vec2 const&)
+               |          |          debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          |          0x3f80000000000000
+               |          |          
+               |          |--3.14%-- b2PolygonShape::~b2PolygonShape()
+               |          |          |          
+               |          |          |--53.51%-- b2Fixture::Destroy(b2BlockAllocator*)
+               |          |          |          0x3c23d70a00000002
+               |          |          |          b2PolygonShape::~b2PolygonShape()
+               |          |          |          0x89480022faf415ff
+               |          |          |          
+               |          |           --46.49%-- cs296::dominos_t::check()
+               |          |                     cs296::base_sim_t::step(cs296::settings_t*)
+               |          |                     main
+               |          |                     __libc_start_main
+               |          |          
+               |          |--1.87%-- b2Fixture::Destroy(b2BlockAllocator*)
+               |          |          0x3c23d70a00000002
+               |          |          b2PolygonShape::~b2PolygonShape()
+               |          |          0x89480022faf415ff
+               |          |          
+               |          |--1.76%-- b2FixtureDef::b2FixtureDef()
+               |          |          cs296::dominos_t::check()
+               |          |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          |          main
+               |          |          __libc_start_main
+               |          |          
+               |          |--1.17%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          |          main
+               |          |          __libc_start_main
+               |           --0.24%-- [...]
+               |          
+               |--4.60%-- b2PolygonShape::b2PolygonShape()
+               |          cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--3.30%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--0.88%-- debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+               |--0.83%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+                --1.74%-- [...]
+
+     6.58%  cs296_exe_27  cs296_exe_27         [.] b2DynamicTree::InsertLeaf(int)                                                                                                                                         
+            |
+            --- b2DynamicTree::InsertLeaf(int)
+               |          
+               |--0.10%-- 0x42020a3dc03f5c29
+               |          
+               |--0.07%-- 0x41d4147b4198147b
+               |          
+               |--0.07%-- 0x4184147b4198147b
+               |          
+               |--0.07%-- 0x41ec147b414028f6
+                --99.69%-- [...]
+
+     5.65%  cs296_exe_27  cs296_exe_27         [.] b2PolygonShape::Set(b2Vec2 const*, int)                                                                                                                                
+            |
+            --- b2PolygonShape::Set(b2Vec2 const*, int)
+               |          
+               |--12.84%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+                --87.16%-- [...]
+
+     5.38%  cs296_exe_27  libc-2.17.so         [.] _mcount                                                                                                                                                                
+            |
+            --- _mcount
+               |          
+               |--34.02%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--25.38%-- b2PolygonShape::b2PolygonShape()
+               |          cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--14.39%-- debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+               |--6.85%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+               |--4.42%-- operator+(b2Vec2 const&, b2Vec2 const&)
+               |          debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+               |--4.18%-- b2World::DrawJoint(b2Joint*)
+               |          0x8000000008
+               |          0xd89070
+               |          
+               |--4.04%-- operator*(float, b2Vec2 const&)
+               |          debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+               |--1.73%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--1.71%-- b2FixtureDef::b2FixtureDef()
+               |          cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--1.46%-- b2PolygonShape::~b2PolygonShape()
+               |          |          
+               |          |--55.32%-- cs296::dominos_t::check()
+               |          |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          |          main
+               |          |          __libc_start_main
+               |          |          
+               |           --44.68%-- b2Fixture::Destroy(b2BlockAllocator*)
+               |                     0x3c23d70a00000002
+               |                     b2PolygonShape::~b2PolygonShape()
+               |                     0x89480022faf415ff
+               |          
+               |--1.45%-- b2Fixture::Destroy(b2BlockAllocator*)
+               |          0x3c23d70a00000002
+               |          b2PolygonShape::~b2PolygonShape()
+               |          0x89480022faf415ff
+                --0.38%-- [...]
+
+     4.66%  cs296_exe_27  libglapi.so.0.0.0    [.] 0x0000000000011330                                                                                                                                                     
+            |          
+            |--75.48%-- 0x2b222178c330
+            |          |          
+            |          |--91.39%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+            |          |          0x3f80000000000000
+            |          |          
+            |           --8.61%-- b2World::DrawJoint(b2Joint*)
+            |                     0x8000000008
+            |                     0xd89070
+            |          
+            |--24.33%-- 0x2b222178c340
+            |          |          
+            |          |--85.57%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+            |          |          0x3f80000000000000
+            |          |          
+            |           --14.43%-- b2World::DrawJoint(b2Joint*)
+            |                     0x8000000008
+            |                     0xd89070
+             --0.19%-- [...]
+
+     3.64%  cs296_exe_27  cs296_exe_27         [.] b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)                                                                                                     
+            |
+            --- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          
+               |--90.51%-- 0x3f80000000000000
+               |          
+               |--0.89%-- 0x4190000000000001
+               |          
+               |--0.59%-- 0x409ccccd00000000
+                --8.01%-- [...]
+
+     1.82%  cs296_exe_27  cs296_exe_27         [.] debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)                                                                                     
+            |
+            --- debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          
+               |--99.39%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+                --0.61%-- 0x3f80000000000000
+
+     1.77%  cs296_exe_27  cs296_exe_27         [.] b2DynamicTree::RemoveLeaf(int)                                                                                                                                         
+            |
+            --- b2DynamicTree::RemoveLeaf(int)
+
+     1.64%  cs296_exe_27  cs296_exe_27         [.] cs296::dominos_t::check()                                                                                                                                              
+            |
+            --- cs296::dominos_t::check()
+                cs296::base_sim_t::step(cs296::settings_t*)
+                main
+                __libc_start_main
+
+     1.55%  cs296_exe_27  cs296_exe_27         [.] b2World::DrawDebugData()                                                                                                                                               
+            |
+            --- b2World::DrawDebugData()
+               |          
+               |--10.01%-- 0x0
+               |          
+               |--5.06%-- 0xc080000000000001
+               |          
+               |--4.37%-- 0x41c8000000000001
+               |          
+               |--4.14%-- 0x4080000000000001
+               |          
+               |--3.84%-- 0xc1c8000000000001
+               |          
+               |--3.51%-- 0x4130000000000001
+               |          
+               |--3.37%-- 0xc190000000000001
+               |          
+               |--3.29%-- 0xc130000000000001
+               |          
+               |--3.04%-- 0xc046666600000000
+               |          
+               |--2.45%-- 0x41cf333300000000
+               |          
+               |--2.24%-- 0xc1cf333300000000
+               |          
+               |--2.19%-- 0xc197333300000000
+               |          
+               |--2.04%-- 0x4190000000000001
+               |          
+               |--2.03%-- 0x420c000000000000
+               |          
+               |--2.00%-- 0x4121999a00000000
+               |          
+               |--1.83%-- 0xc13e666600000000
+               |          
+               |--1.82%-- 0x420c000000000001
+               |          
+               |--1.74%-- 0x420c000000000002
+               |          
+               |--1.73%-- 0x4197333300000000
+               |          
+               |--1.72%-- 0x4130000000000002
+               |          
+               |--1.56%-- 0x4188cccd00000000
+               |          
+               |--1.52%-- 0xc188cccd00000000
+               |          
+               |--1.51%-- 0xc130000000000000
+               |          
+               |--1.43%-- 0x41c0cccd00000000
+               |          
+               |--1.28%-- 0xc20c000000000004
+               |          
+               |--1.24%-- 0xc190000000000000
+               |          
+               |--1.23%-- 0xc09ccccd00000000
+               |          
+               |--1.21%-- 0x420c000000000003
+               |          
+               |--1.14%-- 0x4046666600000000
+               |          
+               |--1.10%-- 0x4130000000000000
+               |          
+               |--1.09%-- 0xc20c000000000002
+               |          
+               |--1.09%-- 0xc130000000000002
+               |          
+               |--1.02%-- 0x420c000000000006
+               |          
+               |--1.01%-- 0x413e666600000000
+               |          
+               |--0.99%-- 0xc20c000000000005
+               |          
+               |--0.88%-- 0xc080000000000003
+               |          
+               |--0.81%-- main
+               |          __libc_start_main
+               |          
+               |--0.81%-- 0xc080000000000004
+               |          
+               |--0.81%-- 0x4080000000000004
+               |          
+               |--0.80%-- 0x4080000000000003
+               |          
+               |--0.80%-- 0xc20c000000000006
+               |          
+               |--0.72%-- 0xc20c000000000009
+               |          
+               |--0.72%-- 0xc130000000000003
+               |          
+               |--0.72%-- 0x420c000000000005
+               |          
+               |--0.64%-- 0x420c000000000004
+               |          
+               |--0.64%-- 0x4190000000000002
+               |          
+               |--0.64%-- 0xc1c0cccd00000000
+               |          
+               |--0.59%-- 0xc20c000000000003
+               |          
+               |--0.59%-- 0xc080000000000002
+               |          
+               |--0.58%-- 0x420c000000000007
+               |          
+               |--0.58%-- 0x420c000000000008
+               |          
+               |--0.51%-- 0x4080000000000002
+               |          
+               |--0.51%-- 0x4130000000000003
+                --6.83%-- [...]
+
+     1.54%  cs296_exe_27  libGL.so.1.2.0       [.] glEnd                                                                                                                                                                  
+            |
+            --- glEnd
+               |          
+               |--92.72%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+                --7.28%-- b2World::DrawJoint(b2Joint*)
+                          0x8000000008
+                          0xd89070
+
+     1.42%  cs296_exe_27  libm-2.17.so         [.] __sinf                                                                                                                                                                 
+            |
+            --- __sinf
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     1.37%  cs296_exe_27  cs296_exe_27         [.] b2World::SolveTOI(b2TimeStep const&)                                                                                                                                   
+            |
+            --- b2World::SolveTOI(b2TimeStep const&)
+               |          
+               |--68.32%-- 0xd9a4c0
+               |          
+               |--3.53%-- 0x4080000000000001
+               |          
+               |--3.24%-- 0x41c8000000000001
+               |          
+               |--3.20%-- 0xc190000000000001
+               |          
+               |--2.68%-- 0x4190000000000001
+               |          
+               |--2.53%-- 0xc080000000000001
+               |          
+               |--2.43%-- 0xc130000000000001
+               |          
+               |--2.29%-- 0x4130000000000001
+               |          
+               |--1.81%-- 0xc1c8000000000001
+               |          
+               |--1.37%-- 0xc20c000000000004
+               |          
+               |--1.15%-- 0xc20c000000000006
+               |          
+               |--0.90%-- 0x420c000000000003
+               |          
+               |--0.90%-- 0xc20c000000000007
+               |          
+               |--0.89%-- 0xc20c000000000008
+               |          
+               |--0.81%-- 0x420c000000000006
+               |          
+               |--0.80%-- 0x420c000000000002
+               |          
+               |--0.79%-- 0x420c000000000001
+               |          
+               |--0.65%-- 0xc20c000000000003
+                --1.72%-- [...]
+
+     1.26%  cs296_exe_27  cs296_exe_27         [.] b2World::Solve(b2TimeStep const&)                                                                                                                                      
+            |
+            --- b2World::Solve(b2TimeStep const&)
+               |          
+               |--64.39%-- 0xd9a4c0
+               |          
+                --35.61%-- 0xd8b530
+                          0x0
+
+     1.23%  cs296_exe_27  cs296_exe_27         [.] b2DynamicTree::Balance(int)                                                                                                                                            
+            |
+            --- b2DynamicTree::Balance(int)
+
+     1.06%  cs296_exe_27  cs296_exe_27         [.] operator*(float, b2Vec2 const&)                                                                                                                                        
+            |
+            --- operator*(float, b2Vec2 const&)
+                debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.94%  cs296_exe_27  cs296_exe_27         [.] operator+(b2Vec2 const&, b2Vec2 const&)                                                                                                                                
+            |
+            --- operator+(b2Vec2 const&, b2Vec2 const&)
+                debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.89%  cs296_exe_27  libGL.so.1.2.0       [.] glBegin                                                                                                                                                                
+            |
+            --- glBegin
+               |          
+               |--95.45%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+                --4.55%-- b2World::DrawJoint(b2Joint*)
+                          0x8000000008
+                          0xd89070
+
+     0.83%  cs296_exe_27  cs296_exe_27         [.] b2Vec2::b2Vec2()                                                                                                                                                       
+            |
+            --- b2Vec2::b2Vec2()
+               |          
+               |--52.24%-- b2PolygonShape::b2PolygonShape()
+               |          cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--42.64%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --5.12%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.70%  cs296_exe_27  [kernel.kallsyms]    [k] 0xffffffff8104d24a                                                                                                                                                     
+            |          
+            |--10.30%-- 0xffffffff8136a217
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--10.00%-- 0xffffffff816f02b0
+            |          |          
+            |          |--79.13%-- _int_malloc
+            |          |          
+            |           --20.87%-- __memset_sse2
+            |                     0x495450f0e48348e2
+            |          
+            |--2.87%-- 0xffffffff8119d8e5
+            |          0xffffffff8119fb98
+            |          0xffffffff811a0506
+            |          0xffffffff81167a9c
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--2.45%-- 0xffffffff81145ed0
+            |          0xffffffff8114822d
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.85%-- 0xffffffff811655e6
+            |          0xffffffff81165a51
+            |          0xffffffff81166ad9
+            |          0xffffffff8116f72c
+            |          0xffffffff8105f09c
+            |          0xffffffff81064278
+            |          0xffffffff81064abf
+            |          0xffffffff81064b34
+            |          0xffffffff816f869d
+            |          
+            |--1.58%-- 0xffffffff8119d902
+            |          0xffffffff8119fb98
+            |          0xffffffff811a0506
+            |          0xffffffff81167a9c
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.45%-- 0xffffffff8145e4a4
+            |          0xffffffff8145e612
+            |          0xffffffff8145ee7f
+            |          0xffffffff8145f532
+            |          0xffffffff8145f610
+            |          0xffffffff816e5514
+            |          0xffffffff811fc6b8
+            |          0xffffffff811ae49e
+            |          0xffffffff811af8c8
+            |          0xffffffff811afc06
+            |          0xffffffff816f8c49
+            |          0x2b69d8cc6c47
+            |          
+            |--1.41%-- 0xffffffff81148537
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.30%-- 0xffffffff81173516
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.13%-- 0xffffffff8119fb36
+            |          0xffffffff81167a9c
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.13%-- 0xffffffff8119fb50
+            |          0xffffffff811a0506
+            |          0xffffffff81167a9c
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.13%-- 0xffffffff81147ec8
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.13%-- 0xffffffff8114cce1
+            |          0xffffffff8114ca09
+            |          0xffffffff8114d001
+            |          0xffffffff8114d33e
+            |          0xffffffff81172741
+            |          0xffffffff81167b9a
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--1.08%-- 0xffffffff8115c38e
+            |          0xffffffff8115c403
+            |          0xffffffff811726e5
+            |          0xffffffff81167b9a
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.94%-- 0xffffffff811689db
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.94%-- 0xffffffff81145f00
+            |          0xffffffff8114822d
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.94%-- 0xffffffff81168919
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.94%-- 0xffffffff81147f55
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.93%-- 0xffffffff81147275
+            |          0xffffffff811477b2
+            |          0xffffffff81147816
+            |          0xffffffff8114c910
+            |          0xffffffff8117a0dd
+            |          0xffffffff81163c3c
+            |          0xffffffff81165818
+            |          0xffffffff81165a51
+            |          0xffffffff81166ad9
+            |          0xffffffff8116f72c
+            |          0xffffffff8105f09c
+            |          0xffffffff81064278
+            |          0xffffffff81064abf
+            |          0xffffffff81064b34
+            |          0xffffffff816f869d
+            |          
+            |--0.67%-- 0xffffffff8104de4d
+            |          0xffffffff8104def9
+            |          0xffffffff816efa43
+            |          0xffffffff81094821
+            |          0xffffffff81094af0
+            |          0xffffffff81071fbe
+            |          0xffffffff8107210c
+            |          0xffffffff8107262b
+            |          0xffffffff8107293e
+            |          0xffffffff810730c3
+            |          0xffffffff81085ffe
+            |          0xffffffff81087316
+            |          0xffffffff8107073e
+            |          0xffffffff810c0185
+            |          0xffffffff810c07d1
+            |          0xffffffff81088009
+            |          0xffffffff81088817
+            |          0xffffffff81040f37
+            |          0xffffffff816faa3f
+            |          0xffffffff816f93dd
+            |          glEnd
+            |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+            |          0x3f80000000000000
+            |          
+            |--0.67%-- 0xffffffff81184236
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.67%-- 0xffffffff811482d4
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff81184266
+            |          0xffffffff81186758
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff816f399c
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff81167a50
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff810722cf
+            |          0xffffffff81072544
+            |          0xffffffff8107293e
+            |          0xffffffff810730c3
+            |          0xffffffff81085ffe
+            |          0xffffffff81087316
+            |          0xffffffff8107073e
+            |          0xffffffff810c0185
+            |          0xffffffff810c07d1
+            |          0xffffffff81088009
+            |          0xffffffff81088817
+            |          0xffffffff81040f37
+            |          0xffffffff816faa3f
+            |          0xffffffff816f93dd
+            |          debug_draw_t::DrawSolidPolygon(b2Vec2 const*, int, b2Color const&)
+            |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+            |          0x3f80000000000000
+            |          
+            |--0.66%-- 0xffffffff810a8c5f
+            |          0xffffffff8109b7cc
+            |          0xffffffff8109ccdf
+            |          0xffffffff81093641
+            |          0xffffffff81070736
+            |          0xffffffff810c0185
+            |          0xffffffff810c07d1
+            |          0xffffffff81088009
+            |          0xffffffff81088817
+            |          0xffffffff81040f37
+            |          0xffffffff816faa3f
+            |          0xffffffff816f93dd
+            |          b2Vec2::Set(float, float)
+            |          cs296::dominos_t::check()
+            |          cs296::base_sim_t::step(cs296::settings_t*)
+            |          main
+            |          __libc_start_main
+            |          
+            |--0.66%-- 0xffffffff811a1137
+            |          0xffffffff8119d8dd
+            |          0xffffffff8119fb98
+            |          0xffffffff811a0506
+            |          0xffffffff81167a9c
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff8119d93f
+            |          0xffffffff8119fb98
+            |          0xffffffff811a0506
+            |          0xffffffff81167a9c
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff81012673
+            |          0xffffffff81012dc8
+            |          0xffffffff816f00fc
+            |          cs296::dominos_t::check()
+            |          cs296::base_sim_t::step(cs296::settings_t*)
+            |          main
+            |          __libc_start_main
+            |          
+            |--0.66%-- 0xffffffff8116bf58
+            |          0xffffffff816f3a7b
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff8119b5a0
+            |          0xffffffff8116894f
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff81147c6b
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff811726b6
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff816f3b80
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff816f02b3
+            |          _int_malloc
+            |          
+            |--0.66%-- 0xffffffff816f3995
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.65%-- 0xffffffff8109baa8
+            |          0xffffffff8109cc50
+            |          0xffffffff81093641
+            |          0xffffffff81070736
+            |          0xffffffff810c0185
+            |          0xffffffff810c07d1
+            |          0xffffffff81088009
+            |          0xffffffff81088817
+            |          0xffffffff81040f37
+            |          0xffffffff816faa3f
+            |          0xffffffff816f93dd
+            |          0x2b222178c340
+            |          b2World::DrawJoint(b2Joint*)
+            |          0x8000000008
+            |          0xd89070
+            |          
+            |--0.65%-- 0xffffffff8116734d
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.65%-- 0xffffffff8109ab03
+            |          0xffffffff810a0312
+            |          0xffffffff810a04b2
+            |          0xffffffff81067477
+            |          0xffffffff816fa09c
+            |          0xffffffff81014bf5
+            |          0xffffffff81067755
+            |          0xffffffff816faa45
+            |          0xffffffff816f93dd
+            |          glEnd
+            |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+            |          0x3f80000000000000
+            |          
+            |--0.65%-- 0xffffffff8108d2d0
+            |          0xffffffff810949ee
+            |          0xffffffff81094ac3
+            |          0xffffffff8107a754
+            |          0xffffffff8107b1bb
+            |          0xffffffff8107b32d
+            |          0xffffffff8107b548
+            |          0xffffffff8106e826
+            |          0xffffffff8106f936
+            |          0xffffffff81067477
+            |          0xffffffff816fa09c
+            |          0xffffffff81014bf5
+            |          0xffffffff81067755
+            |          0xffffffff816faa45
+            |          0xffffffff816f93dd
+            |          void b2DynamicTree::Query<b2BroadPhase>(b2BroadPhase*, b2AABB const&) const
+            |          0x41d4e148c1871eb8
+            |          
+            |--0.65%-- 0xffffffff81148082
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.65%-- 0xffffffff81092094
+            |          0xffffffff81096dec
+            |          0xffffffff81097329
+            |          0xffffffff81093649
+            |          0xffffffff81070736
+            |          0xffffffff810c0185
+            |          0xffffffff810c07d1
+            |          0xffffffff81088009
+            |          0xffffffff81088817
+            |          0xffffffff81040f37
+            |          0xffffffff816faa3f
+            |          0xffffffff816f93dd
+            |          __mcount_internal
+            |          _mcount
+            |          b2PolygonShape::b2PolygonShape()
+            |          cs296::dominos_t::check()
+            |          cs296::base_sim_t::step(cs296::settings_t*)
+            |          main
+            |          __libc_start_main
+            |          
+            |--0.64%-- 0xffffffff8116cdbc
+            |          0xffffffff8116d849
+            |          0xffffffff8116e95c
+            |          0xffffffff8116ec6e
+            |          0xffffffff816f869d
+            |          __brk
+            |          
+            |--0.64%-- 0xffffffff81147eff
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.64%-- 0xffffffff81147f02
+            |          0xffffffff811485f4
+            |          0xffffffff8118676a
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.64%-- 0xffffffff81097213
+            |          0xffffffff810c0230
+            |          0xffffffff810c0785
+            |          0xffffffff810c07ba
+            |          0xffffffff81088009
+            |          0xffffffff81088817
+            |          0xffffffff81040f37
+            |          0xffffffff816faa3f
+            |          0xffffffff816f93dd
+            |          0x2b222178c330
+            |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+            |          0x3f80000000000000
+            |          
+            |--0.64%-- 0xffffffff81186376
+            |          0xffffffff8118671f
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.64%-- 0xffffffff81186387
+            |          0xffffffff8118671f
+            |          0xffffffff81167a7b
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.63%-- 0xffffffff81067637
+            |          0xffffffff816faa35
+            |          0xffffffff816f93dd
+            |          debug_draw_t::DrawSolidPolygon(b2Vec2 const*, int, b2Color const&)
+            |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+            |          0x3f80000000000000
+            |          
+            |--0.63%-- 0xffffffff811a1107
+            |          0xffffffff8119fb98
+            |          0xffffffff811a0506
+            |          0xffffffff81167a9c
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.62%-- 0xffffffff816edda0
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.62%-- 0xffffffff811726cf
+            |          0xffffffff81167b9a
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+            |          
+            |--0.62%-- 0xffffffff8114cfc2
+            |          0xffffffff8114d33e
+            |          0xffffffff81172741
+            |          0xffffffff81167b9a
+            |          0xffffffff81168b99
+            |          0xffffffff816f3ab5
+            |          0xffffffff816f3eac
+            |          0xffffffff816f02d8
+            |          _int_malloc
+             --33.75%-- [...]
+
+     0.69%  cs296_exe_27  libGL.so.1.2.0       [.] glVertex2f                                                                                                                                                             
+            |
+            --- glVertex2f
+               |          
+               |--85.45%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+                --14.55%-- b2World::DrawJoint(b2Joint*)
+                          0x8000000008
+                          0xd89070
+
+     0.68%  cs296_exe_27  libm-2.17.so         [.] __cosf                                                                                                                                                                 
+            |
+            --- __cosf
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.65%  cs296_exe_27  cs296_exe_27         [.] b2ContactManager::Collide()                                                                                                                                            
+            |
+            --- b2ContactManager::Collide()
+               |          
+               |--7.77%-- 0xc1cf333300000000
+               |          
+               |--6.14%-- 0xc046666600000000
+               |          
+               |--5.83%-- 0x4197333300000000
+               |          
+               |--5.63%-- 0xc09ccccd00000000
+               |          
+               |--4.78%-- 0x41cf333300000000
+               |          
+               |--4.46%-- 0x420c000000000001
+               |          
+               |--4.35%-- 0xc121999a00000000
+               |          
+               |--4.11%-- 0x4046666600000000
+               |          
+               |--3.81%-- 0xc1c0cccd00000000
+               |          
+               |--3.58%-- 0x409ccccd00000000
+               |          
+               |--3.42%-- 0xc20c000000000001
+               |          
+               |--3.31%-- 0xc20c000000000009
+               |          
+               |--3.10%-- 0x41c0cccd00000000
+               |          
+               |--2.90%-- 0x413e666600000000
+               |          
+               |--2.90%-- 0xc197333300000000
+               |          
+               |--2.69%-- 0x4121999a00000000
+               |          
+               |--2.52%-- 0xc13e666600000000
+               |          
+               |--2.41%-- 0xc20c000000000008
+               |          
+               |--2.23%-- 0xc20c000000000007
+               |          
+               |--2.22%-- 0x4188cccd00000000
+               |          
+               |--2.22%-- 0x420c000000000006
+               |          
+               |--1.93%-- 0x420c000000000009
+               |          
+               |--1.93%-- 0xd9a4c0
+               |          
+               |--1.92%-- 0xc20c000000000005
+               |          
+               |--1.88%-- 0xc20c000000000004
+               |          
+               |--1.86%-- 0xc20c000000000003
+               |          
+               |--1.73%-- 0x420c000000000003
+               |          
+               |--1.72%-- 0x420c000000000004
+               |          
+               |--1.51%-- 0xc188cccd00000000
+               |          
+               |--1.22%-- 0x420c000000000002
+               |          
+               |--1.20%-- 0xc20c000000000002
+               |          
+               |--1.01%-- 0xc20c000000000006
+               |          
+               |--0.70%-- 0x420c000000000007
+               |          
+               |--0.50%-- 0x420c000000000005
+               |          
+                --0.50%-- 0x420c000000000008
+
+     0.63%  cs296_exe_27  cs296_exe_27         [.] b2PolygonShape::b2PolygonShape()                                                                                                                                       
+            |
+            --- b2PolygonShape::b2PolygonShape()
+               |          
+               |--96.27%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --3.73%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.61%  cs296_exe_27  cs296_exe_27         [.] debug_draw_t::DrawSegment(b2Vec2 const&, b2Vec2 const&, b2Color const&)                                                                                                
+            |
+            --- debug_draw_t::DrawSegment(b2Vec2 const&, b2Vec2 const&, b2Color const&)
+               |          
+               |--89.36%-- b2World::DrawJoint(b2Joint*)
+               |          0x8000000008
+               |          0xd89070
+               |          
+                --10.64%-- 0x8000000008
+                          0xd89070
+
+     0.58%  cs296_exe_27  cs296_exe_27         [.] b2Vec2::b2Vec2(float, float)                                                                                                                                           
+            |
+            --- b2Vec2::b2Vec2(float, float)
+               |          
+               |--34.56%-- debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+               |--26.63%-- operator+(b2Vec2 const&, b2Vec2 const&)
+               |          debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+               |--25.65%-- operator*(float, b2Vec2 const&)
+               |          debug_draw_t::DrawSolidCircle(b2Vec2 const&, float, b2Vec2 const&, b2Color const&)
+               |          b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+                --13.15%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                          0x3f80000000000000
+
+     0.58%  cs296_exe_27  cs296_exe_27         [.] b2Body::ResetMassData()                                                                                                                                                
+            |
+            --- b2Body::ResetMassData()
+               |          
+               |--14.54%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+                --85.46%-- [...]
+
+     0.57%  cs296_exe_27  [vdso]               [.] 0x0000000000000f68                                                                                                                                                     
+            |          
+            |--30.36%-- 0x7fffb2dc2f68
+            |          |          
+            |          |--60.96%-- b2Timer::b2Timer()
+            |          |          |          
+            |          |          |--82.52%-- 0xd9a4c0
+            |          |          |          
+            |          |           --17.48%-- 0xd8b530
+            |          |                     0x0
+            |          |          
+            |           --39.04%-- b2Timer::GetMilliseconds() const
+            |                     |          
+            |                     |--93.12%-- 0xd9a4c0
+            |                     |          
+            |                      --6.88%-- 0xd8b530
+            |                                0x0
+            |          
+            |--16.05%-- 0x7fffb2dc2d22
+            |          |          
+            |          |--56.90%-- b2Timer::b2Timer()
+            |          |          |          
+            |          |          |--78.52%-- 0xd9a4c0
+            |          |          |          
+            |          |           --21.48%-- 0xd8b530
+            |          |                     0x0
+            |          |          
+            |           --43.10%-- b2Timer::GetMilliseconds() const
+            |                     |          
+            |                     |--91.64%-- 0xd9a4c0
+            |                     |          
+            |                      --8.36%-- 0xd8b530
+            |                                0x0
+            |          
+            |--10.00%-- 0x7fffb2dc2d30
+            |          |          
+            |          |--61.07%-- b2Timer::b2Timer()
+            |          |          |          
+            |          |          |--73.47%-- 0xd9a4c0
+            |          |          |          
+            |          |           --26.53%-- 0xd8b530
+            |          |                     0x0
+            |          |          
+            |           --38.93%-- b2Timer::GetMilliseconds() const
+            |                     |          
+            |                     |--85.16%-- 0xd9a4c0
+            |                     |          
+            |                      --14.84%-- 0xd8b530
+            |                                0x0
+            |          
+            |--7.60%-- 0x7fffb2dc2cf6
+            |          |          
+            |          |--50.08%-- b2Timer::b2Timer()
+            |          |          0xd9a4c0
+            |          |          
+            |           --49.92%-- b2Timer::GetMilliseconds() const
+            |                     |          
+            |                     |--58.06%-- 0xd8b530
+            |                     |          0x0
+            |                     |          
+            |                      --41.94%-- 0xd9a4c0
+            |          
+            |--5.04%-- 0x7fffb2dc2e34
+            |          |          
+            |          |--65.60%-- b2Timer::GetMilliseconds() const
+            |          |          |          
+            |          |          |--82.54%-- 0xd9a4c0
+            |          |          |          
+            |          |           --17.46%-- 0xd8b530
+            |          |                     0x0
+            |          |          
+            |           --34.40%-- b2Timer::b2Timer()
+            |                     0xd9a4c0
+            |          
+            |--4.97%-- 0x7fffb2dc2cf0
+            |          0xd9a4c0
+            |          
+            |--4.16%-- 0x7fffb2dc2cf1
+            |          0xd9a4c0
+            |          
+            |--3.12%-- 0x7fffb2dc2f66
+            |          |          
+            |          |--62.92%-- b2Timer::GetMilliseconds() const
+            |          |          0xd9a4c0
+            |          |          
+            |           --37.08%-- b2Timer::b2Timer()
+            |                     0xd9a4c0
+            |          
+            |--3.01%-- 0x7fffb2dc2d42
+            |          b2Timer::GetMilliseconds() const
+            |          0xd9a4c0
+            |          
+            |--2.18%-- 0x7fffb2dc2f7e
+            |          |          
+            |          |--63.16%-- b2Timer::b2Timer()
+            |          |          0xd9a4c0
+            |          |          
+            |           --36.84%-- b2Timer::GetMilliseconds() const
+            |                     0xd9a4c0
+            |          
+            |--2.17%-- 0x7fffb2dc2d4d
+            |          |          
+            |          |--73.38%-- b2Timer::b2Timer()
+            |          |          |          
+            |          |          |--50.10%-- 0xd9a4c0
+            |          |          |          
+            |          |           --49.90%-- 0xd8b530
+            |          |                     0x0
+            |          |          
+            |           --26.62%-- b2Timer::GetMilliseconds() const
+            |                     0xd9a4c0
+            |          
+            |--2.14%-- 0x7fffb2dc2deb
+            |          |          
+            |          |--65.15%-- b2Timer::GetMilliseconds() const
+            |          |          0xd9a4c0
+            |          |          
+            |           --34.85%-- b2Timer::b2Timer()
+            |                     0xd9a4c0
+            |          
+            |--1.59%-- 0x7fffb2dc2f91
+            |          |          
+            |          |--51.26%-- b2Timer::GetMilliseconds() const
+            |          |          0xd9a4c0
+            |          |          
+            |           --48.74%-- b2Timer::b2Timer()
+            |                     0xd9a4c0
+            |          
+            |--1.39%-- 0x7fffb2dc2d94
+            |          b2Timer::b2Timer()
+            |          0xd9a4c0
+            |          
+            |--1.16%-- 0x7fffb2dc2e03
+            |          b2Timer::GetMilliseconds() const
+            |          0xd9a4c0
+            |          
+            |--0.81%-- 0x7fffb2dc2d3a
+            |          b2Timer::GetMilliseconds() const
+            |          0xd9a4c0
+            |          
+            |--0.79%-- 0x7fffb2dc2e0a
+            |          b2Timer::GetMilliseconds() const
+            |          0xd9a4c0
+            |          
+            |--0.58%-- 0x7fffb2dc2de7
+            |          b2Timer::b2Timer()
+            |          0xd9a4c0
+            |          
+            |--0.58%-- 0x7fffb2dc2d1e
+            |          b2Timer::GetMilliseconds() const
+            |          0xd9a4c0
+            |          
+            |--0.58%-- 0x7fffb2dc2f60
+            |          b2Timer::b2Timer()
+            |          0xd9a4c0
+            |          
+            |--0.58%-- 0x7fffb2dc2de4
+            |          b2Timer::b2Timer()
+            |          0xd8b530
+            |          0x0
+            |          
+            |--0.58%-- 0x7fffb2dc2dc3
+            |          b2Timer::b2Timer()
+            |          0xd9a4c0
+            |          
+             --0.58%-- 0x7fffb2dc2cfa
+                       b2Timer::GetMilliseconds() const
+                       0xd8b530
+                       0x0
+
+     0.51%  cs296_exe_27  libc-2.17.so         [.] _int_malloc                                                                                                                                                            
+            |
+            --- _int_malloc
+               |          
+               |--35.62%-- 0xd4d320
+               |          |          
+               |          |--2.57%-- 0x18f41
+               |          |          
+               |          |--2.57%-- 0x15e81
+               |          |          
+               |          |--2.57%-- 0x1dc21
+               |          |          
+               |          |--2.57%-- 0x13481
+               |          |          
+               |          |--2.56%-- 0x1811
+               |          |          
+               |          |--2.56%-- 0x16181
+               |          |          
+               |          |--2.56%-- 0x7541
+               |          |          
+               |          |--2.56%-- 0x19511
+               |          |          
+               |          |--2.55%-- 0x12be1
+               |          |          
+               |          |--2.54%-- 0x115f1
+               |          |          
+               |          |--2.54%-- 0xb7a1
+               |          |          
+               |          |--2.52%-- 0xa751
+               |          |          
+               |          |--2.50%-- 0x197b1
+               |          |          
+               |          |--2.50%-- 0x3e81
+               |          |          
+               |          |--2.49%-- 0x19481
+               |          |          
+               |          |--2.49%-- 0x1ba01
+               |          |          
+               |          |--2.49%-- 0xc8b1
+               |          |          
+               |          |--2.48%-- 0xfa31
+               |          |          
+               |          |--2.47%-- 0x3011
+               |          |          
+               |          |--2.42%-- 0x109f1
+               |          |          
+               |          |--2.38%-- 0x12011
+               |          |          
+               |          |--1.81%-- 0xd241
+               |          |          
+               |          |--1.81%-- 0x4ba1
+               |          |          
+               |          |--1.81%-- 0x2501
+               |          |          
+               |          |--1.81%-- 0xe651
+               |          |          
+               |          |--1.81%-- 0xf7c1
+               |          |          
+               |          |--1.81%-- 0xdf01
+               |          |          
+               |          |--1.81%-- 0x1fc91
+               |          |          
+               |          |--1.81%-- 0x881
+               |          |          
+               |          |--1.81%-- 0x20e1
+               |          |          
+               |          |--1.81%-- 0x1fd81
+               |          |          
+               |          |--1.81%-- 0xa5a1
+               |          |          
+               |          |--1.81%-- 0x19691
+               |          |          
+               |          |--1.81%-- 0x42d1
+               |          |          
+               |          |--1.81%-- 0x4a51
+               |          |          
+               |          |--1.81%-- 0x1d861
+               |          |          
+               |          |--1.81%-- 0x198d1
+               |          |          
+               |          |--1.81%-- 0x1dda1
+               |          |          
+               |          |--1.81%-- 0xfac1
+               |          |          
+               |          |--1.81%-- 0x17c81
+               |          |          
+               |          |--1.81%-- 0x186d1
+               |          |          
+               |          |--1.81%-- 0x129d1
+               |          |          
+               |          |--1.81%-- 0x8681
+               |          |          
+               |          |--1.81%-- 0x4061
+               |          |          
+               |          |--1.81%-- 0x13991
+               |          |          
+               |          |--1.81%-- 0x20fe1
+               |          |          
+               |           --1.81%-- 0x15d1
+                --64.38%-- [...]
+
+     0.49%  cs296_exe_27  cs296_exe_27         [.] b2PolygonShape::ComputeAABB(b2AABB*, b2Transform const&, int) const                                                                                                    
+            |
+            --- b2PolygonShape::ComputeAABB(b2AABB*, b2Transform const&, int) const
+
+     0.45%  cs296_exe_27  cs296_exe_27         [.] b2World::DrawJoint(b2Joint*)                                                                                                                                           
+            |
+            --- b2World::DrawJoint(b2Joint*)
+               |          
+               |--93.53%-- 0x8000000008
+               |          0xd89070
+                --6.47%-- [...]
+
+     0.39%  cs296_exe_27  cs296_exe_27         [.] b2PolygonShape::Clone(b2BlockAllocator*) const                                                                                                                         
+            |
+            --- b2PolygonShape::Clone(b2BlockAllocator*) const
+                (nil)
+                0x3c23d70a00000002
+                b2PolygonShape::~b2PolygonShape()
+                0x89480022faf415ff
+
+     0.38%  cs296_exe_27  cs296_exe_27         [.] b2BroadPhase::DestroyProxy(int)                                                                                                                                        
+            |
+            --- b2BroadPhase::DestroyProxy(int)
+
+     0.37%  cs296_exe_27  cs296_exe_27         [.] b2PrismaticJoint::GetAnchorB() const                                                                                                                                   
+            |
+            --- b2PrismaticJoint::GetAnchorB() const
+                0x8000000008
+                0xd89070
+
+     0.35%  cs296_exe_27  cs296_exe_27         [.] b2PrismaticJoint::GetAnchorA() const                                                                                                                                   
+            |
+            --- b2PrismaticJoint::GetAnchorA() const
+                0x8000000008
+                0xd89070
+
+     0.33%  cs296_exe_27  cs296_exe_27         [.] glEnd@plt                                                                                                                                                              
+            |
+            --- glEnd@plt
+               |          
+               |--91.55%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+                --8.45%-- b2World::DrawJoint(b2Joint*)
+                          0x8000000008
+                          0xd89070
+
+     0.30%  cs296_exe_27  cs296_exe_27         [.] b2World::Step(float, int, int)                                                                                                                                         
+            |
+            --- b2World::Step(float, int, int)
+               |          
+               |--98.47%-- 0xd9a4c0
+               |          
+                --1.53%-- main
+                          __libc_start_main
+
+     0.30%  cs296_exe_27  cs296_exe_27         [.] b2BlockAllocator::Allocate(int)                                                                                                                                        
+            |
+            --- b2BlockAllocator::Allocate(int)
+               |          
+               |--84.09%-- 0x0
+               |          |          
+               |          |--41.00%-- 0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          
+               |          |--39.01%-- 0x3c23d70a00000002
+               |          |          b2PolygonShape::~b2PolygonShape()
+               |          |          0x89480022faf415ff
+               |          |          
+               |          |--4.95%-- 0x41ac147b41d0147b
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          
+               |          |--4.32%-- 0x42020a3d40a051ec
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          
+               |          |--3.57%-- 0x4184147b4198147b
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          
+               |          |--3.57%-- 0x41d4147bc187eb85
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          
+               |          |--1.79%-- 0x413828f6c03f5c29
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          0x0
+               |          |          
+               |           --1.79%-- 0x41ec147bc11fd70a
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |          
+                --15.91%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.27%  cs296_exe_27  cs296_exe_27         [.] b2Fixture::Create(b2BlockAllocator*, b2Body*, b2FixtureDef const*)                                                                                                     
+            |
+            --- b2Fixture::Create(b2BlockAllocator*, b2Body*, b2FixtureDef const*)
+                (nil)
+               |          
+               |--98.79%-- 0x3c23d70a00000002
+               |          b2PolygonShape::~b2PolygonShape()
+               |          0x89480022faf415ff
+                --1.21%-- [...]
+
+     0.27%  cs296_exe_27  cs296_exe_27         [.] b2Vec2::Set(float, float)                                                                                                                                              
+            |
+            --- b2Vec2::Set(float, float)
+               |          
+               |--72.55%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --27.45%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.26%  cs296_exe_27  libGL.so.1.2.0       [.] glColor4f                                                                                                                                                              
+            |
+            --- glColor4f
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.23%  cs296_exe_27  cs296_exe_27         [.] b2Body::ShouldCollide(b2Body const*) const                                                                                                                             
+            |
+            --- b2Body::ShouldCollide(b2Body const*) const
+                0xd9a4c0
+
+     0.22%  cs296_exe_27  cs296_exe_27         [.] void b2BroadPhase::UpdatePairs<b2ContactManager>(b2ContactManager*)                                                                                                    
+            |
+            --- void b2BroadPhase::UpdatePairs<b2ContactManager>(b2ContactManager*)
+                0xd9a4c0
+
+     0.21%  cs296_exe_27  cs296_exe_27         [.] b2Body::DestroyFixture(b2Fixture*)                                                                                                                                     
+            |
+            --- b2Body::DestroyFixture(b2Fixture*)
+               |          
+               |--57.96%-- 0x0
+               |          |          
+               |           --100.00%-- 0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |          
+                --42.04%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.21%  cs296_exe_27  cs296_exe_27         [.] cs296::base_sim_t::step(cs296::settings_t*)                                                                                                                            
+            |
+            --- cs296::base_sim_t::step(cs296::settings_t*)
+               |          
+               |--96.82%-- main
+               |          __libc_start_main
+               |          
+                --3.18%-- __libc_start_main
+
+     0.20%  cs296_exe_27  libc-2.17.so         [.] malloc                                                                                                                                                                 
+            |
+            --- malloc
+               |          
+               |--7.83%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+                --92.17%-- [...]
+
+     0.18%  cs296_exe_27  cs296_exe_27         [.] b2DynamicTree::CreateProxy(b2AABB const&, void*)                                                                                                                       
+            |
+            --- b2DynamicTree::CreateProxy(b2AABB const&, void*)
+               |          
+               |--7.64%-- 0x4184147b4198147b
+               |          
+               |--7.13%-- 0x4194147bc03f5c29
+               |          
+               |--5.24%-- 0x415828f6414028f6
+               |          
+               |--5.24%-- 0x42020a3d40a051ec
+               |          
+               |--5.24%-- 0x41ac147bc11fd70a
+               |          
+               |--5.16%-- 0x4184147bc187eb85
+               |          
+               |--4.51%-- 0x41ec147bc11fd70a
+               |          
+               |--4.36%-- 0x41d4147bc187eb85
+               |          
+               |--3.73%-- 0x41ac147b41d0147b
+               |          
+               |--2.55%-- 0x41ac147bc1bfeb85
+               |          
+               |--1.87%-- 0x4194147b40a051ec
+               |          
+               |--1.87%-- 0x41ac147b414028f6
+               |          
+               |--1.87%-- 0x41cc147b40a051ec
+               |          
+               |--1.86%-- 0x41d4147b4198147b
+               |          
+               |--1.86%-- 0x41ec147b414028f6
+                --39.87%-- [...]
+
+     0.17%  cs296_exe_27  cs296_exe_27         [.] b2Body::CreateFixture(b2FixtureDef const*)                                                                                                                             
+            |
+            --- b2Body::CreateFixture(b2FixtureDef const*)
+               |          
+               |--67.31%-- 0x0
+               |          
+                --32.69%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.16%  cs296_exe_27  cs296_exe_27         [.] b2Fixture::CreateProxies(b2BroadPhase*, b2Transform const&)                                                                                                            
+            |
+            --- b2Fixture::CreateProxies(b2BroadPhase*, b2Transform const&)
+               |          
+               |--44.06%-- 0x0
+                --55.94%-- [...]
+
+     0.16%  cs296_exe_27  cs296_exe_27         [.] b2BroadPhase::QueryCallback(int)                                                                                                                                       
+            |
+            --- b2BroadPhase::QueryCallback(int)
+               |          
+               |--5.56%-- 0x41ace14841d0e148
+               |          
+               |--5.48%-- 0x4194e148c038f5c3
+               |          
+               |--2.89%-- 0x4184e1484198e148
+               |          
+               |--2.88%-- 0x41d4e148c1871eb8
+               |          
+               |--2.85%-- 0x420270a340a3851f
+               |          
+               |--2.82%-- 0x420270a3c038f5c3
+               |          
+               |--2.78%-- 0x4194e14840a3851f
+               |          
+               |--2.70%-- 0x41cce148c038f5c3
+               |          
+               |--2.04%-- 0x41ece1484141c290
+                --70.00%-- [...]
+
+     0.15%  cs296_exe_27  cs296_exe_27         [.] b2ContactManager::AddPair(void*, void*)                                                                                                                                
+            |
+            --- b2ContactManager::AddPair(void*, void*)
+                0xd9a4c0
+
+     0.15%  cs296_exe_27  libGL.so.1.2.0       [.] glDisable                                                                                                                                                              
+            |
+            --- glDisable
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.14%  cs296_exe_27  cs296_exe_27         [.] b2Filter::b2Filter()                                                                                                                                                   
+            |
+            --- b2Filter::b2Filter()
+               |          
+               |--82.52%-- b2FixtureDef::b2FixtureDef()
+               |          cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --17.48%-- cs296::dominos_t::check()
+                          cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.14%  cs296_exe_27  cs296_exe_27         [.] b2Shape::~b2Shape()                                                                                                                                                    
+            |
+            --- b2Shape::~b2Shape()
+               |          
+               |--62.59%-- b2PolygonShape::~b2PolygonShape()
+               |          |          
+               |          |--50.78%-- cs296::dominos_t::check()
+               |          |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          |          main
+               |          |          __libc_start_main
+               |          |          
+               |           --49.22%-- b2Fixture::Destroy(b2BlockAllocator*)
+               |                     0x3c23d70a00000002
+               |                     |          
+               |                     |--50.64%-- b2PolygonShape::~b2PolygonShape()
+               |                     |          0x89480022faf415ff
+               |                     |          
+               |                      --49.36%-- b2Shape::~b2Shape()
+               |                                0x8948002301f615ff
+               |          
+               |--21.78%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --15.64%-- b2Fixture::Destroy(b2BlockAllocator*)
+                          0x3c23d70a00000002
+                          |          
+                          |--58.19%-- b2Shape::~b2Shape()
+                          |          0x8948002301f615ff
+                          |          
+                           --41.81%-- b2PolygonShape::~b2PolygonShape()
+                                     0x89480022faf415ff
+
+     0.14%  cs296_exe_27  cs296_exe_27         [.] b2DynamicTree::DestroyProxy(int)                                                                                                                                       
+            |
+            --- b2DynamicTree::DestroyProxy(int)
+
+     0.14%  cs296_exe_27  cs296_exe_27         [.] b2BlockAllocator::Free(void*, int)                                                                                                                                     
+            |
+            --- b2BlockAllocator::Free(void*, int)
+               |          
+               |--73.76%-- 0x0
+               |          |          
+               |           --100.00%-- 0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |          
+                --26.24%-- 0x3c23d70a00000002
+                          |          
+                          |--54.53%-- 0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          0x0
+                          |          
+                           --45.47%-- b2Shape::~b2Shape()
+                                     0x8948002301f615ff
+
+     0.13%  cs296_exe_27  cs296_exe_27         [.] b2PolygonShape::~b2PolygonShape()                                                                                                                                      
+            |
+            --- b2PolygonShape::~b2PolygonShape()
+               |          
+               |--48.57%-- b2Fixture::Destroy(b2BlockAllocator*)
+               |          0x3c23d70a00000002
+               |          |          
+               |          |--92.62%-- b2PolygonShape::~b2PolygonShape()
+               |          |          0x89480022faf415ff
+               |          |          
+               |           --7.38%-- b2Shape::~b2Shape()
+               |                     0x8948002301f615ff
+               |          
+               |--33.36%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+               |--9.52%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --8.55%-- 0x3c23d70a00000002
+                          b2PolygonShape::~b2PolygonShape()
+                          0x89480022faf415ff
+
+     0.13%  cs296_exe_27  cs296_exe_27         [.] b2Fixture::Destroy(b2BlockAllocator*)                                                                                                                                  
+            |
+            --- b2Fixture::Destroy(b2BlockAllocator*)
+               |          
+               |--52.04%-- 0x3c23d70a00000002
+               |          |          
+               |          |--34.91%-- b2Shape::~b2Shape()
+               |          |          0x8948002301f615ff
+               |          |          
+               |          |--33.02%-- b2PolygonShape::~b2PolygonShape()
+               |          |          0x89480022faf415ff
+               |          |          
+               |           --32.07%-- 0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |                     0x0
+               |          
+                --47.96%-- 0x0
+
+     0.12%  cs296_exe_27  cs296_exe_27         [.] glBegin@plt                                                                                                                                                            
+            |
+            --- glBegin@plt
+               |          
+               |--83.62%-- b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+               |          0x3f80000000000000
+               |          
+                --16.38%-- b2World::DrawJoint(b2Joint*)
+                          0x8000000008
+                          0xd89070
+
+     0.12%  cs296_exe_27  cs296_exe_27         [.] b2Body::GetFixtureList()                                                                                                                                               
+            |
+            --- b2Body::GetFixtureList()
+               |          
+               |--79.01%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --20.99%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.12%  cs296_exe_27  cs296_exe_27         [.] b2FixtureDef::b2FixtureDef()                                                                                                                                           
+            |
+            --- b2FixtureDef::b2FixtureDef()
+               |          
+               |--97.34%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --2.66%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.11%  cs296_exe_27  cs296_exe_27         [.] b2Fixture::DestroyProxies(b2BroadPhase*)                                                                                                                               
+            |
+            --- b2Fixture::DestroyProxies(b2BroadPhase*)
+               |          
+               |--24.73%-- 0x0
+                --75.27%-- [...]
+
+     0.11%  cs296_exe_27  cs296_exe_27         [.] std::abs(float)                                                                                                                                                        
+            |
+            --- std::abs(float)
+               |          
+               |--92.86%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --7.14%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.11%  cs296_exe_27  cs296_exe_27         [.] void std::__insertion_sort<b2Pair*, bool (*)(b2Pair const&, b2Pair const&)>(b2Pair*, b2Pair*, bool (*)(b2Pair const&, b2Pair const&)) [clone .constprop.29]            
+            |
+            --- void std::__insertion_sort<b2Pair*, bool (*)(b2Pair const&, b2Pair const&)>(b2Pair*, b2Pair*, bool (*)(b2Pair const&, b2Pair const&)) [clone .constprop.29]
+               |          
+               |--16.56%-- 0x9b0000000b
+               |          
+               |--15.17%-- 0xa10000001f
+               |          
+               |--11.31%-- 0x870000000b
+               |          
+               |--11.22%-- 0x9700000057
+               |          
+               |--9.98%-- 0x890000000b
+               |          
+               |--8.38%-- 0x990000003b
+               |          
+               |--5.92%-- 0x9d0000000b
+               |          
+               |--4.20%-- 0x9300000009
+               |          
+               |--4.20%-- 0x8d00000021
+               |          
+               |--4.17%-- 0x8f00000021
+               |          
+               |--2.96%-- 0x8b0000003d
+               |          
+               |--2.96%-- 0x890000003d
+               |          
+                --2.95%-- 0x9100000021
+
+     0.11%  cs296_exe_27  cs296_exe_27         [.] b2Joint::GetBodyB()                                                                                                                                                    
+            |
+            --- b2Joint::GetBodyB()
+               |          
+               |--77.35%-- cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --22.65%-- cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.11%  cs296_exe_27  cs296_exe_27         [.] b2Body::GetPosition() const                                                                                                                                            
+            |
+            --- b2Body::GetPosition() const
+               |          
+               |--50.98%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --49.02%-- cs296::dominos_t::check()
+                          cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.10%  cs296_exe_27  cs296_exe_27         [.] b2PolygonShape::GetChildCount() const                                                                                                                                  
+            |
+            --- b2PolygonShape::GetChildCount() const
+               |          
+               |--47.44%-- 0x0
+               |          |          
+               |           --100.00%-- 0x3c23d70a00000002
+               |                     b2PolygonShape::~b2PolygonShape()
+               |                     0x89480022faf415ff
+                --52.56%-- [...]
+
+     0.10%  cs296_exe_27  cs296_exe_27         [.] b2Timer::GetMilliseconds() const                                                                                                                                       
+            |
+            --- b2Timer::GetMilliseconds() const
+               |          
+               |--76.09%-- 0xd9a4c0
+               |          
+                --23.91%-- 0xd8b530
+                          0x0
+
+     0.09%  cs296_exe_27  cs296_exe_27         [.] void std::__introsort_loop<b2Pair*, long, bool (*)(b2Pair const&, b2Pair const&)>(b2Pair*, b2Pair*, long, bool (*)(b2Pair const&, b2Pair const&)) [clone .constprop.18]
+            |
+            --- void std::__introsort_loop<b2Pair*, long, bool (*)(b2Pair const&, b2Pair const&)>(b2Pair*, b2Pair*, long, bool (*)(b2Pair const&, b2Pair const&)) [clone .constprop.18]
+               |          
+               |--63.01%-- 0x7f00000007
+               |          
+               |--20.18%-- 0x8d00000021
+               |          
+                --16.81%-- 0x7f00000075
+
+     0.09%  cs296_exe_27  cs296_exe_27         [.] b2DynamicTree::AllocateNode()                                                                                                                                          
+            |
+            --- b2DynamicTree::AllocateNode()
+
+     0.08%  cs296_exe_27  cs296_exe_27         [.] glVertex2f@plt                                                                                                                                                         
+            |
+            --- glVertex2f@plt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.08%  cs296_exe_27  libGL.so.1.2.0       [.] glEnable                                                                                                                                                               
+            |
+            --- glEnable
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.08%  cs296_exe_27  cs296_exe_27         [.] b2Fixture::b2Fixture()                                                                                                                                                 
+            |
+            --- b2Fixture::b2Fixture()
+                (nil)
+               |          
+               |--88.11%-- 0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+               |          0x0
+                --11.89%-- [...]
+
+     0.07%  cs296_exe_27  libGL.so.1.2.0       [.] glBlendFunc                                                                                                                                                            
+            |
+            --- glBlendFunc
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.07%  cs296_exe_27  cs296_exe_27         [.] b2StackAllocator::Allocate(int)                                                                                                                                        
+            |
+            --- b2StackAllocator::Allocate(int)
+               |          
+               |--9.51%-- 0x200
+               |          0xd8b170
+               |          0x0
+               |          
+               |--9.51%-- 0x414
+               |          0x0
+               |          
+               |--9.50%-- 0x2b8
+               |          0xd8b530
+               |          0x0
+               |          
+               |--6.74%-- 0x300
+               |          0x0
+               |          
+               |--6.72%-- 0x100
+               |          0xdc92d0
+               |          0x6
+               |          b2PolygonContact::~b2PolygonContact()
+               |          0x8948684f8b486077
+                --58.02%-- [...]
+
+     0.07%  cs296_exe_27  cs296_exe_27         [.] b2BroadPhase::CreateProxy(b2AABB const&, void*)                                                                                                                        
+            |
+            --- b2BroadPhase::CreateProxy(b2AABB const&, void*)
+
+     0.06%  cs296_exe_27  cs296_exe_27         [.] b2StackAllocator::Free(void*)                                                                                                                                          
+            |
+            --- b2StackAllocator::Free(void*)
+               |          
+               |--27.47%-- 0x300
+               |          0x0
+               |          
+               |--24.81%-- 0xc130000000000001
+               |          
+               |--22.75%-- 0xd8b530
+               |          0x0
+               |          
+               |--14.47%-- 0x0
+               |          0x0
+               |          
+               |--5.26%-- 0x200
+               |          0xd8b170
+               |          0x0
+               |          
+                --5.24%-- 0x2b8
+                          0xd8b170
+                          0x0
+
+     0.06%  cs296_exe_27  cs296_exe_27         [.] glDisable@plt                                                                                                                                                          
+            |
+            --- glDisable@plt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.06%  cs296_exe_27  cs296_exe_27         [.] main                                                                                                                                                                   
+            |
+            --- main
+                __libc_start_main
+
+     0.06%  cs296_exe_27  cs296_exe_27         [.] glColor4f@plt                                                                                                                                                          
+            |
+            --- glColor4f@plt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.05%  cs296_exe_27  libstdc++.so.6.0.18  [.] operator new(unsigned long)                                                                                                                                            
+            |
+            --- operator new(unsigned long)
+                cs296::base_sim_t::step(cs296::settings_t*)
+                main
+                __libc_start_main
+
+     0.05%  cs296_exe_27  cs296_exe_27         [.] sinf@plt                                                                                                                                                               
+            |
+            --- sinf@plt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.05%  cs296_exe_27  cs296_exe_27         [.] cosf@plt                                                                                                                                                               
+            |
+            --- cosf@plt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.04%  cs296_exe_27  cs296_exe_27         [.] b2Shape::b2Shape()                                                                                                                                                     
+            |
+            --- b2Shape::b2Shape()
+               |          
+               |--61.89%-- b2PolygonShape::b2PolygonShape()
+               |          cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --38.11%-- cs296::dominos_t::check()
+                          cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.04%  cs296_exe_27  libGL.so.1.2.0       [.] glColor3f                                                                                                                                                              
+            |
+            --- glColor3f
+                b2World::DrawJoint(b2Joint*)
+                0x8000000008
+                0xd89070
+
+     0.04%  cs296_exe_27  cs296_exe_27         [.] b2Vec2::SetZero()                                                                                                                                                      
+            |
+            --- b2Vec2::SetZero()
+               |          
+               |--56.63%-- b2PolygonShape::b2PolygonShape()
+               |          cs296::dominos_t::check()
+               |          cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --43.37%-- cs296::dominos_t::check()
+                          cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.04%  cs296_exe_27  cs296_exe_27         [.] glBlendFunc@plt                                                                                                                                                        
+            |
+            --- glBlendFunc@plt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.04%  cs296_exe_27  cs296_exe_27         [.] b2Fixture::GetFilterData() const                                                                                                                                       
+            |
+            --- b2Fixture::GetFilterData() const
+               |          
+               |--70.56%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --29.44%-- cs296::dominos_t::check()
+                          cs296::base_sim_t::step(cs296::settings_t*)
+                          main
+                          __libc_start_main
+
+     0.04%  cs296_exe_27  cs296_exe_27         [.] float b2Max<float>(float, float)                                                                                                                                       
+            |
+            --- float b2Max<float>(float, float)
+               |          
+               |--69.94%-- cs296::base_sim_t::step(cs296::settings_t*)
+               |          main
+               |          __libc_start_main
+               |          
+                --30.06%-- main
+                          __libc_start_main
+
+     0.03%  cs296_exe_27  cs296_exe_27         [.] glColor3f@plt                                                                                                                                                          
+            |
+            --- glColor3f@plt
+                b2World::DrawJoint(b2Joint*)
+                0x8000000008
+                0xd89070
+
+     0.03%  cs296_exe_27  cs296_exe_27         [.] glEnable@plt                                                                                                                                                           
+            |
+            --- glEnable@plt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.02%  cs296_exe_27  libstdc++.so.6.0.18  [.] malloc@plt                                                                                                                                                             
+            |
+            --- malloc@plt
+                cs296::base_sim_t::step(cs296::settings_t*)
+                main
+                __libc_start_main
+
+     0.02%  cs296_exe_27  cs296_exe_27         [.] b2Timer::b2Timer()                                                                                                                                                     
+            |
+            --- b2Timer::b2Timer()
+               |          
+               |--70.40%-- 0xd9a4c0
+               |          
+                --29.60%-- 0xd8b530
+                          0x0
+
+     0.02%  cs296_exe_27  libc-2.17.so         [.] __memmove_ssse3_back                                                                                                                                                   
+            |
+            --- __memmove_ssse3_back
+                0xa10000001f
+
+     0.02%  cs296_exe_27  cs296_exe_27         [.] b2ContactSolver::SolveVelocityConstraints()                                                                                                                            
+            |
+            --- b2ContactSolver::SolveVelocityConstraints()
+                0x3f0000003f000000
+
+     0.02%  cs296_exe_27  ld-2.17.so           [.] _dl_check_map_versions                                                                                                                                                 
+            |
+            --- _dl_check_map_versions
+                _dl_check_all_versions
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] b2ContactFilter::ShouldCollide(b2Fixture*, b2Fixture*)                                                                                                                 
+            |
+            --- b2ContactFilter::ShouldCollide(b2Fixture*, b2Fixture*)
+                0xd9a4c0
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] b2ContactSolver::InitializeVelocityConstraints()                                                                                                                       
+            |
+            --- b2ContactSolver::InitializeVelocityConstraints()
+                0x800000000
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] gettimeofday@plt                                                                                                                                                       
+            |
+            --- gettimeofday@plt
+                0xd9a4c0
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] b2Island::b2Island(int, int, int, b2StackAllocator*, b2ContactListener*)                                                                                               
+            |
+            --- b2Island::b2Island(int, int, int, b2StackAllocator*, b2ContactListener*)
+               |          
+               |--30.43%-- 0xd9a4c0
+                --69.57%-- [...]
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] b2Island::~b2Island()                                                                                                                                                  
+            |
+            --- b2Island::~b2Island()
+                0xc130000000000001
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] b2PrismaticJoint::SolveVelocityConstraints(b2SolverData const&)                                                                                                        
+            |
+            --- b2PrismaticJoint::SolveVelocityConstraints(b2SolverData const&)
+                0x83f800000
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] b2Distance(b2DistanceOutput*, b2SimplexCache*, b2DistanceInput const*)                                                                                                 
+            |
+            --- b2Distance(b2DistanceOutput*, b2SimplexCache*, b2DistanceInput const*)
+                b2World::Solve(b2TimeStep const&)
+                0xd8b530
+                (nil)
+
+     0.01%  cs296_exe_27  cs296_exe_27         [.] b2World::SetContinuousPhysics(bool)                                                                                                                                    
+            |
+            --- b2World::SetContinuousPhysics(bool)
+                cs296::base_sim_t::step(cs296::settings_t*)
+                main
+                __libc_start_main
+
+     0.00%  cs296_exe_27  cs296_exe_27         [.] b2Draw::GetFlags() const                                                                                                                                               
+            |
+            --- b2Draw::GetFlags() const
+                main
+                __libc_start_main
+
+     0.00%  cs296_exe_27  cs296_exe_27         [.] b2ContactManager::FindNewContacts()                                                                                                                                    
+            |
+            --- b2ContactManager::FindNewContacts()
+                0xd8b530
+                (nil)
+
+     0.00%  cs296_exe_27  libc-2.17.so         [.] __restore_rt                                                                                                                                                           
+            |
+            --- __restore_rt
+                b2World::DrawShape(b2Fixture*, b2Transform const&, b2Color const&)
+                0x3f80000000000000
+
+     0.00%  cs296_exe_27  cs296_exe_27         [.] b2World::SetWarmStarting(bool)                                                                                                                                         
+            |
+            --- b2World::SetWarmStarting(bool)
+                main
+                __libc_start_main
+
+     0.00%  cs296_exe_27  cs296_exe_27         [.] b2World::SetSubStepping(bool)                                                                                                                                          
+            |
+            --- b2World::SetSubStepping(bool)
+                cs296::base_sim_t::step(cs296::settings_t*)
+                main
+                __libc_start_main
+
+     0.00%  cs296_exe_27  cs296_exe_27         [.] _Znwm@plt                                                                                                                                                              
+            |
+            --- _Znwm@plt
+                cs296::base_sim_t::step(cs296::settings_t*)
+                main
+                __libc_start_main
+
+
+
+#
+# (For a higher level overview, try: perf report --sort comm,dso)
+#

@@ -52,9 +52,17 @@ namespace cs296
 	b2BodyDef bd_score2[10];
 	b2Body* team1[11];///< Players Team1
 	b2Body* team2[11];///< Players Team2
+<<<<<<< HEAD
 	b2Body* active2=rod2[1], *active1=rod2[1];///Define Active rod for players
 	b2Body* pointer1, * pointer2;///We define pointers to the current active rod
 	b2Body* UpperWall,* LowerWall;/// Bodies for the upper and Lower walls
+=======
+	b2BodyDef bd_player1[11];
+	b2BodyDef bd_player2[11];
+	b2Body* active2=rod2[1], *active1=rod2[1];///Define Active rod for players
+	b2Body* pointer1, * pointer2;///We define pointers to the current active rod
+	int key_pressed;
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 	/**Handle keyboard inputs*/
 		void dominos_t::keyboard(unsigned char key){
 			std::cout<<key<<endl;
@@ -80,16 +88,44 @@ namespace cs296
 			case 'q':///Stops the rod 
 				active2->SetLinearVelocity(b2Vec2(0,0));
 				break;
+<<<<<<< HEAD
 			case 'v':///Keypress v: Rotates the player towards left
+=======
+			case 'v':///Keypress v: Rotates the player towards left,if the player is already to the left and v is pressed then the player get lifted
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++){
 					b2Body *bod= m_joint_2[i]->GetBodyA();
 					b2Vec2 v1=m_joint_2[i]->GetAnchorB();
 					b2Vec2 v2=m_joint_2[i]->GetAnchorA();
 					b2Fixture* origFix=bod->GetFixtureList();
+<<<<<<< HEAD
 					if(v1.x-v2.x > 1.3){///We check if player is far left
 						b2FixtureDef *fd = new b2FixtureDef;/// if so, we make player transparent
 						b2PolygonShape player1;
 						player1.SetAsBox(1.0f,(float)(v1.x-v2.x+0.4f),b2Vec2(0.0f,0.0f),0.0f);
+=======
+					cout<<v1.x<<" "<<v2.x<<" "<<v1.x-v2.x<<endl;
+					if(v1.x-v2.x > 1.3){///We check if player is far left
+						
+						b2FixtureDef *fd = new b2FixtureDef;/// if so, we make player transparent
+						b2PolygonShape player1;
+						int x=team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x;x=x/3;
+						b2Vec2 vertices[4];
+						if(x>0){
+							vertices[0].Set(-x-1,1.5);
+							vertices[1].Set(-x-1,-1.5);
+							vertices[2].Set(x+1,1.5-(x/2));
+							vertices[3].Set(x+1,-1.5+(x/2));
+						}
+						else {
+							vertices[0].Set(x-1,1.5-(-x/2));
+							vertices[1].Set(x-1,-1.5+(-x/2));
+							vertices[2].Set(-x+1,1.5);
+							vertices[3].Set(-x+1,-1.5);
+						}		
+						player1.Set(vertices,4);
+						//player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 						fd->shape = &player1;
 						fd->density = 1.0;
 						fd->filter.maskBits = 0x0000;
@@ -98,20 +134,49 @@ namespace cs296
 						//filt.maskBits=0x0000;//also change fixture here
 					}
 					else{ 
+<<<<<<< HEAD
 						if(origFix->GetFilterData().maskBits == 0x0000 ){/// We check if player is in transparent state
 							b2FixtureDef *fd = new b2FixtureDef;/// if so, we change fixture accordingly
 							b2PolygonShape player1;
 							player1.SetAsBox(1.0f,1.5f,b2Vec2(0.0f,0.0f),0.0f);
+=======
+						//cout<<"Hari"<<endl;
+						//if(origFix->GetFilterData().maskBits == 0x0000 ){/// We check if player is in transparent state
+							b2FixtureDef *fd = new b2FixtureDef;/// if so, we change fixture accordingly
+							b2PolygonShape player1;
+							int x=team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x;
+							x=x/3;
+							b2Vec2 vertices[4];
+							if(x>0){
+								vertices[0].Set(-x-1,1.5);
+								vertices[1].Set(-x-1,-1.5);
+								vertices[2].Set(x+1,1.5-(x/2));
+								vertices[3].Set(x+1,-1.5+(x/2));
+							}
+							else {
+								vertices[0].Set(x-1,1.5-(-x/2));
+								vertices[1].Set(x-1,-1.5+(-x/2));
+								vertices[2].Set(-x+1,1.5);
+								vertices[3].Set(-x+1,-1.5);
+							}		
+							player1.Set(vertices,4);
+							//player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 							fd->shape = &player1;
 							fd->density = 0.0;
 							fd->filter.maskBits = 0xFFFF;
 							bod->DestroyFixture(origFix);
 							bod->CreateFixture(fd);
+<<<<<<< HEAD
 						}			
+=======
+						/*}			
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 						else{
 							b2Filter filt=bod->GetFixtureList()->GetFilterData();
 							filt.maskBits=0xFFFF;
 							bod->GetFixtureList()->SetFilterData(filt);
+<<<<<<< HEAD
 						}
 					}
 					m_joint_2[i]->SetMotorSpeed(mul*(2* abs(m_joint_2[i]->GetAnchorB().x - m_joint_2[i]->GetAnchorA().x)+.5));
@@ -193,11 +258,48 @@ namespace cs296
 						b2FixtureDef *fd = new b2FixtureDef;/// if so, we make player transparent
 						b2PolygonShape player1;
 						player1.SetAsBox(1.0f,(float)(v1.x-v2.x+0.4f),b2Vec2(0.0f,0.0f),0.0f);
+=======
+						}*/
+					}
+					m_joint_2[i]->SetMotorSpeed(mul*(2* abs(m_joint_2[i]->GetAnchorB().x - m_joint_2[i]->GetAnchorA().x)+.5));
+					if(abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)>=1.9) {
+						m_joint_1[i]->SetMotorSpeed(0);
+					}
+				}
+				break;
+			case 'n':///Keypress n: Rotates the player towards right,if the player is already to the right and n is pressed then the player get lifted
+				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++){
+					b2Body *bod= m_joint_2[i]->GetBodyA();
+					b2Vec2 v1=m_joint_2[i]->GetAnchorB();
+					b2Vec2 v2=m_joint_2[i]->GetAnchorA();
+					b2Fixture* origFix=bod->GetFixtureList();
+					cout<<v1.x<<" "<<v2.x<<" "<<v1.x-v2.x<<endl;
+					if(v1.x-v2.x < -1.3){///We check if player is far right
+						b2FixtureDef *fd = new b2FixtureDef;///< If so, we create a new fixture
+						b2PolygonShape player1;
+						int x=team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x;x=x/3;
+						b2Vec2 vertices[4];
+						if(x>0){
+							vertices[0].Set(-x-1,1.5);
+							vertices[1].Set(-x-1,-1.5);
+							vertices[2].Set(x+1,1.5-(x/2));
+							vertices[3].Set(x+1,-1.5+(x/2));
+						}
+						else {
+							vertices[0].Set(x-1,1.5-(-x/2));
+							vertices[1].Set(x-1,-1.5+(-x/2));
+							vertices[2].Set(-x+1,1.5);
+							vertices[3].Set(-x+1,-1.5);
+						}
+						player1.Set(vertices,4);
+						//player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 						fd->shape = &player1;
 						fd->density = 1.0;
 						fd->filter.maskBits = 0x0000;
 						bod->DestroyFixture(origFix);
 						bod->CreateFixture(fd);
+<<<<<<< HEAD
 						//filt.maskBits=0x0000;//also change fixture here
 					}
 					else{ 
@@ -205,16 +307,44 @@ namespace cs296
 							b2FixtureDef *fd = new b2FixtureDef;/// if so, we change fixture accordingly
 							b2PolygonShape player1;
 							player1.SetAsBox(1.0f,1.5f,b2Vec2(0.0f,0.0f),0.0f);
+=======
+					}
+					else{ 
+						//if(origFix->GetFilterData().maskBits == 0x0000 ){/// in transparent state
+							b2FixtureDef *fd = new b2FixtureDef;
+							b2PolygonShape player1;
+							int x=team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x;x=x/3;
+							b2Vec2 vertices[4];
+							if(x>0){
+								vertices[0].Set(-x-1,1.5);
+								vertices[1].Set(-x-1,-1.5);
+								vertices[2].Set(x+1,1.5-(x/2));
+								vertices[3].Set(x+1,-1.5+(x/2));
+							}
+							else {
+								vertices[0].Set(x-1,1.5-(-x/2));
+								vertices[1].Set(x-1,-1.5+(-x/2));
+								vertices[2].Set(-x+1,1.5);
+								vertices[3].Set(-x+1,-1.5);
+							}							
+							player1.Set(vertices,4);
+							//player1.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 							fd->shape = &player1;
 							fd->density = 0.0;
 							fd->filter.maskBits = 0xFFFF;
 							bod->DestroyFixture(origFix);
 							bod->CreateFixture(fd);
+<<<<<<< HEAD
 						}			
+=======
+						/*}			
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 						else{
 							b2Filter filt=bod->GetFixtureList()->GetFilterData();
 							filt.maskBits=0xFFFF;
 							bod->GetFixtureList()->SetFilterData(filt);
+<<<<<<< HEAD
 						}
 					}
 					m_joint_1[i]->SetMotorSpeed(mul*(2* abs(m_joint_1[i]->GetAnchorB().x - m_joint_1[i]->GetAnchorA().x)+.5));
@@ -257,10 +387,62 @@ namespace cs296
 					m_joint_1[i]->SetMotorSpeed(mul*(-2*abs(m_joint_1[i]->GetAnchorA().x - m_joint_1[i]->GetAnchorB().x) -.5));
 				}
 				break;
+=======
+						}*/
+					}
+					/// If not far right, go for a shot!
+					m_joint_2[i]->SetMotorSpeed(mul*(-2*abs(m_joint_2[i]->GetAnchorA().x - m_joint_2[i]->GetAnchorB().x) -.5));
+					if(abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)>=1.9) {
+						m_joint_1[i]->SetMotorSpeed(0);
+					}
+				}
+				break;
+			case 'b':
+				for(int i=range[rod_2_index][0];i<range[rod_2_index][1];i++)
+					m_joint_2[i]->SetMotorSpeed(0);
+				break;
+			/////////////////////////////////////////////////////////////////////////////
+			///Team 1
+			case'[':
+				rod_1_index=(rod_1_index+1)%4;
+				active1=rod1[rod_1_index];
+				pointer1->SetTransform(b2Vec2(active1->GetPosition().x,42),0);
+				break;
+			case']':
+				rod_1_index=(rod_1_index+3)%4;
+				active1=rod1[rod_1_index];
+				pointer1->SetTransform(b2Vec2(active1->GetPosition().x,42),0);
+				break;
+			case '-':
+				active1->ApplyLinearImpulse(b2Vec2(0,40),active2->GetPosition(),100);
+				break;
+			case ';':
+				active1->ApplyLinearImpulse(b2Vec2(0,-40),active2->GetPosition(),100);
+				break;
+			case '=':
+				active1->SetLinearVelocity(b2Vec2(0,0));
+				break;
+			case ',':
+				for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++){
+					// go for a shot!
+					m_joint_1[i]->SetMotorSpeed(mul*(2* abs(m_joint_1[i]->GetAnchorB().x - m_joint_1[i]->GetAnchorA().x)+.5));
+				}
+				break;
+			case '/':
+				for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++){
+					// go for a shot!
+					m_joint_1[i]->SetMotorSpeed(mul*(-2*abs(m_joint_1[i]->GetAnchorA().x - m_joint_1[i]->GetAnchorB().x) -.5));
+				}
+				break;
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 			case '.':
 				for(int i=range[rod_1_index][0];i<range[rod_1_index][1];i++)
 				m_joint_1[i]->SetMotorSpeed(0);
 				break;
+<<<<<<< HEAD
+=======
+			///////////////////////////////////////////////////////////////////////////////////////////////////
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 			case 'w':
 				ball->ApplyLinearImpulse(b2Vec2(0,10),ball->GetPosition(),100);
 				break;
@@ -273,6 +455,10 @@ namespace cs296
 			case 'd':
 				ball->ApplyLinearImpulse(b2Vec2(10,0),ball->GetPosition(),100);
 				break;
+<<<<<<< HEAD
+=======
+			///////////////////////////////////////////////////////////////////////////////////////////////////
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 			default:
 				break;
 		}
@@ -289,8 +475,9 @@ namespace cs296
 			score2[9-j]->SetLinearVelocity(b2Vec2(0,-10));
 		}
 	}
-		/// Check if someone has scored
+	/// Check if someone has scored
 	void dominos_t::check(void){
+<<<<<<< HEAD
 		/*for(int i=0;i<10;i++){
 			b2Fixture* origFix=team2[i]->GetFixtureList();
 			b2FixtureDef *fd = new b2FixtureDef;;
@@ -312,12 +499,85 @@ namespace cs296
 			team1[i]->CreateFixture(fd);
 		}	
 			*/
+=======
+		///To change the fixture of the player depending on the position of the player
+		///Team1
+		for(int i=0;i<10;i++){
+			b2Fixture* origFix=team1[i]->GetFixtureList();
+			b2PolygonShape newShape;
+			b2Vec2 vertices[4];
+			float x=team1[i]->GetPosition().x-m_joint_1[i]->GetBodyB()->GetPosition().x;x=x/3;
+			//cout<<team2[i]->GetPosition().x<<" "<<m_joint_2[i]->GetBodyB()->GetPosition().x<<"    X value    "<<x<<endl;
+			if(x>0){
+				vertices[0].Set(-x-1,1.5);
+				vertices[1].Set(-x-1,-1.5);
+				vertices[2].Set(x+1,1.5-(x/2));
+				vertices[3].Set(x+1,-1.5+(x/2));
+			}
+			else {
+				vertices[0].Set(x-1,1.5-(-x/2));
+				vertices[1].Set(x-1,-1.5+(-x/2));
+				vertices[2].Set(-x+1,1.5);
+				vertices[3].Set(-x+1,-1.5);
+			}
+			
+			//newShape.SetAsBox(1+abs(team1[i]->GetPosition().x-m_joint_1[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
+			newShape.Set(vertices,4);
+			b2FixtureDef *fd = new b2FixtureDef;
+			fd->shape = &newShape;
+			fd->density = 0;
+			fd->filter.maskBits = origFix->GetFilterData().maskBits;
+			team1[i]->DestroyFixture(origFix);
+			team1[i]->CreateFixture(fd);
+			if(abs(x)>=1.7) {
+				m_joint_1[i]->SetMotorSpeed(0);
+			}
+		}	
+		///Team2
+		for(int i=0;i<10;i++){
+			b2Fixture* origFix=team2[i]->GetFixtureList();
+			b2PolygonShape newShape;
+			b2Vec2 vertices[4];
+			float x=team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x;x=x/3;
+			//cout<<team2[i]->GetPosition().x<<" "<<m_joint_2[i]->GetBodyB()->GetPosition().x<<"    X value    "<<x<<endl;
+			if(x>0){
+				vertices[0].Set(-x-1,1.5);
+				vertices[1].Set(-x-1,-1.5);
+				vertices[2].Set(x+1,1.5-(x/2));
+				vertices[3].Set(x+1,-1.5+(x/2));
+			}
+			else {
+				vertices[0].Set(x-1,1.5-(-x/2));
+				vertices[1].Set(x-1,-1.5+(-x/2));
+				vertices[2].Set(-x+1,1.5);
+				vertices[3].Set(-x+1,-1.5);
+			}
+			//newShape.SetAsBox(1+abs(team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x)/2.2,1.5);
+			newShape.Set(vertices,4);
+			b2FixtureDef *fd = new b2FixtureDef;
+			fd->shape = &newShape;
+			fd->density = 0;			
+			fd->filter.maskBits = origFix->GetFilterData().maskBits;
+			team2[i]->DestroyFixture(origFix);
+			team2[i]->CreateFixture(fd);
+			if(abs(x)>=1.7) {
+				m_joint_2[i]->SetMotorSpeed(0);
+			}
+		}
+		///To check if ball has reached the goal 	
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 			
 		if(ball->GetPosition().x<=32 && ball->GetPosition().x>=30 &&
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
 			ball->SetTransform(b2Vec2(0,20),0);team1_score++;
+<<<<<<< HEAD
 			score_1(team1_score);
 			if(team1_score==9){
+=======
+			ball->SetLinearVelocity(b2Vec2(0,0));
+			score_1(team1_score);
+			if(team1_score==10){
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 				for(int i=0;i<10;i++){
 					score1[i]->SetTransform(b2Vec2(-35.0f,6+2.2*i),0);
 					score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
@@ -338,8 +598,14 @@ namespace cs296
 		if(ball->GetPosition().x>=-32 && ball->GetPosition().x<=-30 &&
 			ball->GetPosition().y>=14 && ball->GetPosition().y <=26){
 			ball->SetTransform(b2Vec2(0,20),0);team2_score++;
+<<<<<<< HEAD
 			score_2(team2_score);
 			if(team2_score==9){
+=======
+			ball->SetLinearVelocity(b2Vec2(0,0));
+			score_2(team2_score);
+			if(team2_score==10){
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 				for(int i=0;i<10;i++){
 					score1[i]->SetTransform(b2Vec2(-35.0f,6+2*i),0);
 					score2[i]->SetTransform(b2Vec2(35.0f,34-2*i),0);
@@ -381,7 +647,7 @@ namespace cs296
 	}
 	
 /////////////////////////////////////////////////////////////////////////////	
-	
+	///Base lines 
 	{
 	
 		b2BodyDef bd_base;
@@ -422,13 +688,13 @@ namespace cs296
 	///3. Ball
 	{
 		b2CircleShape bal;
-		bal.m_radius=0.6;
+		bal.m_radius=0.8;
 		b2BodyDef bd_ball;
 		bd_ball.bullet=true;
 		b2FixtureDef *fd = new b2FixtureDef;
 		fd->shape = &bal;
 		fd->density = 0.0;
-		fd->restitution = 0.7f;
+		fd->restitution = 0.5f;
 		bd_ball.type = b2_dynamicBody;
 		bd_ball.position.Set(0.0f,20.0f);
 		ball=m_world->CreateBody(&bd_ball);
@@ -439,12 +705,16 @@ namespace cs296
 /////////////////////////////////////////////////////////////////////////////
 	
 	b2PolygonShape player1;
+<<<<<<< HEAD
 	b2BodyDef bd_player1[11];
+=======
+	
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 		
 /////////////////////////////////////////////////////////////////////////////
 	
 	b2PolygonShape player2;
-	b2BodyDef bd_player2[11];
+	
 	{
 		///4. Team 1 and Team 2 Rods
 
@@ -477,6 +747,14 @@ namespace cs296
 			bd_constr1[2].position.Set(pos1+0.9f,34.0f);
 			bd_constr1[3].position.Set(pos1-0.9f,34.0f);
 			
+<<<<<<< HEAD
+=======
+			bd_constr1[0].position.Set(pos1+0.9f,6.0f);
+			bd_constr1[1].position.Set(pos1-0.9f,6.0f);
+			bd_constr1[2].position.Set(pos1+0.9f,34.0f);
+			bd_constr1[3].position.Set(pos1-0.9f,34.0f);
+			
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 			bd_constr2[0].position.Set(pos2+0.9f,6.0f);
 			bd_constr2[1].position.Set(pos2-0.9f,6.0f);
 			bd_constr2[2].position.Set(pos2+0.9f,34.0f);
@@ -515,6 +793,7 @@ namespace cs296
 			rod2[i]->CreateFixture(&rodShape,0.0f);
 			rodShape.SetAsBox(0.6f,0.2f,b2Vec2(0.0f,18.3f),0.0f);
 			rod1[i]->CreateFixture(&rodShape,0.0f);
+<<<<<<< HEAD
 			/*
 			b2PrismaticJointDef prismaticJointDef;		///We define joints for all these players
 			prismaticJointDef.bodyA = UpperWall;
@@ -529,24 +808,31 @@ namespace cs296
 			prismaticJointDef.enableMotor = true;
 			prismaticJointDef.maxMotorForce = 10000;
 			m_joint_rod1[i] = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );*/
+=======
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 		}		
 	}
 /////////////////////////////////////////////////////////////////////////////
 	/// 5. To set Players
-///a. Team 1
+	///a. Team 1
 	{
+<<<<<<< HEAD
 	player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
 	b2FixtureDef *p1 = new b2FixtureDef;
 	p1->density=1.0;
 	p1->shape=&player1;
 	
 ///Rod 1		
+=======
+		player1.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+		///Rod 1		
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 		bd_player1[0].position.Set(-25.0f,20.0f);
-///Rod 2	
+		///Rod 2	
 		bd_player1[1].position.Set(-18.0f,25.0f);
 		
 		bd_player1[2].position.Set(-18.0f,15.0f);
-///Rod 3
+		///Rod 3
 		bd_player1[3].position.Set(-4.0f,31.0f);
 
 		bd_player1[4].position.Set(-4.0f,24.0f);
@@ -555,7 +841,7 @@ namespace cs296
 		
 		bd_player1[6].position.Set(-4.0f,10.0f);
 
-///Rod 4
+		///Rod 4
 		bd_player1[7].position.Set(11.0f,28.0f);
 
 		bd_player1[8].position.Set(11.0f,20.0f);
@@ -570,7 +856,11 @@ namespace cs296
 					  
 			bd_player1[i].type=b2_dynamicBody;
 			team1[i] = m_world->CreateBody(&bd_player1[i]);
+<<<<<<< HEAD
 			team1[i]->CreateFixture(p1);	
+=======
+			team1[i]->CreateFixture(&player1,0.0f);	
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 
 			b2PrismaticJointDef prismaticJointDef;		///We define joints for all these players
 			prismaticJointDef.bodyA = team1[i];
@@ -588,19 +878,26 @@ namespace cs296
 		}
 /////////////////////////////////////////////////////////////////////////////
 
-///b. Team 2	
+		///b. Team 2	
 		player2.SetAsBox(1,1.5,b2Vec2(0.0f,0.0f),0.0f);
+<<<<<<< HEAD
 			
 	b2FixtureDef *p2 = new b2FixtureDef;
 	p2->density=1.0;
 	p2->shape=&player2;
 ///Rod 1		
+=======
+		
+		///Rod 1		
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 		bd_player2[0].position.Set(25.0f,20.0f);
-///Rod 2
+		
+		///Rod 2
 		bd_player2[1].position.Set(18.0f,25.0f);
 	
 		bd_player2[2].position.Set(18.0f,15.0f);
-///Rod 3
+		
+		///Rod 3
 		bd_player2[3].position.Set(4.0f,31.0f);
 	
 		bd_player2[4].position.Set(4.0f,24.0f);
@@ -609,7 +906,7 @@ namespace cs296
 	
 		bd_player2[6].position.Set(4.0f,10.0f);
 
-///Rod 4
+		///Rod 4
 		bd_player2[7].position.Set(-11.0f,28.0f);
 
 		bd_player2[8].position.Set(-11.0f,20.0f);
@@ -622,7 +919,11 @@ namespace cs296
 					  
 			bd_player2[i].type=b2_dynamicBody;
 			team2[i] = m_world->CreateBody(&bd_player2[i]);
+<<<<<<< HEAD
 			team2[i]->CreateFixture(p2);	
+=======
+			team2[i]->CreateFixture(&player2,0.0f);	
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 			///We define joints for all these players
 			b2PrismaticJointDef prismaticJointDef;
 			prismaticJointDef.bodyA = team2[i];
@@ -637,10 +938,15 @@ namespace cs296
 			prismaticJointDef.enableMotor = true;
 			prismaticJointDef.maxMotorForce = 10000;
 			m_joint_2[i] = (b2PrismaticJoint*)m_world->CreateJoint( &prismaticJointDef );
+<<<<<<< HEAD
 
 		}
 	}
+=======
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
 
+		}
+	}
 	
 /////////////////////////////////////////////////////////////////////////////
 	
@@ -704,7 +1010,13 @@ namespace cs296
 	
 	}	 
   }
+<<<<<<< HEAD
 /// Create simulation with title Dominos.
+=======
+  
+/////////////////////////////////////////////////////////////////////////////
+
+>>>>>>> d267ea85aa1b76ca1bdbebd44e75c7954ad76f77
   sim_t *sim = new sim_t("Dominos", dominos_t::create);
 }
 
