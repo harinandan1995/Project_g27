@@ -1,0 +1,22 @@
+html
+{
+	color: white;
+	font-family:Calibri;
+	font-size=20px;
+	}
+h1
+{
+ text-align: center;
+ color:blue;
+ font-family:"Trebuchet MS";
+ }
+body
+{
+	background: url("images/Wallpaper2.jpg") no-repeat fixed 50% 20%;
+	background-size:cover;
+}
+a
+{
+	color:  #FFFFFF;
+	text-decoration: inherit,underline;
+}

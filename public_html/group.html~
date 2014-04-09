@@ -1,0 +1,54 @@
+<!--
+   group.html
+   
+   Copyright 2014 Mihir Kulkarni <Mihir Kulkarni@MIHIR>
+   
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+   
+   
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<link rel="stylesheet" type="text/css" href="index.css">
+<style>
+
+</style>
+ <title> Homepage of CS296 group </title> 
+<h1>CS 296 Lab Group 27 </h1>
+</head>
+
+<body>
+	<div style="text-align:center">
+<p><a href="cs296-lab01-sub.html" style= "font-size:30px;"><b><u> Project Link</u></b></a>
+</div>
+<p> Click on a picture to see their homepage.</p>
+
+<ul>
+<li>Mihir Kulkarni(12D020007)</li><br><br>
+<a id="Mihir" href="index.html"><img src="images/Mihir.jpg" width="20%" height="20%" > </a><br><br><br>
+<li>Harinandan Teja (120050066)</li><br><br>
+<a id="Hari" href="http://www.cse.iitb.ac.in/~harikatam" target="blank")><img src="images/Hari.jpeg"  width="20%" height="30%" ></a> <br><br><br>
+<li>Yk Kiran (120050049)</li><br><br>
+<a name="Kiran" href="http://www.cse.iitb.ac.in/~kiranyk" target="blank")><img src="images/Kiran.jpg"  width="20%" height="20%" ></a></ul>
+<br><br>
+
+</body>
+
+</html>
