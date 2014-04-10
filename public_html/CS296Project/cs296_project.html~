@@ -9,7 +9,19 @@
 <body><br><br><div class="head0">CS 296 Group 27</div><br>
 This is the webpage for our CS 296 project- a foosball game simulation.<br>
 Relevant links:<br>
-<a name="Group" href="../group.html">CS 296 Group Page</a> <br>
+<a name="Group" href="../cs296-lab01-sub.html">CS 296 Group Page</a> <br>
 <a name="Group" href="cs296_report_27.pdf">Project Report</a><br>
 <a name="Group" href="g27_project_report.html">Project Web Page</a><br>
-
+<body><br><br><div class="head0">Introduction</div><br>
+We created- a foosball table- in Box2d.<br>
+Here is the initial model of our simulation:<br>
+<br><div class="head2">foosball</div><br><img src="../images/foosball.png" width="300" height="200" class="center"></img>
+<ol>
+<li> We simulated the game of foosball using a bounding table, rods and rigid bodies representing players attached to each rod. Whenever the ball enters one of the goals situated at either end, a score variable is updated and this is shown by moving one of the relevant score blocks present on either side of the table. The first team to ten goals is the winner.<br></li>
+<li> The simulation consists of a ball which moves around on the frictionless table colliding with everything it comes in contact with.<br></li>
+<li> There are (transparent) rods at relevant locations on the table, constrained to move upto a certain limit in the upward or downward direction. The players attached to each rod can be moved towards either the left or right upto a certain limit.
+<li> The controls are intuitive and are displayed on screen.
+<li> Be warned! The game looks simple, but is pretty tough to beat. We have had experience.
+</ol>
+Here is how our simulation looks
+<br><div class="head2">Foosball Animation</div><br><img src="../images/FoosballAnim.gif" width="300" height="180" class="center"></img><br>

@@ -148,7 +148,7 @@ namespace cs296
 					b2Vec2 v2=m_joint_2[i]->GetAnchorA();
 					b2Fixture* origFix=bod->GetFixtureList();
 					if(v1.x-v2.x < -1.3){///We check if player is far right
-						b2FixtureDef *fd = new b2FixtureDef;///< If so, we create a new fixture
+						b2FixtureDef *fd = new b2FixtureDef;/// If so, we create a new fixture
 						b2PolygonShape player2;
 						int x=team2[i]->GetPosition().x-m_joint_2[i]->GetBodyB()->GetPosition().x;x=x/3;
 						b2Vec2 vertices[4];
@@ -299,7 +299,7 @@ namespace cs296
 					b2Vec2 v2=m_joint_1[i]->GetAnchorA();
 					b2Fixture* origFix=bod->GetFixtureList();
 					if(v1.x-v2.x < -1.3){///We check if player is far right
-						b2FixtureDef *fd = new b2FixtureDef;///< If so, we create a new fixture
+						b2FixtureDef *fd = new b2FixtureDef;/// If so, we create a new fixture
 						b2PolygonShape player1;
 						int x=team1[i]->GetPosition().x-m_joint_1[i]->GetBodyB()->GetPosition().x;x=x/3;
 						b2Vec2 vertices[4];
@@ -668,7 +668,7 @@ namespace cs296
 		bd_player1[2].position.Set(-11.0f,20.0f);
 	
 		bd_player1[3].position.Set(-11.0f,12.0f);
-		//Rod 3
+		///Rod 3
 		bd_player1[4].position.Set(4.0f,31.0f);
 	
 		bd_player1[5].position.Set(4.0f,24.0f);
@@ -676,7 +676,7 @@ namespace cs296
 		bd_player1[6].position.Set(4.0f,17.0f);
 	
 		bd_player1[7].position.Set(4.0f,10.0f);
-		//Rod 4
+		///Rod 4
 		bd_player1[8].position.Set(18.0f,28.0f);
 	
 		bd_player1[9].position.Set(18.0f,15.0f);
@@ -718,7 +718,7 @@ namespace cs296
 		bd_player2[2].position.Set(11.0f,20.0f);
 	
 		bd_player2[3].position.Set(11.0f,12.0f);
-		//Rod 3
+		///Rod 3
 		bd_player2[4].position.Set(-4.0f,31.0f);
 	
 		bd_player2[5].position.Set(-4.0f,24.0f);
@@ -726,7 +726,7 @@ namespace cs296
 		bd_player2[6].position.Set(-4.0f,17.0f);
 	
 		bd_player2[7].position.Set(-4.0f,10.0f);
-		//Rod 4
+		///Rod 4
 		bd_player2[8].position.Set(-18.0f,28.0f);
 	
 		bd_player2[9].position.Set(-18.0f,15.0f);
