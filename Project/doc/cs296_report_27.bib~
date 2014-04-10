@@ -9,5 +9,16 @@
 }
 
 @article{Shivam,
-    title   = "Our batchmate Shivam Garg"
+   title   = "Our batchmate Shivam Garg"
 }
+
+@article{google,
+    title     = {\url{https://www.google.com}}
+}
+
+
+@article{stackoverflow,
+    author    = " The Box 2D API ",
+    title     = {\url{http://www.learn-cocos2d.com/api-ref/1.0/Box2D/html/}}
+}
+

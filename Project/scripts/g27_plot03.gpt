@@ -1,0 +1,14 @@
+#Errorbars
+set  autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                          # set xtics automatically
+set ytic auto                          # set ytics automatically
+set format y "%g ms"
+set terminal png
+set title "Average time for step"
+set xlabel "Iterations"
+set ylabel "Step time"
+set output '../plots/g27_plot03.png'
+plot "plot_step.gnu" using 1:2:3 title 'Points' with errorbars,"plot_step.gnu" using 1:2 title "Line graph" with line
+

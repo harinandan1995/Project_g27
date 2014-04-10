@@ -1,0 +1,18 @@
+set  autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                          # set xtics automatically
+set ytic auto                          # set ytics automatically
+set format y "%g ms"
+set terminal png
+set xlabel "Iterations"
+set ylabel "Average time"
+set output '../plots/g27_plot01.png'
+set title "Average time for step and loop"
+stats "plot_loop.gnu" u 1:2 nooutput
+min_y = STATS_min_y
+max_y = STATS_max_y
+set label sprintf("Max loop time=%f",max_y) at 2,max_y
+set label sprintf("Min loop time=%f",min_y) at 2,(max_y*0.9)
+plot "plot_step.gnu" using 1:2 title 'Step Time' with boxes,\
+     "plot_loop.gnu" using 1:2 title 'Loop Time' with line

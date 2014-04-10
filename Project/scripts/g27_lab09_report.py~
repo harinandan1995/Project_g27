@@ -28,7 +28,10 @@ while True:
 fulltext = re.sub(r"(Plots)",r'<br><div class="head3">\1</div>',fulltext)
 fulltext = re.sub(r"(\\subsection\s*{)(.*)}",r'<br><div class="head1">\2</div><br><br>',fulltext)
 fulltext = re.sub(r"(\\section\s*{)(.*)}",r'<br><br><div class="head0">\2</div><br>',fulltext)
-ol_pattern = re.compile(r"(\\begin\s*{enumerate})(.*?)\\end\s*{enumerate}",re.DOTALL)
+fulltext = re.sub(r"~",r'',fulltext)
+cntr_pattern = re.compile(r"(\\begin\s*{enumerate})(.*?)\\end\s*{enumerate}",re.DOTALL)
+ol_pattern = re.compile(r"(\\begin\s*{center})(.*?)\\end\s*{center}",re.DOTALL)
+fulltext = ol_pattern.sub(r"\2",fulltext)
 fulltext= re.sub(r"\\texttt{(.*?)}",r"<fontc>\1</fontc>",fulltext)#code font
 descrip_pattern=re.compile(r"(\\item {\\textbf{)(.*)}}(.*)")
 descrip_pattern2=re.compile(r"\\textbf\s*{(.*?)}")
@@ -45,7 +48,8 @@ fulltext=re.sub(r"\\hline","<tr><td>",fulltext)
 pattern_tableend=re.compile(r"<tr><td>$\s*\\end{tabular}.*?table}",re.DOTALL|re.MULTILINE)
 fulltext=pattern_tableend.sub(r"</table><br>",fulltext)
 #Pictures
-fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../data/\3.png" width="\1" height="\2" class="center"></img>',fulltext )
+fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../images/\3.png" width="\1" height="\2" class="center"></img>',fulltext )
+fulltext = re.sub(r"\\_",r"_",fulltext)
 fulltext = re.sub(r"(g27)_(plot0[1-5])",r"\1_lab09_\2",fulltext)
 #References
 fulltext=re.sub(r"\\cite{.*}","",fulltext)
@@ -56,3 +60,4 @@ fout.write(""" </body>
 
 </html>"""
 )	
+

@@ -70,7 +70,7 @@ OBJP := $(filter-out $(OBJDIR)/main.o,$(OBJS))
 OBJSHELP := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 OBJPHELP := $(filter-out $(OBJDIR)/main.o,$(OBJSHELP))
 
-.PHONY: all setup doc clean distclean data plot
+.PHONY: all setup doc clean distclean data plot debug_prof release_prof
 
 all: setup exe
 setup:
