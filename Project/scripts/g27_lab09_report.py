@@ -1,7 +1,7 @@
 # /usr/bin/python3
 import re
-fout=open("../doc/g27_lab09_report.html",'w')
-fin=open("../doc/cs296_report_27.tex",'r')
+fout=open("g27_lab09_report.html",'w')
+fin=open("lab06.tex",'r')
 fout.write("""<!DOCTYPE html>
 
 <html>
@@ -12,20 +12,20 @@ fout.write("""<!DOCTYPE html>
 </head>
 <body>""")
 
+
 cont=0
 line=fin.readline()
 fulltext=""
 while True:
 	line=fin.readline()
-	if(line.find("Introduction")!=-1):
+	if(line.find("Analysis of times")!=-1):
 		break
 while True:
 	fulltext=fulltext+line
 	line=fin.readline()
-	if(line.find("bibliographystyle{plain}")!=-1):
+	if(line.find("section{Profiling}")!=-1):
 		break
-		
-fulltext = re.sub(r"(Plots)",r'<br><div class="head3">\1</div>',fulltext)
+fulltext = re.sub(r"(Plots)",r'<br><div class="head3">\1</div>',fulltext)		
 fulltext = re.sub(r"(\\subsection\s*{)(.*)}",r'<br><div class="head1">\2</div><br><br>',fulltext)
 fulltext = re.sub(r"(\\section\s*{)(.*)}",r'<br><br><div class="head0">\2</div><br>',fulltext)
 ol_pattern = re.compile(r"(\\begin\s*{enumerate})(.*?)\\end\s*{enumerate}",re.DOTALL)
@@ -45,13 +45,11 @@ fulltext=re.sub(r"\\hline","<tr><td>",fulltext)
 pattern_tableend=re.compile(r"<tr><td>$\s*\\end{tabular}.*?table}",re.DOTALL|re.MULTILINE)
 fulltext=pattern_tableend.sub(r"</table><br>",fulltext)
 #Pictures
-fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../data/\3.png" width="\1" height="\2" class="center"></img>',fulltext )
-fulltext = re.sub(r"\\_",r"_",fulltext)
-fulltext = re.sub(r"(g27)_(plot0[1-5])",r"\1_lab09_\2",fulltext)
+fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../data/\3.png" width="300" height="300" class="center"></img>',fulltext )
 #References
 fulltext=re.sub(r"\\cite{.*}","",fulltext)
 #fulltext=re.sub(r"\\_",r"\\",fulltext)
-#print(fulltext)
+print(fulltext)
 fout.write(fulltext)
 fout.write(""" </body>
 

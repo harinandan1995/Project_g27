@@ -48,22 +48,24 @@ Here is the initial model of our simulation:\\
 
 \end{enumerate}
 
-\subsection{Changes from original plan}
+\subsection{Challenges and changes from original plan}
 \begin{enumerate}
 \item It was a challenge for us to implement the constraints required by the nature of the game, and we think that usage of prismatic joints and using the \texttt{filter} attributes of Box2D objects to cater to all aspects of motion of the players has made our design more efficient. We also feel that using static objects to constrain the motion of the rods (as explained later) was a simple yet effective feature.\\
 
 \item We tried to use prismatic joints to restrict the motion of the rods as well. However, this made the motion considerably inefficient and we finally decided to not do so.
+
+\item We also had to experiment with the density and restitution of the various bodies before deciding a final value to make the simulation seem as realistic as possible.
 \end{enumerate}
 \section{Parts of the simulation}
 
 \subsection{Table}
 The entire game is played within the confines of the table, which serves to restrict the motion of the ball and rods. This was implemented using four box shapes.\\
-%\includegraphics[width=100pt,height=100pt]{Platform}
 
 \subsection{Rods}
 \begin{enumerate}
-\item Rods are thin dynamic \texttt{Box} objects located at appropriate locations on the table. Two pairs of small static objects are located on either side of the rod at the point where it enters and leaves the table to constrain its motion in the y direction.\\
+\item Rods are thin dynamic \texttt{Box} objects located at appropriate locations on the table. Two pairs of small static bodies named \texttt{constr} are located on either side of the rod at the point where it enters and leaves the table to constrain its motion in the y direction.\\
 
+\item These are non-transparent however, and have \texttt{filter.maskBits} set to collide only with the \texttt{constr} bodies.\\
 \item At any given point, only one rod per team is active. The user can change the active rod by giving a keyboard input.This is indicated by a pointer.\\
 \includegraphics[width=100pt,height=100pt]{Pointer}
 
@@ -80,6 +82,7 @@ The entire game is played within the confines of the table, which serves to rest
 \item These are implemented by setting appropriate attributes on the prismatic joint and by setting the fixtures and filter bits of the players accordingly.\\
  \includegraphics[width=100pt,height=100pt]{Player}
 \end{enumerate}
+
 \subsection{Ball}
 The ball is a \texttt{b2Circle} shaped \texttt{bullet} object which keeps on moving around and being struck by the players/table walls. Scores are updated when the ball enters either of the goals.\\
 \includegraphics[width=100pt,height=100pt]{Ball}
@@ -95,8 +98,8 @@ The ball is a \texttt{b2Circle} shaped \texttt{bullet} object which keeps on mov
 \end{enumerate}
 
 \section{Conclusion}
-The simulation is identical to the old one for the intial part. When the light box flies up into the air, it knocks the new sphere onto the dominoes and all of them fall down into a new box. The old sphere comes to rest near the wall of the new box. The rest of the animation is unchanged\\
-In conclusion, we have added a few features to the simulation to make it more interesting while conserving its basic functionality \\
+We have hence created a self contained two player foosball game using keyboard inputs and Box2D simulation\\
+We have used the techniques learnt in earlier labs to make the code efficient and document it. \\
 \bibliographystyle{plain}
 \bibliography{cs296_report_27}
 
