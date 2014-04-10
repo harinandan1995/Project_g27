@@ -26,7 +26,6 @@ using namespace cs296;
 base_sim_t::base_sim_t()
 {
 	b2Vec2 gravity;
-	//gravity.Set(0.0f, -10.0f);
 	m_world = new b2World(gravity);
 
 	m_text_line = 30;
@@ -46,7 +45,7 @@ base_sim_t::base_sim_t()
 
 base_sim_t::~base_sim_t()
 {
-	// By deleting the world, we delete the bomb, mouse joint, etc.
+	/// By deleting the world, we delete the bomb, mouse joint, etc.
 	delete m_world;
 	m_world = NULL;
 }
@@ -90,29 +89,8 @@ dominos_t dom;
 void base_sim_t::step(settings_t* settings)
 {
 
-	
+	/// Check if someone has scored.
 dom.check();
-/*for(b2Joint * m_joint= m_world->GetJointList(); m_joint; m_joint= m_joint->GetNext())
-{
-	b2Body *bod= m_joint->GetBodyA();
-	b2Vec2 v1=m_joint->GetAnchorB();
-	b2Vec2 v2=m_joint->GetAnchorA();
-	if(v1.x-v2.x > 1.3 || v1.x-v2.x<-1.3)
-	{
-		//	cout<<"Heyo"<<endl;
-			b2Filter filt=bod->GetFixtureList()->GetFilterData();
-			filt.maskBits=0x0000;
-			bod->GetFixtureList()->SetFilterData(filt);
-		}
-		else
-		{
-		//cout<<"geyo"<<endl;
-			b2Filter filt=bod->GetFixtureList()->GetFilterData();
-			filt.maskBits=0xFFFF;
-			bod->GetFixtureList()->SetFilterData(filt);
-		}
-	 
-	}*/
   float32 time_step = settings->hz > 0.0f ? 1.0f / settings->hz : float32(0.0f);
 
   if (settings->pause)

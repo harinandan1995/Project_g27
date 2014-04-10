@@ -1,5 +1,4 @@
 \documentclass{article}
-%\usepackage{graphicx}
 \usepackage[top=2.54cm, bottom=2.54cm, left=1.25cm, right=1.25cm]{geometry}
 \usepackage{mathtools}
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
@@ -9,7 +8,6 @@
 \newcommand{\BibTeX}{{\sc Bib}\TeX}
 
 \begin{document}
-
 \nocite{*}
 
 \title{Foosball: CS296 Project, Group 27}
@@ -110,29 +108,31 @@ The ball is a \texttt{b2Circle} shaped \texttt{bullet} object with relatively lo
 \textbf{Debug} mode \hfill \textbf{Release} mode\\
 \includegraphics[width=270pt,height=260pt]{g27_lab09_plot01_debug} \hfill  
 \includegraphics[width=270pt,height=260pt]{g27_lab09_plot01_release}\\
-In the above graphs we have average step time values and loop time values over 
-all reruns vs iteration number.\\\\
-Loop time increases with iteration number because as iteration number increases number of loops increases
+\begin{enumerate}
+\item In the above graphs we have average step time values and loop time values over 
+all reruns vs iteration number.\\
+\item Loop time increases with iteration number because as iteration number increases number of loops increases
 ,implies loop  time increases.
-Average step time decreases with iteration number because simulation takes more time for every step at the 
+\item Average step time decreases with iteration number because simulation takes more time for every step at the 
 initial stage than for each step at later stages.Hence the average step time is high at initial stages and 
 and decreases as number of steps increases.
-In \textbf{Debug} mode step time is greater than the step time in \textbf{Release} mode.
-In \textbf{Debug} mode average time is greater than the average time in \textbf{Release} mode.
-
+\item In \textbf{Debug} mode step time is greater than the step time in \textbf{Release} mode.
+\item In \textbf{Debug} mode average time is greater than the average time in \textbf{Release} mode.
+\end{enumerate}
 
 \subsection{Iteration number vs All Average times}
 \textbf{Debug} mode \hfill \textbf{Release} mode\\
 \includegraphics[width=270pt,height=240pt]{g27_lab09_plot02_debug} \hfill  
 \includegraphics[width=270pt,height=240pt]{g27_lab09_plot02_release}\\
-In the above graph we have average step time, average collision time, average velocity time, average position time
-, total time taken over all the reruns vs Iteration number.\\\\
-As discused above step time decreases with iteration number.
-Vecocity time, Collision time, Position time and total time also decrease with iteration number but the rate at which thy decrease is lower than 
+\begin{enumerate}
+\item In the above graph we have average step time, average collision time, average velocity time, average position time
+, total time taken over all the reruns vs Iteration number.\\
+\item As discused above step time decreases with iteration number.
+\item Vecocity time, Collision time, Position time and total time also decrease with iteration number but the rate at which thy decrease is lower than 
 that of step time.
-All the times (velocity, collision, position, total) in \textbf{Debug} mode are greater than the times
+\item All the times (velocity, collision, position, total) in \textbf{Debug} mode are greater than the times
  in \textbf{Release} mode.
-
+\end{enumerate}
 
 \subsection{Iteration number vs Average Step Time with error bars}
 \textbf{Debug} mode \hfill \textbf{Release} mode\\
@@ -145,39 +145,53 @@ In the above graph we have average step times in \textbf{Debug} mode and \textbf
 \textbf{Debug} mode \hfill \textbf{Release} mode\\
 \includegraphics[width=270pt,height=240pt]{g27_lab09_plot04_debug} \hfill  
 \includegraphics[width=270pt,height=240pt]{g27_lab09_plot04_release}
-The above graph is histogram for step time (both \textbf{Debug} mode and \textbf{Release} mode) for the iteration number 66  along with the cumulative frequency.\\
-We can see that the most of the step times in the \textbf{Debug} mode are in the range 0.40 - 0.42, where as in the \textbf{Release} mode most of the step times are in the range 0.03-0.06.Average step time (iteration number 66)  for \textbf{Debug} mode lie in the range 0.40-0.42 and for \textbf{Release} in the range 0.03-0.06.
-
+\begin{enumerate}
+\item The above graph is histogram for step time (both \textbf{Debug} mode and \textbf{Release} mode) for the iteration number 66  along with the cumulative frequency.\\
+\item We can see that the most of the step times in the \textbf{Debug} mode are in the range 0.40 - 0.42, where as in the \textbf{Release} mode most of the step times are in the range 0.03-0.06.Average step time (iteration number 66)  for \textbf{Debug} mode lie in the range 0.40-0.42 and for \textbf{Release} in the range 0.03-0.06.
+\end{enumerate}
 
 \subsection{Iteration number vs Average times and best fit line}
 \textbf{Debug} mode \hfill \textbf{Release} mode\\
 \includegraphics[width=270pt,height=260pt]{g27_lab09_plot05_debug} \hfill  
 \includegraphics[width=270pt,height=260pt]{g27_lab09_plot05_release}
-In the above graph we have Average Step time in random data generated vs iteration number along with the Average step time in regular data vs iteration number.\\
-As discussed earlier step time decreases with iteration number for both \textbf{Debug} mode and \textbf{Release} mode.
-The average step times calculated using regular data are more accurate than the average step times generated using because in random data we take just 15 value for calculating average step time where as in regullar data we take 50 values for calculating average step time.
+
+\begin{enumerate}
+\item In the above graph we have Average Step time in random data generated vs iteration number along with the Average step time in regular data vs iteration number.\\
+\item As discussed earlier step time decreases with iteration number for both \textbf{Debug} mode and \textbf{Release} mode.
+\item The average step times calculated using regular data are more accurate than the average step times generated using because in random data we take just 15 value for calculating average step time where as in regullar data we take 50 values for calculating average step time.
+\end{enumerate}
 
 \section{Profiling}
 \subsection{Gprof}
-In Gprof data about all the times taken by different classes, function calls etc. is stored while the .o (main.o callbacks.o,dominos.o
-,cs296\_base.0,render.o in this case) files are created and while these .o files are joined to form an executable (cs296\_exe\_27 in this case).Hence gprof stores all the information during the compilation of makefile itself.\\ \\
-For using gprof we include -pg in all the commands that produce .o files and the commands that produce the 
+\begin{enumerate}
+\item In Gprof data about all the times taken by different classes, function calls etc. is stored while the .o (main.o callbacks.o,dominos.o
+,cs296\_base.0,render.o in this case) files are created and while these .o files are joined to form an executable (cs296\_exe\_27 in this case).\\
+\item Hence gprof stores all the information during the compilation of makefile itself.\\ \\
+\item For using gprof we include -pg in all the commands that produce .o files and the commands that produce the 
 final executable file.
+\end{enumerate}
 
 \subsection{Perf}
-In Perf data about all the times taken by diffenrent classes, function calls etc. is stored when the executable is executed (cs296\_exe\_27 in this case) \\
-Perf gives more accurate time taken by the function calls etc. \\
-For using perf we just need to run two commands \\
-1. perf record /path/to/the/exectuable -- stores the data \\
-2. perf report -- gives the entire data in the terminal\\\cite{Shivam}
+\begin{enumerate}
+\item In Perf data about all the times taken by diffenrent classes, function calls etc. is stored when the executable is executed (cs296\_exe\_27 in this case) \\
+\item Perf gives more accurate time taken by the function calls etc. \\
+\item For using perf we just need to run two commands \\
+\begin{itemize}
+\item perf record /path/to/the/exectuable -- stores the data \\
+\item perf report -- gives the entire data in the terminal\cite{Shivam}
+\end{itemize}
+\end{enumerate}
 
 \subsection{Profiling using perf}
-\textbf{Release} using PERF      				\hfill	\textbf{Debug} using PERF\\\\
+\textbf{Release} using PERF      				\hfill	\textbf{Debug} using PERF\\
 \includegraphics[width=260pt,height=230pt]{perf_release}\hfill
-\includegraphics[width=260pt,height=230pt]{perf_debug}\\\\
-For profiling we are running the code for 1000000 interations so that all those functions which are called very few times are also listed.
-Running the program for very few iterations may not give a clear stats of those functions that take long time or that are called for large 
+\includegraphics[width=260pt,height=230pt]{perf_debug}\\
+\begin{enumerate}
+\item For profiling we are running the code for 1000000 interations so that all those functions which are called very few times are also listed.
+\item Running the program for very few iterations may not give a clear stats of those functions that take long time or that are called for large 
 number of times during execution.
+\end{enumerate}
+
 \subsection{Optimized and Non-Optimized difference}
 \begin{enumerate}
 \item From the \textbf{Release} profile it is clear that the function call DrawSolidPolygon is the most expensive function.
@@ -192,17 +206,19 @@ That implies in \textbf{Release} profile small function calls like +, -, max, mi
 
 
 \subsection{Callgraph}
-Here is the call graph of \textbf{Debug} mode using perf\\\\
+\begin{enumerate}
+\item Here is the call graph of \textbf{Debug} mode using perf\\
 \includegraphics[width=560pt,height=200pt]{debug}\\
-Here is the call graph of \textbf{Release} mode using perf\\\\
+\item Here is the call graph of \textbf{Release} mode using perf\\
 \includegraphics[width=560pt,height=200pt]{release}\\
-From these we can clearly see the difference in number of function called in total which is very much high in 
+\item From these we can clearly see the difference in number of function called in total which is very much high in 
 \textbf{Debug} mode than in \textbf{Release} mode.
-Callgraph gives information about the name of the function \% time it takes during the execution 
-In the call graph for \textbf{Debug} mode functions like b2Min, b2Mul take 3.69, 2.09 \% of the total time where as in the callgraph for 
-\textbf{Release} mode they dont even appear\\\\
+\item Callgraph gives information about the name of the function \% time it takes during the execution 
+\item In the call graph for \textbf{Debug} mode functions like b2Min, b2Mul take 3.69, 2.09 \% of the total time where as in the callgraph for 
+\textbf{Release} mode they dont even appear\\
 \includegraphics[width=260pt,height=200pt]{debug1} \hfill
-\includegraphics[width=260pt,height=200pt]{release1}\\\\
+\includegraphics[width=260pt,height=200pt]{release1}\\
+\end{enumerate}
 \section{Conclusion}
 We have hence created a self contained two player foosball game using keyboard inputs and Box2D simulation\\
 We have used the techniques learnt in earlier labs to make the code efficient and document it. \\

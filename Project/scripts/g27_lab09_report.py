@@ -31,6 +31,7 @@ fulltext = re.sub(r"(\\section\s*{)(.*)}",r'<br><br><div class="head0">\2</div><
 fulltext = re.sub(r"~",r'',fulltext)
 
 ol_pattern = re.compile(r"(\\begin\s*{enumerate})(.*?)\\end\s*{enumerate}",re.DOTALL)
+dot_pattern = re.compile(r"(\\begin\s*{itemize})(.*?)\\end\s*{itemize}",re.DOTALL)
 cntr_pattern = re.compile(r"(\\begin\s*{center})(.*?)\\end\s*{center}",re.DOTALL)
 fulltext = cntr_pattern.sub(r"\2",fulltext)
 fulltext= re.sub(r"\\texttt{(.*?)}",r"<fontc>\1</fontc>",fulltext)#code font
@@ -39,6 +40,7 @@ descrip_pattern2=re.compile(r"\\textbf\s*{(.*?)}")
 #fulltext=descrip_pattern.sub(r"<b>\2</b>\3<br>",fulltext)#make items bod in the descriptive list
 fulltext=descrip_pattern2.sub(r"<b>\1</b>",fulltext)#make items bold in general
 fulltext = ol_pattern.sub(r"<ol>\2</ol>",fulltext) # replace \item  with <li>
+fulltext = dot_pattern.sub(r"<ul>\2</ul>",fulltext) 
 fulltext = re.sub(r"(\\item)(.*)",r"<li>\2</li>",fulltext) #list items
 fulltext= re.sub(r"\\\\","<br>",fulltext) #line breaks
 #Table
@@ -52,7 +54,7 @@ fulltext=pattern_tableend.sub(r"</table><br>",fulltext)
 fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../images/\3.png" width="\1" height="\2" class="center"></img>',fulltext )
 fulltext = re.sub(r"\\_",r"_",fulltext)
 fulltext = re.sub(r"(g27)_(plot0[1-5])",r"\1_lab09_\2",fulltext)
-fulltext = re.sub(r"(.*mode)\\hfill(.*)",r'Images of \1 and \2 ',fulltext)
+fulltext = re.sub(r"(.*mode )\\hfill(.*)",r'Images of \1 and \2 ',fulltext)
 fulltext = re.sub(r"\\hfill",r'',fulltext)
 #References
 fulltext=re.sub(r"\\cite{.*}","",fulltext)
@@ -61,9 +63,13 @@ fulltext=re.sub(r"\\cite{.*}","",fulltext)
 fout.write(fulltext)
 fout.write(""" 
 <div class="head0">References</div>
-[1] Our batchmate shivam garg.<br>
-[2] <fontc>https://www.iforce2d.net/b2dtut/</fontc><br>
-[3] Jeff Atwood and Joel Spolsky. <fontc>https://www.stackoverflow.com</fontc><br>
+[1] Our batchmate Shivam Garg.<br>
+[2] <fontc>https://www.google.com</fontc><br>
+[3] <fontc>https://www.iforce2d.net/b2dtut/</fontc><br>
+[4] The Box 2D API. <fontc>http://www.learn-cocos2d.com/api-ref/1.0/Box2D/html</fontc><br>
+[5] Jeff Atwood and Joel Spolsky. <fontc>https://www.stackoverflow.com</fontc>. 2009.<br>
+[6] Mayank Meghwanshi. <fontc>http://www.cse.iitb.ac.in/~manku/files/g11_prof_report.pdf</fontc>. 2013.<br>
+[7] Unknown. <fontc>http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html</fontc>. 2013.<br>
 </body>
 
 </html>"""

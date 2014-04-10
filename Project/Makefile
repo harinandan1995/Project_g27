@@ -14,7 +14,7 @@ PERF    = perf
 ######################################
 # Project Name (generate executable with this name)
 TARGET = cs296_exe_27
-
+TARGET_FOLDER = Final
 # Project Paths
 PROJECT_ROOT := $(CURDIR)
 EXTERNAL_ROOT=$(PROJECT_ROOT)/external
@@ -72,12 +72,11 @@ OBJPHELP := $(filter-out $(OBJDIR)/main.o,$(OBJSHELP))
 
 .PHONY: all setup doc clean distclean data plot debug_prof release_prof
 
-all: setup exe
+all: setup exe doc report
 setup:
 	@$(ECHO) "Setting up compilation..."
 	@mkdir -p myobjs 
 	@mkdir -p mybins 
-	@mkdir -p mylib
 	@if test -e ./external/src/Box2D/Box2D/Box2D.h ; \
 	then echo "Installed already!"; \
 	else cd "$(EXTSRCDIR)"; \
@@ -89,7 +88,16 @@ setup:
 	make; \
 	make install; \
 	fi;
+install:
+	@mkdir -p $(TARGET_FOLDER);
+	@cp $(BINDIR)/$(TARGET) $(TARGET_FOLDER);
+	@cp -r $(DOCDIR)/html $(TARGET_FOLDER);
+	@cp $(DOCDIR)/cs296_report_27.pdf $(TARGET_FOLDER);
 
+dist: distclean
+	@cd ../;\
+	tar cf cs296_g27_project.tar readme.txt Project ;\
+	gzip cs296_g27_project.tar;	
 exe: $(OBJS)
 	@$(PRINTF) "$(MESG_COLOR)Building executable:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
 	@$(CC) $(CPPFLAGS) -o $(BINDIR)/$(TARGET) -pg $(LDFLAGS) $(OBJS) $(LIBS) 2> temp.log || touch temp.err
@@ -113,31 +121,7 @@ $(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	else printf "${OK_COLOR}%30s\n${NO_COLOR}" "[OK]"; \
 	fi;
 	@$(RM) -f temp.log temp.err
-#---------------------------------------------------------------------------------------------------------------
-exehelp: $(OBJSHELP)
-	@$(PRINTF) "$(MESG_COLOR)Building executable:$(NO_COLOR) $(FILE_COLOR) %16s$(NO_COLOR)" "$(notdir $@)"
-	@$(CC) $(CPPFLAGS1) -o $(BINDIR)/$(TARGET) -p $(LDFLAGS) $(OBJS) $(LIBS) 2> temp.log || touch temp.err
-	@if test -e temp.err; \
-	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
-	elif test -s temp.log; \
-	then $(PRINTF) $(WARN_FMT) $(WARN_STRING) && $(CAT) temp.log; \
-	else $(PRINTF) $(OK_FMT) $(OK_STRING); \
-	fi;
-	@$(RM) -f temp.log temp.err
 
-#-include -include $(OBJSHELP:.o=.d)
-
-$(OBJSHELP): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
-	@$(PRINTF) "$(MESG_COLOR)Compiling: $(NO_COLOR) $(FILE_COLOR) %25s$(NO_COLOR)" "$(notdir $<)"
-	@$(CC) $(CPPFLAGS1) -c  $< -o $@ -MD 2> temp.log || touch temp.err
-	@if test -e temp.err; \
-	then $(PRINTF) $(ERR_FMT) $(ERR_STRING) && $(CAT) temp.log; \
-	elif test -s temp.log; \
-	then $(PRINTF) $(WARN_FMT) $(WARN_STRING) && $(CAT) temp.log; \
-	else printf "${OK_COLOR}%30s\n${NO_COLOR}" "[OK]"; \
-	fi;
-	@$(RM) -f temp.log temp.err
-#---------------------------------------------------------------------------------------------------------------
 $(STAT_TARGET): $(OBJS)
 	@if [[ "$(SHAREDLIB)" = "FALSE" ]]; \
 	then ar -cvq $(LIBDIR)/libCS296test.a $(OBJP); \
@@ -145,32 +129,19 @@ $(STAT_TARGET): $(OBJS)
 	fi;
 	@$(ECHO) "Done"
 
-$(DYN_TARGET): $(OBJS)
-	@if [[ "$(SHAREDLIB)" = "TRUE" ]]; \
-	#then  $(CC) -shared -Wl,-soname,$(CURDIR)/mylib/libCS296test.so -o $(CURDIR)/mylib/libCS296test.so $(OBJP) -lc; \
-	then $(CC) -shared -Wl,-soname,$(CURDIR)/mylib/libCS296test.so -o $(CURDIR)/mylib/libCS296test.so $(OBJP) -lc; \
-	$(ECHO) "Dynamic mode"; \
-	fi;
-
-exelib: $(DYN_TARGET) $(STAT_TARGET)
-	@if [[ "$(SHARED_LIB)" = "TRUE" ]]; \
-	then $(CC) -o $(BINDIR)/cs296_27_exelib $(LDFLAGS) -L $(EXTLIBDIR)/ $(OBJDIR)/main.o $(LIBDIR)/libCS296test.so $(LIBS); \
-	else $(CC) -o $(BINDIR)/cs296_27_exelib $(LDFLAGS) -L $(LIBDIR)/ -L $(EXTLIBDIR)/ $(OBJDIR)/main.o -lCS296test $(LIBS); \
-	fi;
 doc:
 	@$(ECHO) -n "Generating Doxygen Documentation ...  "
 	@$(RM) -rf doc/html
 	@$(DOXYGEN) $(DOCDIR)/Doxyfile 2 > /dev/null
-	#@firefox doc/html/index.html
 	@$(ECHO) "Done"
 
 report:
 	@$(ECHO) "Generating Report ...  "
 	@cd ./doc; \
-	pdflatex cs296_report_27.tex;\
-	bibtex cs296_report_27.tex;\
-	pdflatex cs296_report_27.tex;\
-	pdflatex cs296_report_27.tex;
+	pdflatex cs296_report_27;\
+	bibtex cs296_report_27;\
+	pdflatex cs296_report_27;\
+	pdflatex cs296_report_27;
 	@$(ECHO) "Done"
 data:
 	@mkdir -p data
@@ -289,5 +260,5 @@ distclean: clean
 	@$(RM) -rf ./external/include/*
 	@$(RM) -rf ./external/lib/*
 	@$(RM) -rf ./external/src/Box2D
-	
+	@$(RM) -rf $(TARGET_FOLDER)
 	@$(ECHO) "Done"	

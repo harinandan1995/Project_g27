@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{Shivam}
+Our batchmate {S}hivam {G}arg.
+
+\bibitem{google}
+\url{https://www.google.com}.
+
+\bibitem{Idforces}
+\url{https://www.iforce2d.net/b2dtut/}.
+
+\bibitem{Box2D}
+The Box~2D API.
+\newblock \url{http://www.learn-cocos2d.com/api-ref/1.0/Box2D/html/}.
+
+\bibitem{stackoverflow}
+Jeff Atwood and Joel Spolsky.
+\newblock \url{https://www.stackoverflow.com}.
+\newblock 2009.
+
+\bibitem{report}
+Mayank Meghwanshi.
+\newblock \url{http://www.cse.iitb.ac.in/~manku/files/g11_prof_report.pdf}.
+\newblock 2013.
+
+\bibitem{gnu}
+Unknown.
+\newblock \url{http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html}.
+\newblock 2013.
+
+\end{thebibliography}

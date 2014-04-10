@@ -1,0 +1,64 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: cs296_report_27.aux
+The style file: plain.bst
+Database file #1: cs296_report_27.bib
+Warning--to sort, need author or key in Idforces
+Warning--to sort, need author or key in Shivam
+Warning--to sort, need author or key in google
+Warning--empty author in Shivam
+Warning--empty journal in Shivam
+Warning--empty year in Shivam
+Warning--empty author in google
+Warning--empty journal in google
+Warning--empty year in google
+Warning--empty author in Idforces
+Warning--empty journal in Idforces
+Warning--empty year in Idforces
+Warning--empty journal in Box2D
+Warning--empty year in Box2D
+Warning--empty journal in stackoverflow
+Warning--empty journal in report
+Warning--empty journal in gnu
+You've used 7 entries,
+            2118 wiz_defined-function locations,
+            519 strings with 4456 characters,
+and the built_in function-call counts, 1341 in all, are:
+= -- 116
+> -- 37
+< -- 0
++ -- 17
+- -- 10
+* -- 83
+:= -- 222
+add.period$ -- 14
+call.type$ -- 7
+change.case$ -- 26
+chr.to.int$ -- 0
+cite$ -- 24
+duplicate$ -- 70
+empty$ -- 123
+format.name$ -- 10
+if$ -- 265
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 7
+newline$ -- 31
+num.names$ -- 8
+pop$ -- 51
+preamble$ -- 1
+purify$ -- 19
+quote$ -- 0
+skip$ -- 46
+stack$ -- 0
+substring$ -- 35
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 28
+warning$ -- 17
+while$ -- 8
+width$ -- 8
+write$ -- 51
+(There were 17 warnings)

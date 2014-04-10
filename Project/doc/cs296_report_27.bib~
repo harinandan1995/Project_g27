@@ -23,11 +23,11 @@
 @article{gnu,
     author    = "Unknown",
     title     = {\url{http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html}},
-    year      = "2013",
+    year      = "2013"
 }
 
 @article{report,
-	author 	  = "Mayank Meghwanshi"
+	author 	  = "Mayank Meghwanshi",
 	title     = {\url{http://www.cse.iitb.ac.in/~manku/files/g11_prof_report.pdf}},
 	year	  = "2013"
 }
