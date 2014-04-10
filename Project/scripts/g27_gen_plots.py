@@ -16,8 +16,8 @@ f=open('../data/g27_lab09data_01.csv','r')
 x=[]
 y1_step=[]
 y1_loop=[]
-iter_num=75
-rerun=15
+iter_num=150
+rerun=50
 for i in range(iter_num) :
 	sum_temp=0
 	x.append(i+1)
@@ -33,7 +33,7 @@ for i in range(iter_num) :
 	for j in range(rerun) :
 		line=f.readline()
 		#print(line.split()[6][:-1])
-		sum_temp=sum_temp+float(line.split()[6][:-1])
+		sum_temp=sum_temp+float(line.split()[6])
 	sum_temp=sum_temp/rerun
 	y1_loop.append(sum_temp)
 fig, p1 = plt.subplots()
@@ -109,44 +109,38 @@ roll=66
 for i in range((roll-1)*rerun) :
 	f.readline()
 for j in range((roll-1)*rerun,roll*rerun) :
-	#print(j)
 	x1.append(j+1)
 	line=f.readline()
 	#print(line.split()[2][:-1])
 	y4_step.append(float(line.split()[2][:-1]))
-	
+
 counts=[]
 x2=[]
 min_step=min(y4_step)
 max_step=max(y4_step)
-avg_step=min_step
 bins=15
-diff=(max_step-min_step)/bins
-for i in range(bins+1) :
+diff=(max_step-min_step)/(bins+1)
+for i in range(bins) :
 	counts.append(0)
-	x2.append(avg_step)
-	avg_step+=diff
-#print(counts)
+x2=np.linspace(min_step,max_step,bins+1)
 for i in range(len(y4_step)) :
 	start_value=min_step
-	for j in range(bins) :
-		if(y4_step[i]<=start_value and y4_step[i]<start_value+diff) :
+	for j in range(bins-1) :
+		if(y4_step[i]>=x2[j] and y4_step[i]<x2[j+1]) :
 			counts[j]+=1
-			start_value+=diff
-print(diff)
-#print(max_step)
-#print(min_step)
-#print(y4_step)
-print(x2)
-print(counts)
+x2=x2[0:len(x2)-1]
+counts[len(counts)-1]+=1
 
+for i in range(1,len(counts)) :
+	counts[i]+=counts[i-1]
+#print(counts)
 fig, p4 = plt.subplots()
 p4.hist(y4_step,15,histtype='bar',color='r',label="Steptime")
-#p4.plot(x2,counts,'r',label='Cumulative Frequency')
+p4.plot(x2,counts,'r',label='Cumulative Frequency')
 p4.set_title("Iteration number vs average steptime")    
 p4.set_xlabel('Step Time')
 p4.set_ylabel('Frequency')
-p4.legend()
+p4.legend(loc='best')
 fig.savefig('../data/g27_lab09_plot04.png')
 ####################################################################
 
@@ -161,7 +155,7 @@ for i in range(iter_num) :
 		line=f.readline()
 		#print(line.split()[2][:-1])
 		sum_temp=sum_temp+float(line.split()[2][:-1])
-	sum_temp=sum_temp/rerun
+	sum_temp=sum_temp/random_num
 	y5_step.append(sum_temp)
 line1=polyfit(x,y5_step,1)
 line2=polyfit(x,y1_step,1)
@@ -172,7 +166,9 @@ p5 = fig.add_subplot(111)
 p5.set_title('Iteration number vs Average times')    
 p5.set_xlabel('Iteration Number')
 p5.set_ylabel('Average Times')
-p5.plot(x,y5_step,'r-',x,fit_fn1(x),label='Step Time using random data')
-p5.plot(x,y1_step,'m-',x,fit_fn2(x),label='Step Time using regular data')
+p5.plot(x,y5_step,'.r',label='Step Time using random data')
+p5.plot(x,y1_step,'.b',label='Step Time using regular data')
+p5.plot(x,fit_fn1(x),'-g',label='Best fit line for random data')
+p5.plot(x,fit_fn2(x),'-k',label='Best fit line for regular data')
 p5.legend(loc='best')
 fig.savefig('../data/g27_lab09_plot05.png')

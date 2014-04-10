@@ -16,9 +16,18 @@
     title     = {\url{https://www.google.com}}
 }
 
-
-@article{stackoverflow,
+@article{Box2D,
     author    = " The Box 2D API ",
     title     = {\url{http://www.learn-cocos2d.com/api-ref/1.0/Box2D/html/}}
 }
+@article{gnu,
+    author    = "Unknown",
+    title     = {\url{http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html}},
+    year      = "2013",
+}
 
+@article{report,
+	author 	  = "Mayank Meghwanshi"
+	title     = {\url{http://www.cse.iitb.ac.in/~manku/files/g11_prof_report.pdf}},
+	year	  = "2013"
+}

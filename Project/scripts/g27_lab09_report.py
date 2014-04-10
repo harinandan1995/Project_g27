@@ -1,6 +1,6 @@
 # /usr/bin/python3
 import re
-fout=open("../doc/g27_lab09_report.html",'w')
+fout=open("../doc/g27_project_report.html",'w')
 fin=open("../doc/cs296_report_27.tex",'r')
 fout.write("""<!DOCTYPE html>
 
@@ -29,6 +29,7 @@ fulltext = re.sub(r"(Plots)",r'<br><div class="head3">\1</div>',fulltext)
 fulltext = re.sub(r"(\\subsection\s*{)(.*)}",r'<br><div class="head1">\2</div><br><br>',fulltext)
 fulltext = re.sub(r"(\\section\s*{)(.*)}",r'<br><br><div class="head0">\2</div><br>',fulltext)
 fulltext = re.sub(r"~",r'',fulltext)
+
 ol_pattern = re.compile(r"(\\begin\s*{enumerate})(.*?)\\end\s*{enumerate}",re.DOTALL)
 cntr_pattern = re.compile(r"(\\begin\s*{center})(.*?)\\end\s*{center}",re.DOTALL)
 fulltext = cntr_pattern.sub(r"\2",fulltext)
@@ -51,12 +52,19 @@ fulltext=pattern_tableend.sub(r"</table><br>",fulltext)
 fulltext = re.sub(r"\\includegraphics\[width=([0-9]*)pt,height=([0-9]*)pt\]{(.*)}",r'<br><div class="head2">\3</div><br><img src="../images/\3.png" width="\1" height="\2" class="center"></img>',fulltext )
 fulltext = re.sub(r"\\_",r"_",fulltext)
 fulltext = re.sub(r"(g27)_(plot0[1-5])",r"\1_lab09_\2",fulltext)
+fulltext = re.sub(r"(.*mode)\\hfill(.*)",r'Images of \1 and \2 ',fulltext)
+fulltext = re.sub(r"\\hfill",r'',fulltext)
 #References
 fulltext=re.sub(r"\\cite{.*}","",fulltext)
 #fulltext=re.sub(r"\\_",r"\\",fulltext)
 #print(fulltext)
 fout.write(fulltext)
-fout.write(""" </body>
+fout.write(""" 
+<div class="head0">References</div>
+[1] Our batchmate shivam garg.<br>
+[2] <fontc>https://www.iforce2d.net/b2dtut/</fontc><br>
+[3] Jeff Atwood and Joel Spolsky. <fontc>https://www.stackoverflow.com</fontc><br>
+</body>
 
 </html>"""
 )	
